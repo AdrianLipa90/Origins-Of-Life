@@ -1,4 +1,4 @@
-# The CIEL/0 Cosmic Intelligence Detection System: A Revolutionary Approach to Analyzing Cosmic Microwave Background Data for Evidence of Advanced Civilizations
+# The CIEL/0 Cosmic Life Emergence Simulator and CMB Intelligence Detection System: A Revolutionary Approach to Analyzing Cosmic Microwave Background Data for Evidence of Advanced Civilizations and Modeling Life and Biology of any substrate
 
 ## Abstract
 
