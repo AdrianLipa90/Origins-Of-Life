@@ -772,7 +772,8 @@ def main():
     parser.add_argument('--topo_steps', type=int, default=6, help='topo_strength steps for topo sweep')
     parser.add_argument('--enable-multiproc', action='store_true', help='Enable multiprocessing for topo sweep')
     parser.add_argument('--workers', type=int, default=4, help='Max workers for multiprocessing')
-    args = parser.parse_args()
+    # Modify this line to parse only known arguments or no arguments
+    args = parser.parse_args(args=[]) # Passing an empty list to parse_args()
 
     ensure_dir(args.outdir)
 
