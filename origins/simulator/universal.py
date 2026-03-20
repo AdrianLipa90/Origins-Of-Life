@@ -275,7 +275,9 @@ class UniversalOriginSimulator:
         """STEP 6 – Lipid vesicle / membrane formation."""
         T = self.config.temp_C
         if T < -100:
-            temp_factor = 0.1
+            # Raised from 0.1: amphiphile vesicle formation via mist-droplet mechanism
+            # confirmed for Titan-like conditions (Mayer & Nixon, Int.J.Astrobiol. 2025)
+            temp_factor = 0.15
         elif T < 0:
             temp_factor = 0.5
         elif T < 70:
