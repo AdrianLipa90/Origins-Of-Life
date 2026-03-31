@@ -28,7 +28,7 @@ For low-level execution and internal mechanics:
 ### Phase 1 — public docs
 - point users to `START_HERE_ORIGINS.md`
 - point users to `docs/ABIOGENESIS_PUBLIC_SURFACE.md`
-- avoid introducing new examples that start from `origins.orbital`
+- avoid introducing new examples that start from `origins.orbital` (internal substrate)
 
 ### Phase 2 — examples and tutorials
 - all new examples should import from `origins.abiogenesis` or `origins.abiogenesis.api`
