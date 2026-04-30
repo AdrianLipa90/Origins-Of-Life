@@ -33,7 +33,13 @@ def build_orbital_bundle_from_simulator(simulator, delta_t: float, prefix: str =
         delta_t=max(1e-9, coordinate.tau_local),
         tau_local_steps=[coordinate.tau_local],
     )
-    coordinate.omega = winding.winding_number
+    # Berry holonomy from topology field (Bloch sphere accumulated phase)
+    berry_topo = float(getattr(getattr(simulator, "topo", None), "berry_accumulated", 0.0))
+    if hasattr(getattr(simulator, "topo", None), "bloch_coherence"):
+        coordinate.coherence = simulator.topo.bloch_coherence()
+        coordinate.defect = 1.0 - coordinate.coherence
+    coordinate.omega = winding.winding_number + berry_topo
+
     outputs = {
         "history_csv": os.path.join(simulator.outdir, f"{prefix}_history.csv"),
         "fields_npz": os.path.join(simulator.outdir, f"{prefix}_fields.npz"),

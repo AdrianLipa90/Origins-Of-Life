@@ -9,6 +9,13 @@ Three time-evolution modes are supported:
   static  – field is fixed throughout the simulation
   pulsing – field amplitude oscillates with a given frequency
   drift   – field pattern translates spatially over time
+
+Bloch sphere geometry (2026 extension):
+  Each point on the 2-D grid maps to a point on S² via:
+    bloch_theta = pi * (field_norm + 1) / 2   ∈ [0, π]
+    bloch_phi   = 2*pi * curvature_norm        ∈ [0, 2π]
+  Berry phase accumulated = integral of A·dΩ over the field evolution.
+  This makes the topology field a genuine geometric phase carrier.
 """
 
 from __future__ import annotations
@@ -24,12 +31,20 @@ from ..chemistry.fields import laplacian
 
 class TopologyField:
     """
-    2-D Kähler-Berry-Euler topological field.
+    2-D Kähler-Berry-Euler topological field with Bloch sphere geometry.
 
     Parameters
     ----------
     config : ScenarioConfig
     Nx, Ny : grid dimensions
+
+    Attributes
+    ----------
+    field          : main topology modulator T(x,y)
+    curvature      : Berry-phase curvature (Laplacian of field)
+    bloch_theta    : polar angle on S² per grid point ∈ [0, π]
+    bloch_phi      : azimuthal angle on S² per grid point ∈ [0, 2π]
+    berry_accumulated : scalar accumulated Berry phase (holonomy)
     """
 
     def __init__(self, config: ScenarioConfig, Nx: int, Ny: int):
@@ -39,6 +54,10 @@ class TopologyField:
         self.field: np.ndarray = np.zeros((Nx, Ny))
         self.curvature: np.ndarray = np.zeros((Nx, Ny))
         self._base: np.ndarray = np.zeros((Nx, Ny))
+        self.bloch_theta: np.ndarray = np.full((Nx, Ny), math.pi / 2)
+        self.bloch_phi: np.ndarray = np.zeros((Nx, Ny))
+        self.berry_accumulated: float = 0.0
+        self._prev_bloch_phi: Optional[np.ndarray] = None
 
         rng = np.random.default_rng(config.seed)
         self._rng = rng
@@ -85,12 +104,55 @@ class TopologyField:
         self._update_curvature()
 
     def _update_curvature(self) -> None:
-        """Berry-phase curvature ≈ discrete Laplacian of the field."""
+        """Berry-phase curvature ≈ discrete Laplacian of field; update Bloch coords."""
         lap = laplacian(self.field)
         std = float(np.std(lap))
         if std > 0:
             lap = (lap - float(lap.mean())) / (std + 1e-12)
         self.curvature = lap
+        self._update_bloch()
+
+    def _update_bloch(self) -> None:
+        """Map field → Bloch sphere coordinates and accumulate Berry phase.
+
+        Fubini-Study metric on CP¹ ≃ S²:
+          bloch_theta ∈ [0,π]: polar angle, driven by field amplitude
+          bloch_phi   ∈ [0,2π]: azimuthal angle, driven by curvature
+
+        Berry connection A = (1-cos θ)/2 · dφ (magnetic monopole gauge).
+        Accumulated holonomy ≈ mean(A · Δφ) over all grid points.
+
+        Key: theta uses ABSOLUTE field value (arctangent of amplitude),
+        so amplitude changes (PULSING) generate non-zero berry accumulation.
+        """
+        # Polar angle from absolute amplitude: theta = 2*arctan(|field|/s_ref)
+        # Using atan to map (-∞,+∞) → (0, π), preserving sign information.
+        s_ref = max(float(self.config.topo_strength), 1e-9)
+        self.bloch_theta = 2.0 * np.arctan(np.abs(self.field) / s_ref)  # [0, π)
+
+        # Azimuthal angle: atan2(curvature, field) + spatial gradient phase
+        # For DRIFT mode: field shifts spatially → gradient changes sign → phi rotates
+        raw_phi = np.arctan2(self.curvature, self.field)  # [-π, π]
+        # Add gradient-induced winding: grad_x field contributes to azimuthal rotation
+        grad_x = np.roll(self.field, -1, axis=0) - np.roll(self.field, 1, axis=0)
+        grad_y = np.roll(self.field, -1, axis=1) - np.roll(self.field, 1, axis=1)
+        grad_phi = np.arctan2(grad_y, grad_x + 1e-12) * 0.1  # small spatial contribution
+        new_phi = (raw_phi + grad_phi) % (2.0 * math.pi)  # [0, 2π]
+
+        # Accumulate Berry phase: A·Δφ where A = (1-cos θ)/2
+        if self._prev_bloch_phi is not None:
+            delta_phi = new_phi - self._prev_bloch_phi
+            # Wrap delta to (-π, π) to avoid 2π jumps
+            delta_phi = (delta_phi + math.pi) % (2.0 * math.pi) - math.pi
+            berry_connection = (1.0 - np.cos(self.bloch_theta)) / 2.0
+            self.berry_accumulated += float(np.mean(berry_connection * delta_phi))
+
+        self._prev_bloch_phi = new_phi.copy()
+        self.bloch_phi = new_phi
+
+    def bloch_coherence(self) -> float:
+        """Mean cos²(θ/2) over grid — Fubini-Study overlap with |0⟩ state."""
+        return float(np.mean(np.cos(self.bloch_theta / 2.0) ** 2))
 
     # ------------------------------------------------------------------
     # Time evolution

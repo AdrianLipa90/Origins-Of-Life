@@ -13,14 +13,23 @@ def assign_orbital_state_to_entity(record: EntityRecord, delta_t: float = 1.0) -
     semantic_mass = max(1.0, float(getattr(record, "semantic_mass", 1.0)))
     relation_depth = max(1, int(record.relation_depth))
     radius = float(record.orbit_index + relation_depth)
-    coherence = max(0.0, 1.0 - float(record.phase) % 1.0)
-    defect = abs(float(record.phase))
+
+    # Bloch sphere geometry (Fubini-Study):
+    #   phase φ ∈ [0, 2π] — azimuthal angle on S²
+    #   bloch_theta = φ / π  maps phase to polar angle ∈ [0, 2]
+    #   coherence = cos²(θ/2) — overlap with |0⟩ (north pole = full coherence)
+    import math
+    phi = float(record.phase)
+    bloch_theta = (abs(phi) % math.pi)  # polar angle ∈ [0, π]
+    coherence = math.cos(bloch_theta / 2.0) ** 2  # ∈ [0, 1]
+    defect = math.sin(bloch_theta / 2.0) ** 2     # = 1 - coherence (Euler: coh+defect=1)
+
     tau_local = compute_local_subjective_time(delta_t, radius, semantic_mass, coherence, defect)
     return OrbitalCoordinate(
         canonical_id=record.canonical_id,
         radius=radius,
-        theta=float(record.orbit_index),
-        phi=float(record.phase),
+        theta=bloch_theta,
+        phi=phi,
         omega=0.0,
         tau_local=tau_local,
         semantic_mass=semantic_mass,
