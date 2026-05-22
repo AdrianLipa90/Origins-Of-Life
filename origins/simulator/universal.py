@@ -133,7 +133,9 @@ class UniversalOriginSimulator:
             'mean_M':       [],
             'n_polymers':   [],
             'n_protocells': [],
-            'mean_fitness': [],
+            'mean_fitness':      [],
+            'berry_accumulated': [],
+            'bloch_coherence':   [],
         }
 
         self._include_clay = include_clay
@@ -337,6 +339,8 @@ class UniversalOriginSimulator:
         self.history['n_polymers'].append(self.rna_population.size)
         self.history['n_protocells'].append(self.protocell_count)
         self.history['mean_fitness'].append(self.rna_population.mean_fitness())
+        self.history['berry_accumulated'].append(self.topo.berry_accumulated)
+        self.history['bloch_coherence'].append(self.topo.bloch_coherence())
 
     def run(
         self,

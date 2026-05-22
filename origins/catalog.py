@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import Dict
 
 from .definitions import (
@@ -12,6 +13,21 @@ from .definitions import (
 from .scenarios import ALL_SCENARIOS
 
 
+def _scenario_phase(cfg) -> float:
+    """Derive orbital phase from physical parameters of the scenario.
+
+    Phase encodes how far from ideal prebiotic conditions the scenario sits.
+    Uses Euler phase coherence (config param) and thermal decoherence:
+      phi = (1 - euler_phase_coherence) * pi + thermal_decoherence
+    where thermal_decoherence = arctan(|temp_C - 65| / 200) * topo_strength
+    Result: earth-like shallow ocean (A) ≈ 0.1 rad, exotic (D, Titan) ≈ 1.4 rad.
+    """
+    coherence_term = (1.0 - cfg.euler_phase_coherence) * math.pi
+    temp_deviation = abs(cfg.temp_C - 65.0)  # 65°C = Hadean reference
+    thermal_term = math.atan(temp_deviation / 200.0) * float(cfg.topo_strength)
+    return coherence_term + thermal_term
+
+
 CANONICAL_SCENARIO_DEFINITIONS: Dict[str, ScenarioDefinition] = {
     cfg.code: ScenarioDefinition(
         canonical_id=f"OOL-SCENARIO-{cfg.code}",
@@ -22,10 +38,10 @@ CANONICAL_SCENARIO_DEFINITIONS: Dict[str, ScenarioDefinition] = {
         semantic_layer=SemanticLayer.PROCESS,
         epistemic_status=EpistemicStatus.WORKING,
         orbit_index=0,
-        phase=0.0,
+        phase=_scenario_phase(cfg),
         winding_number=0,
         relation_depth=1,
-        semantic_mass=1.0,
+        semantic_mass=max(1.0, float(cfg.expected_protocells) / 100.0),
         subjective_time_scale=1.0,
         provenance_links=["origins/scenarios.py"],
         dependency_links=[
