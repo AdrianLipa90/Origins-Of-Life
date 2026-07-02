@@ -1,0 +1,159 @@
+
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\title{Origins/NOEMA Semantic--Nucleic Braiding Protocol v0.7\\
+\large Temporal Climate--Holonomy Options from DNA Four-Block Grammar to Protocell Readiness}
+\author{CIEL/NOEMA working artifact for Adrian Lipa}
+\date{2026-05-17}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This v0.7 document extends the v0.6 DNA-four-block-to-protocell model by calculating the rate and kind of change through relative time.  The model uses the existing v0.5/v0.6 project metrics rather than introducing a new arbitrary threshold.  It evaluates how a four-block nucleic grammar becomes coupled to a time-varying climate--holonomic environment: hydration cycling, thermal gradients, mineral templating, ionic moderation, amphiphile availability, compartmentalisation pressure, and holonomic recurrence.  The output is a deterministic proxy analysis of temporal readiness, option sensitivity, velocity, acceleration, and dominant drivers. It is not a geological timeline, not a thermodynamic membrane simulation, and not empirical proof of abiogenesis.
+\end{abstract}
+
+\section*{NOEMA status}
+\begin{verbatim}
+sot_available: local_minimal_noema_from_uploaded_artifacts
+current_state_loaded: true
+current_state_id: NOEMA-20260517T052000-v07-temporal-climate-options
+previous_state_id: NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy
+memory_layer: episodic
+uncertainty_operator: chyba
+canon_allowed: false
+pdf_generated: false
+\end{verbatim}
+
+\section{Scope and epistemic boundary}
+The v0.7 model asks what changes over relative time when the DNA four-block relation grammar is coupled to a variable prebiotic environment.  The word ``DNA'' remains a four-base relational proxy inherited from v0.5: A--T and C--G complementarity, purine--pyrimidine closure, complement selectivity, and grammar compression.  The protocell side remains a compartmental proxy inherited from v0.6: cycling, polymer persistence, amphiphile co-localisation, ionic moderation, and recurrence.  The model does not claim that DNA was historically first, that the stages are calendar-dated, or that the numbers are physical measurements.  It computes a controlled transition grammar for scenario comparison.
+
+The biochemical background is standard: Watson--Crick complementarity, nucleic-acid information storage, RNA-world motivation, protocell encapsulation constraints, and prebiotic nucleotide chemistry are used as anchors, while the actual computation is a semantic-relation model \cite{WatsonCrick1953,RobertsonJoyce2012,PownerGerlandSutherland2009,JoyceSzostak2018,AdamalaSzostak2013}.
+
+\section{Inherited v0.5/v0.6 values}
+The information core and threshold are inherited from previous project metrics.  The threshold is not introduced as a free value; it is derived from v0.5 as
+\[
+\theta = C_{grammar}\,C_{selectivity}=0.875\times 0.791667 = 0.692709.
+\]
+The v0.6 baseline has
+\[
+I_{core}=0.914639,\qquad R_{initial}=0.297390,\qquad R_{peak}=0.693658.
+\]
+Thus the original v0.6 trajectory crosses the threshold only at the final candidate stage.
+
+\section{Temporal variables}
+Each relative-time stage is represented by a climate--holonomy vector
+\[
+E_t=(H,T,W,M,A,I,U,P,\Omega),
+\]
+where $H$ is hydration, $T$ thermal gradient, $W$ wet--dry cycling, $M$ mineral templating, $A$ amphiphile availability, $I$ ionic moderation, $U$ UV stress, $P$ compartmentalisation pressure, and $\Omega$ holonomic recurrence.  All fields are normalised proxies in $[0,1]$.
+
+\section{Stage scoring}
+For each stage, v0.7 reuses the v0.6 scoring functions.  UV stress is treated as a moderation problem rather than monotonic benefit:
+\[
+U_{bal}=1-|U-0.45|.
+\]
+The climate--holonomy score is
+\[
+C_t=\frac{H+T+W+M+I+U_{bal}+\Omega}{7}.
+\]
+The polymer persistence proxy is
+\[
+P_t^{poly}=0.35H+0.30M+0.20I+0.15U_{bal}.
+\]
+The compartment co-localisation proxy is
+\[
+P_t^{comp}=0.50A+0.20P+0.15I+0.15W.
+\]
+The coupled readiness score is
+\[
+K_t=(I_{core}\,C_t\,P_t^{poly}\,P_t^{comp})^{1/4},
+\]
+\[
+R_t=I_{core}\frac{C_t+P_t^{poly}+P_t^{comp}+K_t}{4}.
+\]
+A transition is detected when $R_t\geq \theta$.
+
+\section{Rate and kind of change}
+The tempo of change is computed by finite differences over the relative stage order:
+\[
+v_t=R_t-R_{t-1},\qquad a_t=v_t-v_{t-1}.
+\]
+The kind of change is classified as accelerating gain, fast gain with deceleration, moderate gain, plateau/stabilisation, or regression.  Dominant drivers are selected from the largest absolute component change among climate, polymer persistence, compartment co-localisation, and coupling.
+
+\section{Environmental options}
+The model introduces options as deterministic forcing operators on the v0.6 baseline trajectory.  An option is
+\[
+\mathcal{O}=(\Delta x, s_x, p_x),
+\]
+where $\Delta x$ is a global offset, $s_x$ a relative-time slope, and $p_x$ a pulse term.  The pulse term allows wet--dry or thermal concentration episodes without altering the v0.5 DNA grammar.  Five options are evaluated: baseline v0.6, amplified wet--dry pulses, mineral-to-amphiphile handoff, ionic moderation window, and UV/dilution stress as a negative control.
+
+\section{Results}
+Table~\ref{tab:options} summarises the option comparison.
+
+\begin{longtable}{lrrrrlll}
+\caption{v0.7 temporal option comparison.}\label{tab:options}\\
+\toprule
+Option & Peak $R$ & Gain & Max $v$ & Transition & Regime & Tempo & Status \\
+\midrule
+\endfirsthead
+\toprule
+Option & Peak $R$ & Gain & Max $v$ & Transition & Regime & Tempo & Status \\
+\midrule
+\endhead
+baseline\_v06 & 0.693658 & 0.396268 & 0.238539 & 4 & compartment\_recurrence\_locked & moderate\_temporal\_gain & crosses\_threshold \\
+wet\_dry\_pulse\_amplified & 0.699515 & 0.402125 & 0.256095 & 4 & compartment\_recurrence\_locked & moderate\_temporal\_gain & crosses\_threshold \\
+mineral\_to\_amphiphile\_handoff & 0.693191 & 0.395801 & 0.246172 & 4 & compartment\_recurrence\_locked & moderate\_temporal\_gain & crosses\_threshold \\
+ionic\_moderation\_window & 0.708705 & 0.411315 & 0.250025 & 4 & compartment\_recurrence\_locked & moderate\_temporal\_gain & crosses\_threshold \\
+uv\_and\_dilution\_stress & 0.670506 & 0.374474 & 0.228421 & none & amphiphile\_compartment\_dominated & moderate\_temporal\_gain & no\_crossing \\
+\bottomrule
+\end{longtable}
+
+The best final-readiness option is \texttt{ionic\_moderation\_window}.  The fastest growth option is \texttt{wet\_dry\_pulse\_amplified}.  The earliest transition option is \texttt{baseline\_v06}.
+
+\section{Baseline interval dynamics}
+Table~\ref{tab:intervals} reports the v0.6 baseline interval rates.
+
+\begin{longtable}{rlllrrrl}
+\caption{Baseline interval change rates.}\label{tab:intervals}\\
+\toprule
+Interval & From & To & Driver & $\Delta R$ & $v$ & $a$ & Kind \\
+\midrule
+\endfirsthead
+\toprule
+Interval & From & To & Driver & $\Delta R$ & $v$ & $a$ & Kind \\
+\midrule
+\endhead
+0 & baseline\_v06::alphabet\_only\_open\_surface & baseline\_v06::surface\_cycling\_concentration & compartment & 0.238539 & 0.238539 & 0.238539 & accelerating\_gain \\
+1 & baseline\_v06::surface\_cycling\_concentration & baseline\_v06::vesicle\_contact\_with\_polymer\_trace & compartment & 0.109693 & 0.109693 & -0.128846 & fast\_gain\_decelerating \\
+2 & baseline\_v06::vesicle\_contact\_with\_polymer\_trace & baseline\_v06::encapsulated\_recurrence & compartment & 0.033831 & 0.033831 & -0.075862 & moderate\_gain \\
+3 & baseline\_v06::encapsulated\_recurrence & baseline\_v06::protocell\_candidate & compartment & 0.014205 & 0.014205 & -0.019626 & plateau\_or\_stabilisation \\
+\bottomrule
+\end{longtable}
+
+\section{Interpretation}
+The model says that protocell-readiness is not a static property of the four-block grammar.  It is a tempo-dependent coupling.  The fastest positive change occurs when surface cycling and concentration bring polymer traces into contact with amphiphile-supported compartments.  The most origin-relevant regime is the handoff from mineral templating to amphiphile compartmentalisation, ionic moderation, and recurrence.  Holonomic recurrence functions as the memory term: it rewards repeated return to compatible states rather than a one-off favourable environment.
+
+The negative-control stress option is included to prevent the model from reporting universal progress. Excess UV/dilution and loss of cycling reduce rate and can prevent stable threshold crossing.  This is important: the model is sensitive to environmental direction, not merely to elapsed time.
+
+\section{How options enter the model}
+Options should be introduced only as explicit forcing operators over named fields. They must not rewrite the v0.5 grammar, the v0.6 threshold, or previous NOEMA snaps.  A new option should specify: field offsets, field slopes, pulse fields, expected biological interpretation, and whether it is a positive scenario, neutral scenario, or negative control.  Each option must produce a separate stage table and interval table, then be appended as a NOEMA update snap.
+
+\section{Reproducibility}
+The v0.7 code adds \texttt{origins/abiogenesis/temporal\_climate\_options.py}.  The test file is \texttt{tests/test\_temporal\_climate\_options\_v07.py}.  The result files are \texttt{TEMPORAL\_CLIMATE\_OPTIONS\_REPORT\_v07.json}, \texttt{TEMPORAL\_OPTIONS\_SUMMARY\_v07.md}, and \texttt{TEMPORAL\_BASELINE\_INTERVALS\_v07.md}.  The update is append-only and stored under a distinct \texttt{NOEMA\_UPDATE\_SNAP} directory. No PDF is generated.
+
+\section{Limitations}
+The model is a deterministic proxy.  It does not simulate membrane thermodynamics, mineral surface chemistry, ribozyme kinetics, DNA/RNA historical priority, or geological dating.  It is designed to classify temporal coupling and invariant-retention behaviour. Empirical calibration requires external datasets and experimentally grounded parameter fitting.
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

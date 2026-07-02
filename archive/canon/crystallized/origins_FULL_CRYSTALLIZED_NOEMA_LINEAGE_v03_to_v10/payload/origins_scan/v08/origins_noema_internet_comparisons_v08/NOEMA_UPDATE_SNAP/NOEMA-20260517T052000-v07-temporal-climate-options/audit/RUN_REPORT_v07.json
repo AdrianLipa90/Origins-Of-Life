@@ -1,0 +1,21 @@
+{
+  "compileall_returncode": 0,
+  "compileall_stderr": "",
+  "compileall_stdout": "",
+  "created_at_utc": "2026-05-17T03:04:17+00:00",
+  "noema_verify": {
+    "current_ok": true,
+    "ok": true,
+    "snap_count": 7
+  },
+  "pdf_entries": [],
+  "pytest_selected_returncode": 0,
+  "pytest_selected_stderr": "",
+  "pytest_selected_stdout": "............                                                             [100%]\n12 passed in 1.59s\n",
+  "snap_id": "NOEMA-20260517T052000-v07-temporal-climate-options",
+  "static_latex_validation": {
+    "bibliography_at_end": true,
+    "has_v07_title": true,
+    "no_pdf_generated": true
+  }
+}

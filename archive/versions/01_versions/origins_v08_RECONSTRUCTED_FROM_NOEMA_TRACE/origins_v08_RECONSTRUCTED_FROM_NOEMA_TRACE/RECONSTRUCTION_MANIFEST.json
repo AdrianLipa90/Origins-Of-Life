@@ -1,0 +1,34 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v08",
+  "title": "internet comparisons citations",
+  "created_at_utc": "2026-05-18T01:26:33.203391+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T061500-v08-internet-comparisons-citations"
+  ],
+  "confidence": "materialized_snap_full_v08_source_zip_available",
+  "found_artifacts": [
+    "MANIFEST_v08.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations",
+    "SHA256SUMS_v08.txt",
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "paper/main.tex",
+    "paper/references.bib",
+    "results/INTERNET_COMPARISONS_REPORT_v08.json",
+    "results/LATEX_STATIC_VALIDATION_v08.json"
+  ],
+  "missing_artifacts_or_snap_refs": [
+    "physical_snap:NOEMA-20260517T061500-v08-internet-comparisons-citations"
+  ],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

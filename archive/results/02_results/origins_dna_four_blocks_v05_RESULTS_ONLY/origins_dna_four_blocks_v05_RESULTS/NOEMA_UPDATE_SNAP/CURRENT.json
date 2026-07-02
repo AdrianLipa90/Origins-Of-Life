@@ -1,0 +1,12 @@
+{
+  "canon_allowed": false,
+  "current_snap_hash": "7f873eeeb8fc792e01a9884ffb0ac75645324717afb1528f07d712e06c56361b",
+  "current_snap_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "current_state_note": "v0.5 DNA four-block relation model appended locally",
+  "memory_layer": "episodic",
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::dna_four_blocks_relation",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "uncertainty_operator": "chyba",
+  "updated_at_utc": "2026-05-17T02:42:02+00:00"
+}

@@ -1,0 +1,124 @@
+{
+  "core_pass_record": {
+    "arbitrariness_audit": {
+      "manual_score_adjustment": false,
+      "manual_threshold_adjustment": false,
+      "new_free_parameter_added": false,
+      "probability_closure_to_one_allowed": false,
+      "source_score_reused": true,
+      "threshold_rederived_from_v05": true
+    },
+    "fact_claimed": false,
+    "honest_label": "proxy_pass_without_fact_closure",
+    "name": "protocell_candidate_proxy",
+    "nearest_true_claim": "protocell_candidate_proxy_claimed",
+    "nonclosure_margin_to_one": 0.29129499999999997,
+    "proxy_pass": true,
+    "required_evidence_for_fact": "independent wet-lab/geochemical evidence tying the proxy path to a historical prebiotic pathway",
+    "score": 0.708705,
+    "source_metric": "option_reports.metrics.peak_readiness",
+    "threshold": 0.692708625,
+    "threshold_margin": 0.015996375000000063,
+    "truth_proximity_probability": 0.708705
+  },
+  "nearest_true_claim_calibrations": {
+    "dna_first_historical_claimed": {
+      "arbitrariness_audit": {
+        "manual_score_adjustment": false,
+        "new_free_parameter_added": false,
+        "probability_closure_to_one_allowed": false,
+        "uses_existing_metric_only": true
+      },
+      "fact_claimed": false,
+      "honest_label": "DNA_grammar_model_passes_but_DNA_first_history_not_claimed",
+      "nearest_true_claim": "four_block_nucleic_grammar_model_claimed",
+      "nonclosure_margin_to_one": 0.09066700000000005,
+      "original_claim": false,
+      "proxy_pass": true,
+      "required_evidence_for_fact": "historical evidence that DNA, not RNA or mixed nucleic chemistry, was the early primary carrier",
+      "truth_proximity_probability": 0.909333
+    },
+    "empirical_abiogenesis_proof_claimed": {
+      "arbitrariness_audit": {
+        "manual_score_adjustment": false,
+        "new_free_parameter_added": false,
+        "probability_closure_to_one_allowed": false,
+        "uses_existing_metric_only": true
+      },
+      "fact_claimed": false,
+      "honest_label": "model_passes_proxy_threshold_but_does_not_claim_empirical_fact",
+      "nearest_true_claim": "protocell_candidate_proxy_claimed",
+      "nonclosure_margin_to_one": 0.29129499999999997,
+      "original_claim": false,
+      "proxy_pass": true,
+      "required_evidence_for_fact": "independent wet-lab/geochemical evidence tying the proxy path to a historical prebiotic pathway",
+      "truth_proximity_probability": 0.708705
+    },
+    "geological_timeline_claimed": {
+      "arbitrariness_audit": {
+        "manual_score_adjustment": false,
+        "new_free_parameter_added": false,
+        "probability_closure_to_one_allowed": false,
+        "uses_existing_metric_only": true
+      },
+      "fact_claimed": false,
+      "honest_label": "relative_temporal_order_passes_but_absolute_geological_dates_not_claimed",
+      "nearest_true_claim": "relative_stage_order_and_temporal_rate_proxy_claimed",
+      "nonclosure_margin_to_one": 0.306342,
+      "original_claim": false,
+      "proxy_pass": true,
+      "required_evidence_for_fact": "dated geological constraints and externally sourced time series",
+      "truth_proximity_probability": 0.693658
+    },
+    "quantum_chemistry_claimed": {
+      "arbitrariness_audit": {
+        "manual_score_adjustment": false,
+        "new_free_parameter_added": false,
+        "probability_closure_to_one_allowed": false,
+        "uses_existing_metric_only": true
+      },
+      "fact_claimed": false,
+      "honest_label": "relation_geometry_high_but_quantum_chemistry_not_estimated",
+      "nearest_true_claim": "semantic_relation_geometry_claimed",
+      "nonclosure_margin_to_one": 0.088167,
+      "original_claim": false,
+      "proxy_pass": true,
+      "required_evidence_for_fact": "quantum-chemical calculations or cited computed reaction energetics",
+      "truth_proximity_probability": 0.911833
+    },
+    "thermodynamic_membrane_simulation_claimed": {
+      "arbitrariness_audit": {
+        "manual_score_adjustment": false,
+        "new_free_parameter_added": false,
+        "probability_closure_to_one_allowed": false,
+        "uses_existing_metric_only": true
+      },
+      "fact_claimed": false,
+      "honest_label": "compartment_proxy_high_but_no_free_energy_membrane_simulation",
+      "nearest_true_claim": "compartment_co_localisation_proxy_claimed",
+      "nonclosure_margin_to_one": 0.15749999999999997,
+      "original_claim": false,
+      "proxy_pass": true,
+      "required_evidence_for_fact": "explicit thermodynamic/kinetic membrane model with amphiphile parameters",
+      "truth_proximity_probability": 0.8425
+    }
+  },
+  "non_arbitrary_derivation": {
+    "no_manual_boosting": true,
+    "no_manual_fitting": true,
+    "no_new_tuning_constants": true,
+    "probability_rule": "use already-normalized source score as truth_proximity_probability; clip only at nextafter(1,0) if upstream score equals/exceeds 1",
+    "score_source": {
+      "name": "unknown_option",
+      "score": 0.708705,
+      "source": "option_reports.metrics.peak_readiness"
+    },
+    "threshold_formula": "grammar_compression_proxy * complement_selectivity_proxy",
+    "threshold_value": 0.692708625
+  },
+  "schema": "ORIGINS_NOEMA_NON_ARBITRARY_PASS_WITHOUT_CLOSURE_V0_10",
+  "v09_correction": {
+    "correction": "v10 keeps proxy pass if the derived threshold is crossed, keeps fact_claimed=false, and reports truth_proximity_probability strictly below 1 using existing normalized metrics only.",
+    "previous_error": "v09 interpreted niedosyt as leaving key claims under threshold or weakly plausible instead of preserving pass while forbidding probability closure to 1."
+  }
+}

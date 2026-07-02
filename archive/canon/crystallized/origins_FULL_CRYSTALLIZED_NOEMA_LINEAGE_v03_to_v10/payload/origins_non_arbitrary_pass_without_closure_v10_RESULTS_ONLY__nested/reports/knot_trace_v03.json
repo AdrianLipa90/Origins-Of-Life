@@ -1,0 +1,113 @@
+{
+  "schema": "ORIGINS_BRAIDING_KNOT_TRACE_V0_3",
+  "sequence_length": 12,
+  "organic_frame": {
+    "backbone_element": "C",
+    "solvent": "ammonia_water_mixture",
+    "medium_phase": "ammonia_aqueous_eutectic",
+    "polymer_family": "nucleic_acid",
+    "organic_status": "carbon_based_organic"
+  },
+  "fold": {
+    "base_pairs": [
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        1,
+        11
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        2,
+        10
+      ],
+      [
+        3,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        10
+      ],
+      [
+        5,
+        11
+      ],
+      [
+        7,
+        11
+      ]
+    ],
+    "loop_count": 11,
+    "crossing_count": 33,
+    "closure_density": 0.9166666666666666
+  },
+  "metrics": {
+    "semantic_mass": 5.2,
+    "semantic_edge_weight": 3.9,
+    "nucleic_length": 12,
+    "gc_fraction": 0.5,
+    "purine_pyrimidine_balance": 1.0,
+    "base_pair_candidates": 11,
+    "crossing_number_proxy": 33,
+    "loop_closure_proxy": 11,
+    "closure_density": 0.9166666666666666,
+    "residue_memory_score": 1.0,
+    "recurrence_retention_proxy": 0.9375,
+    "identity_retention_proxy": 0.8358333333333333,
+    "knot_stability_proxy": 0.7783550724637681,
+    "organic_status": "carbon_based_organic",
+    "solvent": "ammonia_water_mixture",
+    "medium_phase": "ammonia_aqueous_eutectic"
+  },
+  "semantic_symbols": [
+    "recurrence",
+    "residue",
+    "transition",
+    "memory"
+  ],
+  "semantic_edges": [
+    {
+      "source": "recurrence",
+      "target": "residue",
+      "weight": 1.0,
+      "kind": "recurrence"
+    },
+    {
+      "source": "residue",
+      "target": "memory",
+      "weight": 1.3,
+      "kind": "residue"
+    },
+    {
+      "source": "transition",
+      "target": "memory",
+      "weight": 0.9,
+      "kind": "transition"
+    },
+    {
+      "source": "memory",
+      "target": "recurrence",
+      "weight": 0.7,
+      "kind": "retention"
+    }
+  ],
+  "compression_target": "invariant_relation_trace_not_byte_exact_sequence_archive"
+}

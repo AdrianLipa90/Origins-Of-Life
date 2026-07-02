@@ -1,0 +1,13 @@
+{
+  "files_added": [
+    "repo/origins/abiogenesis/non_arbitrary_pass.py",
+    "repo/tests/test_non_arbitrary_pass_v10.py",
+    "results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_REPORT_v10.json",
+    "results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_SUMMARY_v10.md"
+  ],
+  "no_arbitrary_fitting": true,
+  "no_grep_claimed": true,
+  "no_pdf": true,
+  "schema": "MANIFEST_V10",
+  "snap_id": "NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure"
+}

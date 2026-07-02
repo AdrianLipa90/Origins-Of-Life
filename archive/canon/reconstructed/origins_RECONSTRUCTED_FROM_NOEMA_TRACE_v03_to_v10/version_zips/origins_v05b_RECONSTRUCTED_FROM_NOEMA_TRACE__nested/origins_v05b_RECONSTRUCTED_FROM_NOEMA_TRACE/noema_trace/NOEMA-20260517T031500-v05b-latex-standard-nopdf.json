@@ -1,0 +1,45 @@
+{
+  "artifacts": [
+    "paper/main.tex",
+    "paper/references.bib",
+    "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "reports/RUN_REPORT_v05.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/LATEX_REPAIR_REPORT_v05b_NOPDF.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/LATEX_STATIC_VALIDATION_v05b_NOPDF.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/RUN_REPORT_v05b_NOPDF.json"
+  ],
+  "canon_allowed": false,
+  "created_at_utc": "2026-05-17T02:53:41+00:00",
+  "layer": "episodic",
+  "meaning_candidate": {
+    "canon_allowed": false,
+    "confidence": 0.9,
+    "context_required": true,
+    "hypothesis": "The v0.5 DNA four-block relation model now has an English LaTeX methods/results document meeting the project standard, without generating or packaging PDF output.",
+    "needs_repair": false,
+    "source": "local NOEMA CURRENT + v05 reports + regenerated paper/main.tex",
+    "uncertainty_operator": "chyba"
+  },
+  "namespace": "Origins-Of-Life",
+  "previous_snap_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "project_id": "Origins-Of-Life::latex_standard_v05b_nopdf",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+  "tags": [
+    "origins",
+    "dna",
+    "four_blocks",
+    "latex",
+    "methods",
+    "results",
+    "no_pdf",
+    "v05b"
+  ],
+  "validation": {
+    "compileall_returncode": 0,
+    "pdf_generated": false,
+    "pdf_included": false,
+    "pytest_v05_suite_returncode": 0,
+    "static_latex_validation_ok": true
+  }
+}

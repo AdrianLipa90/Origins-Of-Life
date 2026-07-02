@@ -1,0 +1,851 @@
+{
+  "schema": "ORIGINS_NOEMA_REWRITE_V05_MANIFEST",
+  "created_at_utc": "2026-05-17T02:42:02+00:00",
+  "files": [
+    {
+      "path": "MANIFEST.json",
+      "sha256": "af5a385b09156e15e0d0ebd82167d2799a4ecf2ad1f2c5f9c7c197e9399d939f",
+      "size": 392
+    },
+    {
+      "path": "SHA256SUMS.txt",
+      "sha256": "ea841448babd1f127420ca306ae319f6c77363882b392a704cc92e79b043b526",
+      "size": 24070
+    },
+    {
+      "path": "noema/store/CURRENT.json",
+      "sha256": "e31c4c54347592a7d22cca1ab08adb83e6cc9976f8831e69d4ba58b6478a40ce",
+      "size": 472
+    },
+    {
+      "path": "noema/store/index.json",
+      "sha256": "c3a04ceffb8f24d6d96ce5af1060f197b86789737c914d5093b5597cfaf815c6",
+      "size": 1864
+    },
+    {
+      "path": "noema/store/manifest.jsonl",
+      "sha256": "66ff94ee393936c8ee1fd70dded1bad7301eceff64147595f89a58a8a75c59ea",
+      "size": 784
+    },
+    {
+      "path": "noema/store/snaps/NOEMA-20260517T021109-a97dc110e6.json",
+      "sha256": "c4fb6f573524fba66f5850a36b36cc2405c8adbf60e8e76c1ffcb5c07e0b5077",
+      "size": 1886
+    },
+    {
+      "path": "noema/store/snaps/NOEMA-20260517T022726-3fc21483ca.json",
+      "sha256": "b9dd31655e44d0579983377a15e2422e635f146319be1d4d6f0c08bd51fec164",
+      "size": 2006
+    },
+    {
+      "path": "noema/store/snaps/NOEMA-20260517T023557-v04semanticcompression.json",
+      "sha256": "65b71c9e527c990f17fd7f26248ad3b4f1b8f51d25edfd335b2bc2d6799e791a",
+      "size": 7329
+    },
+    {
+      "path": "noema/store/snaps/NOEMA-20260517T024500-v05dnafourblocks.json",
+      "sha256": "29d00027d18dd36aedbf9783d3870a0bf0bc51d94c9906717354eb19e72fb456",
+      "size": 10197
+    },
+    {
+      "path": "paper/main.tex",
+      "sha256": "3a4e0b9277426dd4cb454a098cef9b9b401968838f10aa160602650da9512208",
+      "size": 6301
+    },
+    {
+      "path": "paper/references.bib",
+      "sha256": "967d5cee25fbc547f17f2ca59e1daeb4cb46123cd919d1f9b6fc5cc93c5e4d85",
+      "size": 3274
+    },
+    {
+      "path": "patch/origins_noema_rewrite_v03.diff",
+      "sha256": "5c7ad2737e70e119186c6e13441b83cdf82b7828eb2f1f9251cc43b672cbc379",
+      "size": 20063
+    },
+    {
+      "path": "repo/.github/FUNDING.yml",
+      "sha256": "13f32b7367f35537394212869121370f41f984b99c97484be99b8be4d89b5b0f",
+      "size": 891
+    },
+    {
+      "path": "repo/.github/workflows/abiogenesis-canon.yml",
+      "sha256": "be820db68ba955aa88a0aac614679c31a62b455144999f22636171b342a4221d",
+      "size": 826
+    },
+    {
+      "path": "repo/.gitignore",
+      "sha256": "a80eb0735100c4b99d89bcab8e2485a22081000ff13dacaec72e370da60aa7d6",
+      "size": 96
+    },
+    {
+      "path": "repo/LICENSE",
+      "sha256": "543f23a3d2bbacc453beed3f361ffc009105fc7b0f4e1847ca572bb0c63cbd22",
+      "size": 5137
+    },
+    {
+      "path": "repo/LICENSE ",
+      "sha256": "543f23a3d2bbacc453beed3f361ffc009105fc7b0f4e1847ca572bb0c63cbd22",
+      "size": 5137
+    },
+    {
+      "path": "repo/OriginOfLife.v2.0.py",
+      "sha256": "f6ad55d81c8b784dabcc9752b21506540f153beaf01088ad5dd438b65e66b2a9",
+      "size": 19724
+    },
+    {
+      "path": "repo/OriginOfLife.v3.0_2Src.py",
+      "sha256": "43f87ccaebc8ea66220c15a335e131543aef793cc80dd333e8484783d5429778",
+      "size": 13373
+    },
+    {
+      "path": "repo/OriginOfLife.v4.0_ET.py",
+      "sha256": "de4b5f0c705675b3c97f61beca4f1b92a2dede933a14761aec3ceeb8fba477aa",
+      "size": 17234
+    },
+    {
+      "path": "repo/OriginsKahlerEulerBerry.py",
+      "sha256": "cef4f190abae1c2ff8d020542589668a8cdbab86ad0376f537c70dbc10b3d587",
+      "size": 7678
+    },
+    {
+      "path": "repo/Proof-of-concept.py",
+      "sha256": "12040f0401db44175ae16cab7fd18bb5033bb2a09f01bfd1bfdefacbbe24f355",
+      "size": 53566
+    },
+    {
+      "path": "repo/Proof-of-concept2.py",
+      "sha256": "7738d69d62053b351e59de7bc02ff722beeff7c5f2b68232c1a26b778e620005",
+      "size": 25182
+    },
+    {
+      "path": "repo/README.md",
+      "sha256": "067019860022b1b841703d75dcdc0f667d5b00c2fe222f37752e0dd75f81d92b",
+      "size": 2757
+    },
+    {
+      "path": "repo/START_HERE_ORIGINS.md",
+      "sha256": "1a1b99abe69d8f15b04cfdbbd37deebd9526760cef2402263243f6aef0a83756",
+      "size": 2098
+    },
+    {
+      "path": "repo/ciel-cmb-analyzer.zip.zip",
+      "sha256": "f947df32e77825f9f8d97733c603336b90abb4cb600fcf9eafb9d675c02fea3c",
+      "size": 14404
+    },
+    {
+      "path": "repo/docs/ABIOGENESIS_PUBLIC_SURFACE.md",
+      "sha256": "982227e4b8aa2a199ff89fee10a0432b7af7210f9ace3fa10377d7e0444e347b",
+      "size": 942
+    },
+    {
+      "path": "repo/docs/ABIOGENESIS_WORKFLOWS.md",
+      "sha256": "e6efe09baf1c1e380e8606ee1c872e3db7c33b64d027603cb8899cbc1afc993c",
+      "size": 1022
+    },
+    {
+      "path": "repo/docs/APPLY_FULL_ORBITAL_FORMALISM_LAYERWISE.md",
+      "sha256": "ce9d095f4ce4be225526d47d558daaa3917a8fe29a4cf32cae7e180f2ea69027",
+      "size": 2206
+    },
+    {
+      "path": "repo/docs/APPLY_ORBITAL_FORMALISM_TO_REPO.md",
+      "sha256": "648040ad93d977868c6f0c2d105417fe5104c0fcc4617cf8cb024b964f6d76d9",
+      "size": 3241
+    },
+    {
+      "path": "repo/docs/BINDINGS.md",
+      "sha256": "08bb576fef5debb34599094052dae064e3e1732c05b6c5d40dfd69d3ff9d0263",
+      "size": 748
+    },
+    {
+      "path": "repo/docs/DEFINITIONAL_RUNTIME_LAYER.md",
+      "sha256": "f691f87b4848305c1f8aa0cb1c6c81a4fa7e03e4dc07727dcdc80fc748fab0c7",
+      "size": 1404
+    },
+    {
+      "path": "repo/docs/DEFINITIONS.md",
+      "sha256": "058be86a135fb18e6cb871c1a047bb0c6bdff1fe4f1b4b60487264c0b0916ce7",
+      "size": 1201
+    },
+    {
+      "path": "repo/docs/NATIVE_UNIVERSAL_ORBITAL_SWITCH.md",
+      "sha256": "7df718547fbd35f39c776cd537ce72080e535270cb83e2577b6379c3a97b1cf4",
+      "size": 1256
+    },
+    {
+      "path": "repo/docs/ORBITAL_RUNTIME_BRIDGE.md",
+      "sha256": "e59de688f3e7c4cad8b14370fb5d021e8bdbe421ee8b91abca634ede4cce7028",
+      "size": 1129
+    },
+    {
+      "path": "repo/docs/REGISTRY.md",
+      "sha256": "8c5b424a42149b7d511a6bbd64e6316ffc9a2c27397a9b5fdd44fd9e3dab0e6b",
+      "size": 904
+    },
+    {
+      "path": "repo/docs/REPO_POSITIONING_AND_ADOPTION.md",
+      "sha256": "efd2a06e0dea91b89869b6e7351ba69568d77540a4315f45c2910621d1a9cbf7",
+      "size": 1826
+    },
+    {
+      "path": "repo/docs/SEMANTIC_CANON_FOR_ORIGINS.md",
+      "sha256": "728ecdc36ac19930e994edda6ddd2d68c0617353a6ee63a98293c371797e09b1",
+      "size": 4681
+    },
+    {
+      "path": "repo/docs/architecture.md",
+      "sha256": "ab36a676432430eb6f55d26ac6b1d96ed3415a3153427a098585712746b81344",
+      "size": 856
+    },
+    {
+      "path": "repo/docs/observations_and_conclusions/bloch_rna_emergence_2026-04-30.md",
+      "sha256": "c3d056ff72a89e4020bf3d921a8a5682b7b10024b3054a245e250d0fa1065c78",
+      "size": 7492
+    },
+    {
+      "path": "repo/new holonomy/originsHolo1",
+      "sha256": "f624f191fd76d6c6591d76153a067480b5a43e5924a17aae46346373babe545a",
+      "size": 29501
+    },
+    {
+      "path": "repo/new holonomy/originsHolo2.py",
+      "sha256": "c72b348d7a09ddbbb6011f87eff41416c1e2a8593d00a84f0ecc7b7f7b11f536",
+      "size": 37411
+    },
+    {
+      "path": "repo/new holonomy/originsphaseholoext.py",
+      "sha256": "99cdd5965f46905575d0c76566c98dcc18354ce4b1496f5f5ad524cc1b9fc448",
+      "size": 74465
+    },
+    {
+      "path": "repo/origins/__init__.py",
+      "sha256": "da46ba96d373047c7455e1af30defadfa121b6efdf2d18b9719479416107d2ab",
+      "size": 830
+    },
+    {
+      "path": "repo/origins/abiogenesis/__init__.py",
+      "sha256": "7a2651b56e3191f24bddbf0047aa9733f3405096ce1f49658aa44c3faf47f41b",
+      "size": 2633
+    },
+    {
+      "path": "repo/origins/abiogenesis/api.py",
+      "sha256": "09dac83c21da33c33df13cd56fccd66ab4e634791e6f53e28f1509e7f3dafc7a",
+      "size": 2521
+    },
+    {
+      "path": "repo/origins/abiogenesis/dna_four_blocks.py",
+      "sha256": "4dd070e143ed517e872649b86ac12b8452adca07bc3a1b5804cc25174ff67a52",
+      "size": 11698
+    },
+    {
+      "path": "repo/origins/abiogenesis/emergence_state.py",
+      "sha256": "50b614088ca30de0f80ff2dfcd76d51d2022340f0a59d40eb18df97774e2f478",
+      "size": 208
+    },
+    {
+      "path": "repo/origins/abiogenesis/execution.py",
+      "sha256": "d4e8e9f656aeccc4f22b9bc18c338b8919981da0b815e365ef471c0106eb163a",
+      "size": 303
+    },
+    {
+      "path": "repo/origins/abiogenesis/feasibility.py",
+      "sha256": "5321818b38dbd8606aab0234e7c8effec7c88f83116f070d82d9a75a7c41f83d",
+      "size": 431
+    },
+    {
+      "path": "repo/origins/abiogenesis/geometric_semantic_braiding.py",
+      "sha256": "eea402ddc4e5423a1d366765d8561c232b692164c763fb5e7b05948391efeb05",
+      "size": 13001
+    },
+    {
+      "path": "repo/origins/abiogenesis/habitat.py",
+      "sha256": "89f484ef256b9b371d4308508004b3ae2fbb8ddd1667592754d96155ec3080a7",
+      "size": 185
+    },
+    {
+      "path": "repo/origins/abiogenesis/local_clock.py",
+      "sha256": "11b81a06bada37f48d9c734eff5353dc1b54dd3b97f017b01fde446af4042026",
+      "size": 214
+    },
+    {
+      "path": "repo/origins/abiogenesis/recurrence.py",
+      "sha256": "6abcfd2d2f3b7fa5a21d1080b1766687c3e02932d6cd05c84e143d82f6687bd7",
+      "size": 298
+    },
+    {
+      "path": "repo/origins/abiogenesis/repository_semantics.py",
+      "sha256": "3b96bdc82b92902ac4a41e7ebb609bb141184bdae64a4e8e64a61e999c314ba1",
+      "size": 379
+    },
+    {
+      "path": "repo/origins/abiogenesis/residue_memory.py",
+      "sha256": "a370ef2d5d1c43c094c44498b723a418ad78c277e808b8ef10c0d241801dc0fa",
+      "size": 348
+    },
+    {
+      "path": "repo/origins/abiogenesis/semantic_compression.py",
+      "sha256": "7dbf80dbccf55e2d224604d5402684cc78ab5a7b3f9996aba5f0d3d5a40dc9cc",
+      "size": 11852
+    },
+    {
+      "path": "repo/origins/abiogenesis/transition.py",
+      "sha256": "f8d48de57d1ee9f277f2f9edce4eccd1d74acb80effe82ab1940e5658a87b2ef",
+      "size": 261
+    },
+    {
+      "path": "repo/origins/abiogenesis/workflows.py",
+      "sha256": "cf9cdf5e2b37605efc433edc3ec29f47cbca1f39bf71bdcb459e7c3c747afcaf",
+      "size": 2135
+    },
+    {
+      "path": "repo/origins/analysis/__init__.py",
+      "sha256": "ec823c0af73b991f796236127bf3ffb69caa2e9c9cf793167acc255d7ad7f9bb",
+      "size": 145
+    },
+    {
+      "path": "repo/origins/analysis/sweep.py",
+      "sha256": "bb48012e5241cc32794732088e7e9e078b4ee001972b217d9d1667dc0797374b",
+      "size": 12308
+    },
+    {
+      "path": "repo/origins/analysis/sweep_orbital.py",
+      "sha256": "dc30dd44cda53d29247dd1c876bdd58582d1bacc43b389413845ec5f42c03641",
+      "size": 3953
+    },
+    {
+      "path": "repo/origins/bindings.py",
+      "sha256": "fe8ab49b5427e0f26d14bc35294648256986b9c66c7f25c3728ae795fb76626e",
+      "size": 3123
+    },
+    {
+      "path": "repo/origins/biology/__init__.py",
+      "sha256": "cfc8dfdbcb23d68cca0e10b46d1a6187fb30050734c4dfbf11ca39e0de5b0317",
+      "size": 151
+    },
+    {
+      "path": "repo/origins/biology/first_rna.py",
+      "sha256": "2d082275b5d35477c178cb2aca7dd651ba16a6f9ec00de725fe5e6c3b3b31a21",
+      "size": 18902
+    },
+    {
+      "path": "repo/origins/biology/protocell.py",
+      "sha256": "4ddc737654d21845b96750702345e847c1ef7095d6ac16a5cd89393055f3c1a4",
+      "size": 3695
+    },
+    {
+      "path": "repo/origins/biology/rna.py",
+      "sha256": "3621e469c1b4d22774582285a654b0a152562e4697462ff879a9b67a8677765f",
+      "size": 11053
+    },
+    {
+      "path": "repo/origins/catalog.py",
+      "sha256": "4486c4e4f92f8f9d2d23b94fbb5a8bebfba32c69bd6ccbbd2883500e1c49224e",
+      "size": 3713
+    },
+    {
+      "path": "repo/origins/chemistry/__init__.py",
+      "sha256": "c4b9f6940ed2df395fa84491a22721021c2e0f75a74d7016b38a418429e5b866",
+      "size": 186
+    },
+    {
+      "path": "repo/origins/chemistry/clay.py",
+      "sha256": "043bd1df061cba107370988205437ee6adee50047abe7637d126a11482686908",
+      "size": 2852
+    },
+    {
+      "path": "repo/origins/chemistry/fields.py",
+      "sha256": "f084077f593a40940591cbdf3f3521120cf12f16d2ead585c5c7ef3febacd933",
+      "size": 4535
+    },
+    {
+      "path": "repo/origins/constants.py",
+      "sha256": "497e4f90dedcfe164ffd3ff205ca3a395938470fe92aae05bee1d06a5a448022",
+      "size": 5392
+    },
+    {
+      "path": "repo/origins/cosmology/__init__.py",
+      "sha256": "103360280129a9e3aa4d30f4b4bf6bc017a5e02b19ff1e2ad2ae2d76e76a3fda",
+      "size": 286
+    },
+    {
+      "path": "repo/origins/cosmology/operators.py",
+      "sha256": "a2f48deacf1a4817fdad1f61d966b35be40ffe68a0c5066707cd74a99afb6187",
+      "size": 5946
+    },
+    {
+      "path": "repo/origins/cosmology/pbh.py",
+      "sha256": "6398c65cc2c4bcbe63181a69bec5adf24997bd014cbaaab983a23b048686a691",
+      "size": 7991
+    },
+    {
+      "path": "repo/origins/definitions.py",
+      "sha256": "ee883ffbfe1c67589abdafdf317db41ac9720a5af3481c0d4b84fe52f0bebe3a",
+      "size": 2956
+    },
+    {
+      "path": "repo/origins/orbital/__init__.py",
+      "sha256": "908179c333926fee5861c4fedba9242ff835ecc5d08f375b43a4d0d4c078586f",
+      "size": 959
+    },
+    {
+      "path": "repo/origins/orbital/bundle_builder.py",
+      "sha256": "ac4dbfc7fa50fc57fcbae08627ce18cb15c3a77a234fdd67a2fc076afaeb9998",
+      "size": 2947
+    },
+    {
+      "path": "repo/origins/orbital/memory.py",
+      "sha256": "41cd5502641fdfd1f6bb671ede481e362e70269c0a5039bab541333788adbeee",
+      "size": 961
+    },
+    {
+      "path": "repo/origins/orbital/oorp.py",
+      "sha256": "db471447f32f66b1ce6bff45e98ddb7e0501abd2641ebb840b8e0259b35b12b7",
+      "size": 1710
+    },
+    {
+      "path": "repo/origins/orbital/potentials.py",
+      "sha256": "e7e4b1251c12254cbbf635706a81b70b4483ec571778d3ddcf056b7055e1cfb3",
+      "size": 2009
+    },
+    {
+      "path": "repo/origins/orbital/repository_assignment.py",
+      "sha256": "fa249da9eb859d8043375d7b2e017f7917ef370e68db0c5bbe4bdfc687b9346b",
+      "size": 2170
+    },
+    {
+      "path": "repo/origins/orbital/runtime_bridge.py",
+      "sha256": "1635543f62677a794236ce2c3236b5e80d78372b41c99f0e5a3c99c82d574ca0",
+      "size": 5166
+    },
+    {
+      "path": "repo/origins/orbital/sphere.py",
+      "sha256": "605eeaff6df8d0341ec3632179ac8960e573a8306e8b7d9268368e59bcd855e4",
+      "size": 787
+    },
+    {
+      "path": "repo/origins/orbital/state.py",
+      "sha256": "bd4b490690917f24f2c3f6f225929f8f858f29dda2779e933af51d25068a535c",
+      "size": 1236
+    },
+    {
+      "path": "repo/origins/orbital/subjective_time.py",
+      "sha256": "b50c5eaedd8671200baae1069674c3f71b6ce37b8dd9479c1901cb066972fe29",
+      "size": 828
+    },
+    {
+      "path": "repo/origins/orbital/winding.py",
+      "sha256": "f02e65c6c88f01511b3f98735c16ed25f496010c750f89cf0f8bc534a288a0cf",
+      "size": 1310
+    },
+    {
+      "path": "repo/origins/orbital_formalism.py",
+      "sha256": "c245efba6c9eb36309db518fdbd8910fdc0a4e7afe19ded1b34039b3a3348b2e",
+      "size": 5984
+    },
+    {
+      "path": "repo/origins/registry.py",
+      "sha256": "c48f0206fe79f6c9d1cfd0e0b222000ec8fa4318b3a779863417c91b2e921e29",
+      "size": 2667
+    },
+    {
+      "path": "repo/origins/scenarios.py",
+      "sha256": "32b73945e130ff9b52bfc0eed5e28212eadaf6e2f11c08c72d46aba49ab1bb09",
+      "size": 7616
+    },
+    {
+      "path": "repo/origins/simulator/__init__.py",
+      "sha256": "25414d4a6c3cc03791bd8bfc01cb8c6d17308a36c20cdff81ab18975047a5e3c",
+      "size": 101
+    },
+    {
+      "path": "repo/origins/simulator/factory.py",
+      "sha256": "23c297204fd91b1782401be6883fffd1e25d048067b3bc6f52981ec49a32eadd",
+      "size": 955
+    },
+    {
+      "path": "repo/origins/simulator/universal.py",
+      "sha256": "a7231e9dfffac5fef9c7d1aa73a3726e0648f1170e5852304cd0d18fea280f7e",
+      "size": 18033
+    },
+    {
+      "path": "repo/origins/simulator/universal_orbital.py",
+      "sha256": "e2ab5495056bbc392f41240cf4538741b4ef942b731da0b96bfacebeeb22f7d7",
+      "size": 1906
+    },
+    {
+      "path": "repo/origins/topology/__init__.py",
+      "sha256": "f61860001a72d9dc2d47ef3beb295d2c7abd0d1ffb56650b6367fb4c8098fea3",
+      "size": 165
+    },
+    {
+      "path": "repo/origins/topology/constraints.py",
+      "sha256": "b3e71c3f758d3dce23cae5d955a6cb9eb728d924778f31bb09e712a2412fc2df",
+      "size": 3260
+    },
+    {
+      "path": "repo/origins/topology/fields.py",
+      "sha256": "a0831be46b77b590fb26ba413a06e7a4d1c5b5537cedad27617506471bcf4f0d",
+      "size": 8837
+    },
+    {
+      "path": "repo/requirements.txt",
+      "sha256": "9b1c7dceaad9db9dea29d64f687c3ce81e6a2f98370f0b73c689b87e594cc80b",
+      "size": 115
+    },
+    {
+      "path": "repo/scripts/audit_abiogenesis_surface.py",
+      "sha256": "420e0e6895edf800b94dded0ac64617f7d49fc00211b0502abf5f9a4f4f24d33",
+      "size": 1605
+    },
+    {
+      "path": "repo/scripts/check_public_semantics.py",
+      "sha256": "6055f995c06ea65a3b7d52b4635903c9b0c6bc831689ae69bb1d11b97172a460",
+      "size": 1764
+    },
+    {
+      "path": "repo/scripts/export_orbital_manifest.py",
+      "sha256": "818c5a5f0a26b2b3562a59778d01b747fb05659b858c95604c544e1ae22d2f96",
+      "size": 1147
+    },
+    {
+      "path": "repo/scripts/run_abiogenesis.py",
+      "sha256": "84cb280c332cbb4442017fdb8f3009ff22e4e617c09256464cec964575c64d0d",
+      "size": 2758
+    },
+    {
+      "path": "repo/scripts/run_cmb_analysis.py",
+      "sha256": "00e1a1276b100fcfb2be49564ecec872d8834f9f4820d9c40affbf961d73623d",
+      "size": 2021
+    },
+    {
+      "path": "repo/scripts/run_simulation.py",
+      "sha256": "8cf96dfb9283c1a52458349052d49d683c659f56ea0f3f99fb4b5a5c57cb495a",
+      "size": 1816
+    },
+    {
+      "path": "repo/scripts/run_simulation_native_orbital.py",
+      "sha256": "b7109025be28ef1f345da11f213503819bc48519259183101bee3ef1c0fabd24",
+      "size": 1434
+    },
+    {
+      "path": "repo/scripts/run_simulation_orbital.py",
+      "sha256": "937922b3acfde1b86ce2cdbb9c5e263020665e047660e97838430dc95f48837d",
+      "size": 1593
+    },
+    {
+      "path": "repo/scripts/run_sweep.py",
+      "sha256": "671b308ad8bbca3db26f251ab44fc8f8f359be6fe8d44db352036dcd68a2d02d",
+      "size": 2443
+    },
+    {
+      "path": "repo/scripts/run_sweep_native_orbital.py",
+      "sha256": "1b2722c34c12a062b9533162822e28c58d8bb56e340c49a81829610ea5fa6958",
+      "size": 1419
+    },
+    {
+      "path": "repo/scripts/run_sweep_orbital.py",
+      "sha256": "ee4a3ac59bd53cc223cb04838831faae4d4cc3a66797cc648fc118d0b92a4644",
+      "size": 2113
+    },
+    {
+      "path": "repo/setup.py",
+      "sha256": "c05e7e2e1790bbe4e2c99775ccd882d333626b44bc883e2624e5c16ae83f4385",
+      "size": 846
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/app.js",
+      "sha256": "33c264fd51c68f624e7090b9bae8f4bd53d6241c62b210bd36307f916bba02af",
+      "size": 23369
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/app_1.js",
+      "sha256": "33c264fd51c68f624e7090b9bae8f4bd53d6241c62b210bd36307f916bba02af",
+      "size": 23369
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/app.js",
+      "sha256": "33c264fd51c68f624e7090b9bae8f4bd53d6241c62b210bd36307f916bba02af",
+      "size": 23369
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/index.html",
+      "sha256": "31e4c89ab9a556db766aafba7a5690ede0bbb581216b10a21703a8ada091baed",
+      "size": 16955
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/style.css",
+      "sha256": "c5532ec96455b57ff44d6a1d78e5dc4a895a5fcc03595cc84f4c805a6557c57c",
+      "size": 33896
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/ciel0_cmb_analyzer_english.py",
+      "sha256": "a3c2f393a96c03a5f94e7d1b6cb29ca05a8d3c5f4d096d538b7efed8dd428296",
+      "size": 20927
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/index.html",
+      "sha256": "31e4c89ab9a556db766aafba7a5690ede0bbb581216b10a21703a8ada091baed",
+      "size": 16955
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/script.py",
+      "sha256": "cca37038ae59fb1659644ce2602f2a5308cb87759acc333b3e2d6abce428f5c8",
+      "size": 21910
+    },
+    {
+      "path": "repo/spectrum.zip (1)_FILES/style.css",
+      "sha256": "c5532ec96455b57ff44d6a1d78e5dc4a895a5fcc03595cc84f4c805a6557c57c",
+      "size": 33896
+    },
+    {
+      "path": "repo/src/origin_of_life/__init__.py",
+      "sha256": "323404e561d713b89946b87b06f88f9c70257be1c775161ad0dfc1f42d83a502",
+      "size": 662
+    },
+    {
+      "path": "repo/src/origin_of_life/adapters.py",
+      "sha256": "39be80c1515521e51578151252e34fbb35950adb13221b68a4745768813f1229",
+      "size": 2540
+    },
+    {
+      "path": "repo/src/origin_of_life/bindings.py",
+      "sha256": "63004d58f6ee1a23567a180e3be6e1ac79be49ea86c035d418994bd5f91bac47",
+      "size": 3005
+    },
+    {
+      "path": "repo/src/origin_of_life/catalog.py",
+      "sha256": "6e9b5fffaa2cc4c854a99b50ccd6b4f80721dcbe7ca117250b61099ed1f60689",
+      "size": 2394
+    },
+    {
+      "path": "repo/src/origin_of_life/cli.py",
+      "sha256": "0bd4a5bb1a01c16a37bebc51d473d892e13610c5ff798d80709b2d2453fede13",
+      "size": 2476
+    },
+    {
+      "path": "repo/src/origin_of_life/definitions.py",
+      "sha256": "03c9b19803ae6c6ee5451efeadc5c96f11290cf7280d083cd936798956f62e6f",
+      "size": 2926
+    },
+    {
+      "path": "repo/src/origin_of_life/grid.py",
+      "sha256": "a8bf5fc7311873534047c9ea0f67b7a8f842c9e6bc5d8ee8b3fdd2aff5605130",
+      "size": 839
+    },
+    {
+      "path": "repo/src/origin_of_life/plotting.py",
+      "sha256": "e8012b1488bd296476432beeeb440c97ad746ced7051826dc9e5014677c5d0ed",
+      "size": 164
+    },
+    {
+      "path": "repo/src/origin_of_life/registry.py",
+      "sha256": "5066c89c8f85c43becd48175a1cd5a11eb419b8865bd7cbbb85bf308f240d9f0",
+      "size": 2572
+    },
+    {
+      "path": "repo/src/origin_of_life/runners.py",
+      "sha256": "23efa8dd56735b6b39bdf17af2faf3bcc5041e8efbe766ec31555f03caca7742",
+      "size": 1312
+    },
+    {
+      "path": "repo/src/origin_of_life/scenarios.py",
+      "sha256": "34129076b4486d4490732944e1f0b59fe6bbf3ad275ed50c6f85e51246b8d4d0",
+      "size": 3803
+    },
+    {
+      "path": "repo/src/origin_of_life/simulator.py",
+      "sha256": "8d9c2c532a0bd325c1e85fc18cbe7cb730e5e0d991ab0376ff037cf3d59c7610",
+      "size": 14095
+    },
+    {
+      "path": "repo/src/origin_of_life/sweep_v3.py",
+      "sha256": "ed235a66dc2910bb40e831dc1473d5f81c92e0dcdaf257ab584ad61189224442",
+      "size": 6486
+    },
+    {
+      "path": "repo/src/origin_of_life/sweeps.py",
+      "sha256": "eb7c347e0862448e27173fa01a49fb45f2f05c503179ec8d91d83084e30a8d70",
+      "size": 3013
+    },
+    {
+      "path": "repo/src/origin_of_life/utils.py",
+      "sha256": "1065896092fc0db25a1181b7748729e97c7508cc4eb6def13983f8f9eb958cce",
+      "size": 112
+    },
+    {
+      "path": "repo/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "repo/tests/test_abiogenesis_canon.py",
+      "sha256": "c9f0779868bfff3f7957a80609b36b71eb6a559874ca718f43c8752677711654",
+      "size": 1118
+    },
+    {
+      "path": "repo/tests/test_abiogenesis_workflows.py",
+      "sha256": "736f223d56e20811de86af415f88c86096cad538e31dab59e20b05487bcff17c",
+      "size": 447
+    },
+    {
+      "path": "repo/tests/test_biology.py",
+      "sha256": "225bf2d9461c4b20b2cc0c20532e112e3efb66d0d61f562be9d4ba479464476a",
+      "size": 2925
+    },
+    {
+      "path": "repo/tests/test_bloch_holonomy.py",
+      "sha256": "10e05870a90845ea9e3eebc6725d3f8a3b1cba99126a812b9a2d173c435068da",
+      "size": 7534
+    },
+    {
+      "path": "repo/tests/test_chemistry.py",
+      "sha256": "3ef3fb912de4db31b55bea078770159efd61547b5827c47f2d91c0ebde0975dd",
+      "size": 2259
+    },
+    {
+      "path": "repo/tests/test_dna_four_blocks_v05.py",
+      "sha256": "f67c855eb062da141ea30218f487c73a830dc67a516691e5313279f116662638",
+      "size": 1492
+    },
+    {
+      "path": "repo/tests/test_public_semantics_guard.py",
+      "sha256": "b6734f01f1a4416ec0e0eaf65454747640530e1bd71bf2b98141034c25b8f179",
+      "size": 271
+    },
+    {
+      "path": "repo/tests/test_semantic_compression_v04.py",
+      "sha256": "f5458ab166b9f9f599beaefbbe935a33662da650ebe85559c19b5c486492302d",
+      "size": 1718
+    },
+    {
+      "path": "repo/tests/test_semantic_nucleic_braiding.py",
+      "sha256": "68780e4261d8831f7a00ab2e838af28904f9a9c6abc004f2b0718007f8552b2d",
+      "size": 1740
+    },
+    {
+      "path": "repo/tests/test_simulator.py",
+      "sha256": "8c08f30f3ba230f9d3da42ebd5b0bd3c6c28db7a8aab2c8e22e0c42355bf3a3a",
+      "size": 2089
+    },
+    {
+      "path": "repo/tests/test_topology.py",
+      "sha256": "4b589df737a4ae176dc3ef3292b1050ceabeaa0be70c715db9ce23796cabab05",
+      "size": 2400
+    },
+    {
+      "path": "reports/CHANGED_FILES.json",
+      "sha256": "ebd5277539ac2f67f2867e1655e2e40dcbd25dfb79af2b363c026639826389b2",
+      "size": 4257
+    },
+    {
+      "path": "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+      "sha256": "69e82a3bbf4c8471e8383119af2262ba4c5a8d51eaa6f320469854aa708f681a",
+      "size": 8416
+    },
+    {
+      "path": "reports/RUN_REPORT.json",
+      "sha256": "a0469f00fd89adecf9a98e9e415d9b3085d7cdd217f43beb3a4790e9c6858ad6",
+      "size": 5929
+    },
+    {
+      "path": "reports/RUN_REPORT_v05.json",
+      "sha256": "db614b2cfc1ff28050707396c4a16136cbedc0b1b856c16aa299d09d6faf7a7c",
+      "size": 1523
+    },
+    {
+      "path": "reports/V04_DEMO_OUTPUT.json",
+      "sha256": "5828e21ade864d34bcc9d16883679f8d18fcf98074a763f31ee79899a191bd63",
+      "size": 6747
+    },
+    {
+      "path": "reports/compileall_origins.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/compileall_origins.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/demo_trace_v03.json",
+      "sha256": "1cf3066e217b19a6e7744eb07e9ec22416da1b97720e0ded23c5fbe6cc019f1a",
+      "size": 2543
+    },
+    {
+      "path": "reports/knot_trace_v03.json",
+      "sha256": "330f741015b6fc0e166cc1727df289cad63ec45afca14949e9252c9f72185176",
+      "size": 2135
+    },
+    {
+      "path": "reports/noema_append_content_v03.json",
+      "sha256": "4a17b1ed5d40be22c20d158e955e2f41b42b2b63a10327f3289d1ff3f934d3db",
+      "size": 1129
+    },
+    {
+      "path": "reports/noema_append_v03.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/noema_append_v03.stdout.json",
+      "sha256": "7fdb149171a82967a7ed312d1a8d2610e055974dba79394bd6d6eb9c92fe6da7",
+      "size": 2328
+    },
+    {
+      "path": "reports/noema_current_v03.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/noema_current_v03.stdout.json",
+      "sha256": "4670793fb157060305f2250adf05e364f41f5d3ed6e6dd4d6470433485d1e562",
+      "size": 2328
+    },
+    {
+      "path": "reports/noema_status_v03.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/noema_status_v03.stdout.json",
+      "sha256": "3efb805e8c3647c6126da3feef5560b704db2db4834bfd911dce1c10dc06775c",
+      "size": 245
+    },
+    {
+      "path": "reports/noema_verify_v03.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/noema_verify_v03.stdout.json",
+      "sha256": "dde9980d7d02265f62276b63f0490f550e08541d782f1ca6989011fd5001640b",
+      "size": 119
+    },
+    {
+      "path": "reports/pytest_public_semantics_guard.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/pytest_public_semantics_guard.stdout.txt",
+      "sha256": "e8c2ebdecc6c68bd31c948de0b0c1dd4c57dd47d093194a6c1d241c65727824d",
+      "size": 98
+    },
+    {
+      "path": "reports/pytest_semantic_braiding.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "reports/pytest_semantic_braiding.stdout.txt",
+      "sha256": "68d662c6a85c67397691a31db63087b1d850ad4867d59336ae46efd3f7f8d0c1",
+      "size": 98
+    },
+    {
+      "path": "scripts/noema_minimal_monolith.py",
+      "sha256": "a54d2f67a64882e82b19d2a2de099bcb342a9f8538d36742544666d65ef6e616",
+      "size": 18353
+    }
+  ]
+}

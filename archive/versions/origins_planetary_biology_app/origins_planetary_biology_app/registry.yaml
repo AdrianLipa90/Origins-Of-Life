@@ -1,0 +1,25 @@
+name: origins_planetary_biology_app
+identity: planetary first-biology side-application
+orbital_level: 1
+spin: compare
+secondary_spins:
+  - run
+  - report
+  - stabilize
+children:
+  - origins/
+  - app/
+  - results/
+  - legacy/
+  - METHOD.md
+  - README.md
+canonical_files:
+  - origins/scenarios.py
+  - origins/simulator/universal.py
+  - origins/topology/fields.py
+  - origins/topology/constraints.py
+status: canonical_side_app
+coherence_impact:
+  - planetary scenario comparison
+  - abiogenesis simulation
+  - topological modulation of emergence

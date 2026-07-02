@@ -1,0 +1,26 @@
+{
+  "blockers": [
+    "Local NOEMA store only; no external NOEMA root write was performed.",
+    "The model remains a semantic-relation model, not empirical abiogenesis proof."
+  ],
+  "canon_allowed": false,
+  "created_at_utc": "2026-05-17T02:53:41+00:00",
+  "latex_updated_to_user_standard": true,
+  "pdf_generated": false,
+  "pdf_included": false,
+  "previous_state_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "repairs": [
+    "Updated title from v0.4 to v0.5b.",
+    "Updated NOEMA status to the v0.5b no-PDF snap.",
+    "Moved bibliography to the end by regenerating the paper structure.",
+    "Added detailed English Methods section.",
+    "Added relation classification and scoring equations.",
+    "Added semantic-affinity matrix for A/C/G/T.",
+    "Added complement-axis table.",
+    "Added full metric table and interpretation.",
+    "Added explicit test report and limitations.",
+    "Removed all generated PDF/auxiliary artifacts from package."
+  ],
+  "schema": "LATEX_REPAIR_REPORT_V05B_NOPDF",
+  "snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+}

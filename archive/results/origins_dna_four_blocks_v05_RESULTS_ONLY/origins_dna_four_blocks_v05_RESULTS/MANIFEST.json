@@ -1,0 +1,43 @@
+{
+  "current_state_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "files": [
+    {
+      "path": "NOEMA_UPDATE_SNAP/CURRENT.json",
+      "sha256": "1de3cf8529070eff3e1968982c7a6b8da188a8da4faba004b19804babad44148",
+      "size": 513
+    },
+    {
+      "path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T024500-v05dnafourblocks.json",
+      "sha256": "29d00027d18dd36aedbf9783d3870a0bf0bc51d94c9906717354eb19e72fb456",
+      "size": 10197
+    },
+    {
+      "path": "RESULT_SUMMARY.md",
+      "sha256": "90a0c0dc3a236ff38eca50b0439adde99bc91183b2e877416bf1fceaedf226f5",
+      "size": 1620
+    },
+    {
+      "path": "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+      "sha256": "69e82a3bbf4c8471e8383119af2262ba4c5a8d51eaa6f320469854aa708f681a",
+      "size": 8416
+    },
+    {
+      "path": "reports/RUN_REPORT_v05.json",
+      "sha256": "ab61cc9fd359cd5677974f710524e10813393b25f6148159c54c7207a253cf97",
+      "size": 1523
+    },
+    {
+      "path": "tables/metrics_v05.csv",
+      "sha256": "d1b92a7c7ce78d0a790ec7599c0ce278f3d6dcee2002f695c7e5f24816c35d73",
+      "size": 556
+    },
+    {
+      "path": "tables/relation_matrix_v05.csv",
+      "sha256": "f1c8c599d239485ac8e2b844bab261d88a49a51d2fcaf4f4efb02e842be4b6b0",
+      "size": 106
+    }
+  ],
+  "schema": "ORIGINS_DNA_FOUR_BLOCKS_V05_RESULTS_MANIFEST",
+  "source_zip": "/mnt/data/origins_dna_four_blocks_v05_READY.zip",
+  "source_zip_sha256": "43524c52cb96ffcaa325bea191fd8a7a437aed448e1d648469b04696985194f9"
+}

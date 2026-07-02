@@ -1,0 +1,96 @@
+{
+  "created_utc": "2026-05-18T01:13:02Z",
+  "source_roots_checked": [
+    "/mnt/data",
+    "/tmp",
+    "/home/oai",
+    "/home/sandbox"
+  ],
+  "included_roots": [
+    "/mnt/data/origins_scan"
+  ],
+  "physical_zip_sources": [
+    {
+      "path": "/mnt/data/origins_FULL_CRYSTALLIZED_NOEMA_LINEAGE_v03_to_v10.zip",
+      "size": 1023747,
+      "sha256": "1d1e672d522c97b002db919c06f341f7e73a005f53adfd45535c7be0e135b80e"
+    },
+    {
+      "path": "/mnt/data/origins_noema_internet_comparisons_v08_READY.zip",
+      "size": 479246,
+      "sha256": "cffc6e2571c6fce827ce05ebf1eb2d2d39cf1c8538f3deea5f1014b785852150"
+    },
+    {
+      "path": "/mnt/data/origins_non_arbitrary_pass_without_closure_v10_RESULTS_ONLY.zip",
+      "size": 59368,
+      "sha256": "503d3d1d241bc751a785673b10940a657f6892edc38d210d674c74a7117601f2"
+    }
+  ],
+  "noema_snapshots": [
+    {
+      "path": "origins_scan/v10/NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure.json",
+      "size": 420,
+      "sha256": "0bdf332d68932efe56b364e710afb75981001c324d7e0edc84531e0ed6484615"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T021109-a97dc110e6.json",
+      "size": 1886,
+      "sha256": "c4fb6f573524fba66f5850a36b36cc2405c8adbf60e8e76c1ffcb5c07e0b5077"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T022726-3fc21483ca.json",
+      "size": 2006,
+      "sha256": "b9dd31655e44d0579983377a15e2422e635f146319be1d4d6f0c08bd51fec164"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T023557-v04semanticcompression.json",
+      "size": 7329,
+      "sha256": "65b71c9e527c990f17fd7f26248ad3b4f1b8f51d25edfd335b2bc2d6799e791a"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T024500-v05dnafourblocks.json",
+      "size": 10197,
+      "sha256": "29d00027d18dd36aedbf9783d3870a0bf0bc51d94c9906717354eb19e72fb456"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T031500-v05b-latex-standard-nopdf.json",
+      "size": 1623,
+      "sha256": "49ea3aaca916755c8aef6a35abdb20cf213484e0f288220a43a1df7cdbf0d537"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy.json",
+      "size": 2469,
+      "sha256": "e6571fe9ce485bc4ebf57ce9fbfae9f8137846034f9ac22447bcd8173bf91a7d"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/noema/store/snaps/NOEMA-20260517T052000-v07-temporal-climate-options.json",
+      "size": 65206,
+      "sha256": "a3e55035e04732caba6086e33a6398ca16fefa50ee4423a85b4056bcfd6e3d64"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/NOEMA-20260517T031500-v05b-latex-standard-nopdf.json",
+      "size": 1623,
+      "sha256": "49ea3aaca916755c8aef6a35abdb20cf213484e0f288220a43a1df7cdbf0d537"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy.json",
+      "size": 2469,
+      "sha256": "e6571fe9ce485bc4ebf57ce9fbfae9f8137846034f9ac22447bcd8173bf91a7d"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/NOEMA-20260517T052000-v07-temporal-climate-options.json",
+      "size": 65206,
+      "sha256": "a3e55035e04732caba6086e33a6398ca16fefa50ee4423a85b4056bcfd6e3d64"
+    },
+    {
+      "path": "origins_scan/v08/origins_noema_internet_comparisons_v08/NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/NOEMA-20260517T061500-v08-internet-comparisons-citations.json",
+      "size": 316,
+      "sha256": "c52371fceff6c8097e687ec9d2d182c79287a060f317d748efd4b4eb35524aeb"
+    }
+  ],
+  "notes": [
+    "This package contains every Origins/NOEMA file physically visible in this assistant sandbox at creation time.",
+    "No separate NOEMA server/socket/cache was visible beyond /mnt/data/origins_scan and uploaded ZIPs.",
+    "Previous references to versions not present as full folders are preserved only if they exist inside manifests/logs."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "canon_allowed": false,
+  "current_snap_hash": "49ea3aaca916755c8aef6a35abdb20cf213484e0f288220a43a1df7cdbf0d537",
+  "current_snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+  "current_state_note": "v0.5b English LaTeX standard repair appended locally; no PDF generated",
+  "memory_layer": "episodic",
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::latex_standard_v05b_nopdf",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "uncertainty_operator": "chyba",
+  "updated_at_utc": "2026-05-17T02:53:41+00:00"
+}

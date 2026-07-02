@@ -1,0 +1,29 @@
+{
+  "schema": "NOEMA_INGEST_CANDIDATE_V0_3",
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::semantic_nucleic_braiding",
+  "iteration": "v03_noema_rewrite",
+  "source_current_state_id": "NOEMA-20260517T021109-a97dc110e6",
+  "meaning_candidate": {
+    "hypothesis": "Carbon-organic nucleic-acid folding and semantic compression can be compared through fold/weave/knot invariants: recurrence, residue, closure, crossing, transition and retention.",
+    "confidence": 0.78,
+    "source": "local NOEMA CURRENT + Origins uploaded project files + deterministic v0.3 rewrite",
+    "context_required": true,
+    "canon_allowed": false,
+    "needs_repair": false,
+    "uncertainty_operator": "chyba"
+  },
+  "artifacts": [
+    "origins/abiogenesis/geometric_semantic_braiding.py",
+    "tests/test_semantic_nucleic_braiding.py",
+    "paper/main.tex",
+    "paper/references.bib",
+    "reports/demo_trace_v03.json"
+  ],
+  "certification_boundary": {
+    "empirical_abiogenesis_proof_claimed": false,
+    "thermodynamic_rna_folding_claimed": false,
+    "semantic_model_claimed": true,
+    "carbon_organic_scope": true
+  }
+}

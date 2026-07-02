@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "bibliography_at_end_after_results": true,
+    "current_state_updated": true,
+    "has_limitations": true,
+    "has_method_section": true,
+    "has_metric_table": true,
+    "has_references": true,
+    "has_relation_matrix_table": true,
+    "has_test_report": true,
+    "states_no_pdf_generated": true,
+    "title_mentions_v05b": true
+  },
+  "created_at_utc": "2026-05-17T02:53:41+00:00",
+  "external_connectors_used": false,
+  "internet_used": false,
+  "ok": true,
+  "pdf_generated": false,
+  "schema": "LATEX_STATIC_VALIDATION_V05B_NOPDF",
+  "snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+}

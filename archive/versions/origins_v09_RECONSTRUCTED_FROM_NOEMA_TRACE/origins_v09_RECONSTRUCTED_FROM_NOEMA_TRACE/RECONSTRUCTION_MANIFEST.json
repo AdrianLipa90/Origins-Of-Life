@@ -1,0 +1,32 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v09",
+  "title": "truth calibrated false claims",
+  "created_at_utc": "2026-05-18T01:26:33.486900+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T071500-v09-truth-calibrated-false-claims"
+  ],
+  "confidence": "results_reconstructed_from_v10_results_trace_no_full_v09_update_snap_found",
+  "found_artifacts": [
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "paper/main.tex",
+    "paper/references.bib",
+    "results/RUN_REPORT_v09.json",
+    "results/TRUTH_CALIBRATED_FALSE_CLAIMS_REPORT_v09.json",
+    "results/TRUTH_CALIBRATED_FALSE_CLAIMS_SUMMARY_v09.md"
+  ],
+  "missing_artifacts_or_snap_refs": [
+    "physical_snap:NOEMA-20260517T071500-v09-truth-calibrated-false-claims"
+  ],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

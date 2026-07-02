@@ -1,0 +1,535 @@
+--- a/origins/abiogenesis/feasibility.py
++++ b/origins/abiogenesis/feasibility.py
+@@ -0,0 +1,9 @@
++"""Repo-native feasibility facade over internal orbital potentials.
++
++This file intentionally does not duplicate orbital logic. It exposes the
++abiogenesis-facing vocabulary expected by the public package surface.
++"""
++from ..orbital.potentials import PotentialTerms as FeasibilityTerms
++from ..orbital.potentials import compute_potential_terms as compute_feasibility_terms
++
++__all__ = ["FeasibilityTerms", "compute_feasibility_terms"]
+--- a/origins/abiogenesis/local_clock.py
++++ b/origins/abiogenesis/local_clock.py
+@@ -0,0 +1,4 @@
++"""Repo-native emergence clock facade over internal orbital subjective time."""
++from ..orbital.subjective_time import compute_local_subjective_time as compute_emergence_clock
++
++__all__ = ["compute_emergence_clock"]
+--- a/origins/abiogenesis/recurrence.py
++++ b/origins/abiogenesis/recurrence.py
+@@ -0,0 +1,5 @@
++"""Repo-native recurrence facade over internal orbital winding."""
++from ..orbital.winding import WindingComponents as RecurrenceComponents
++from ..orbital.winding import compute_winding_components as compute_recurrence_components
++
++__all__ = ["RecurrenceComponents", "compute_recurrence_components"]
+--- a/origins/abiogenesis/residue_memory.py
++++ b/origins/abiogenesis/residue_memory.py
+@@ -0,0 +1,6 @@
++"""Repo-native residue/memory facade over internal orbital memory."""
++from ..orbital.memory import ReductionResidue as HistoricalResidue
++from ..orbital.memory import MemoryState as HistoricalMemory
++from ..orbital.memory import apply_memory_update as apply_residue_update
++
++__all__ = ["HistoricalResidue", "HistoricalMemory", "apply_residue_update"]
+--- a/origins/abiogenesis/transition.py
++++ b/origins/abiogenesis/transition.py
+@@ -0,0 +1,5 @@
++"""Repo-native emergence transition facade over internal OORP pipeline."""
++from ..orbital.oorp import OORPTrace as EmergenceTrace
++from ..orbital.oorp import run_oorp_pipeline as run_emergence_transition
++
++__all__ = ["EmergenceTrace", "run_emergence_transition"]
+--- a/origins/abiogenesis/repository_semantics.py
++++ b/origins/abiogenesis/repository_semantics.py
+@@ -0,0 +1,5 @@
++"""Repo-native repository semantics facade over internal orbital assignment."""
++from ..orbital.repository_assignment import assign_orbital_state_to_entity as assign_emergence_state_to_entity
++from ..orbital.repository_assignment import build_repository_system_state as build_origin_repository_state
++
++__all__ = ["assign_emergence_state_to_entity", "build_origin_repository_state"]
+--- a/origins/abiogenesis/execution.py
++++ b/origins/abiogenesis/execution.py
+@@ -0,0 +1,5 @@
++"""Repo-native execution facade over internal orbital runtime bridge."""
++from ..orbital.runtime_bridge import OrbitalRunBundle as AbiogenesisRunBundle
++from ..orbital.runtime_bridge import OrbitalRuntimeBridge as AbiogenesisRuntimeAdapter
++
++__all__ = ["AbiogenesisRunBundle", "AbiogenesisRuntimeAdapter"]
+--- a/origins/abiogenesis/geometric_semantic_braiding.py
++++ b/origins/abiogenesis/geometric_semantic_braiding.py
+@@ -0,0 +1,379 @@
++"""NOEMA-driven geometric semantic/nucleic-acid braiding for Origins-Of-Life.
++
++Scope
++-----
++This module is a deterministic computational bridge, not an empirical proof of
++abiogenesis and not a thermodynamic RNA folding engine. It rewrites the public
++``origins.abiogenesis`` surface around three coupled operations:
++
++``fold``
++    Local closure of a nucleic-acid sequence into candidate intramolecular base
++    pairs and loop arcs.
++
++``weave``
++    Coupling between molecular geometry and a meaning graph through recurrence,
++    residue, transition and retention relations.
++
++``knot``
++    Stable summary of crossings, closures and residues suitable for semantic
++    compression and NOEMA append-only snaps.
++
++Organic boundary
++----------------
++The prototype is explicitly carbon-organic. An ammonia-solvent organism can still
++be carbon-organic if the persistent information-bearing molecular framework is
++carbon-based; in that case ammonia is the medium/solvent, not the backbone.
++"""
++from __future__ import annotations
++
++from dataclasses import asdict, dataclass, field
++from math import isfinite
++from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple
++
++RNA_BASES = frozenset("ACGU")
++DNA_TO_RNA = str.maketrans({"T": "U", "t": "u"})
++COMPLEMENT = {"A": "U", "U": "A", "G": "C", "C": "G"}
++PURINES = frozenset("AG")
++PYRIMIDINES = frozenset("CU")
++SCHEMA = "ORIGINS_NOEMA_SEMANTIC_NUCLEIC_BRAIDING_V0_3"
++
++
++def _clamp01(x: float) -> float:
++    if not isfinite(x):
++        return 0.0
++    return max(0.0, min(1.0, float(x)))
++
++
++@dataclass(frozen=True)
++class CarbonOrganicFrame:
++    """Chemical frame for carbon-organic information-bearing structures."""
++
++    backbone_element: str = "C"
++    solvent: str = "water"
++    medium_phase: str = "aqueous"
++    polymer_family: str = "nucleic_acid"
++    organic_status: str = "carbon_based_organic"
++
++    def validate(self) -> None:
++        if self.backbone_element.upper() != "C":
++            raise ValueError("v0.3 models carbon-organic information backbones only")
++        if not self.solvent:
++            raise ValueError("solvent must be a non-empty descriptor")
++        if not self.polymer_family:
++            raise ValueError("polymer_family must be non-empty")
++
++
++@dataclass(frozen=True)
++class MeaningNode:
++    symbol: str
++    semantic_mass: float = 1.0
++    phase: float = 0.0
++
++    def validate(self) -> None:
++        if not self.symbol:
++            raise ValueError("MeaningNode.symbol must be non-empty")
++        if self.semantic_mass < 0:
++            raise ValueError("semantic_mass must be non-negative")
++
++
++@dataclass(frozen=True)
++class MeaningEdge:
++    source: str
++    target: str
++    weight: float = 1.0
++    kind: str = "recurrence"
++
++    def validate(self, symbols: set[str]) -> None:
++        if self.source not in symbols or self.target not in symbols:
++            raise ValueError(f"MeaningEdge references unknown node: {self.source}->{self.target}")
++        if self.kind not in {"recurrence", "residue", "transition", "closure", "retention", "binding"}:
++            raise ValueError(f"Unsupported semantic edge kind: {self.kind}")
++
++
++@dataclass(frozen=True)
++class NucleicStrand:
++    sequence: str
++    frame: CarbonOrganicFrame = field(default_factory=CarbonOrganicFrame)
++
++    def __post_init__(self) -> None:
++        seq = self.sequence.translate(DNA_TO_RNA).upper().replace(" ", "").replace("\n", "")
++        bad = sorted(set(seq) - RNA_BASES)
++        if bad:
++            raise ValueError(f"Unsupported bases for RNA-style prototype: {bad}")
++        object.__setattr__(self, "sequence", seq)
++        self.frame.validate()
++
++    @property
++    def length(self) -> int:
++        return len(self.sequence)
++
++    @property
++    def gc_fraction(self) -> float:
++        return 0.0 if not self.sequence else sum(b in "GC" for b in self.sequence) / len(self.sequence)
++
++    @property
++    def purine_pyrimidine_balance(self) -> float:
++        if not self.sequence:
++            return 0.0
++        pur = sum(b in PURINES for b in self.sequence)
++        pyr = sum(b in PYRIMIDINES for b in self.sequence)
++        return 1.0 - abs(pur - pyr) / len(self.sequence)
++
++    def candidate_pairs(self, min_loop: int = 3) -> List[Tuple[int, int]]:
++        if min_loop < 0:
++            raise ValueError("min_loop must be non-negative")
++        pairs: List[Tuple[int, int]] = []
++        for i, base in enumerate(self.sequence):
++            for j in range(i + min_loop + 1, self.length):
++                if COMPLEMENT[base] == self.sequence[j]:
++                    pairs.append((i, j))
++        return pairs
++
++
++@dataclass(frozen=True)
++class FoldState:
++    base_pairs: List[Tuple[int, int]]
++    loop_count: int
++    crossing_count: int
++    closure_density: float
++
++    def to_dict(self) -> Dict[str, Any]:
++        return {
++            "base_pairs": [list(p) for p in self.base_pairs],
++            "loop_count": self.loop_count,
++            "crossing_count": self.crossing_count,
++            "closure_density": self.closure_density,
++        }
++
++
++@dataclass(frozen=True)
++class BraidingMetrics:
++    semantic_mass: float
++    semantic_edge_weight: float
++    nucleic_length: int
++    gc_fraction: float
++    purine_pyrimidine_balance: float
++    base_pair_candidates: int
++    crossing_number_proxy: int
++    loop_closure_proxy: int
++    closure_density: float
++    residue_memory_score: float
++    recurrence_retention_proxy: float
++    identity_retention_proxy: float
++    knot_stability_proxy: float
++    organic_status: str
++    solvent: str
++    medium_phase: str
++
++    def to_dict(self) -> Dict[str, Any]:
++        return asdict(self)
++
++
++@dataclass(frozen=True)
++class BraidingTrace:
++    schema: str
++    strand: NucleicStrand
++    meaning_nodes: List[MeaningNode]
++    meaning_edges: List[MeaningEdge]
++    fold: FoldState
++    metrics: BraidingMetrics
++    interpretation: str
++
++    def to_dict(self) -> Dict[str, Any]:
++        return {
++            "schema": self.schema,
++            "sequence": self.strand.sequence,
++            "organic_frame": asdict(self.strand.frame),
++            "meaning_nodes": [asdict(n) for n in self.meaning_nodes],
++            "meaning_edges": [asdict(e) for e in self.meaning_edges],
++            "fold": self.fold.to_dict(),
++            "metrics": self.metrics.to_dict(),
++            "interpretation": self.interpretation,
++        }
++
++    def to_noema_candidate(self) -> Dict[str, Any]:
++        return {
++            "schema": "NOEMA_INGEST_CANDIDATE_V0_1",
++            "namespace": "Origins-Of-Life",
++            "project_id": "Origins-Of-Life::semantic_nucleic_braiding",
++            "layer": "episodic",
++            "snap_type": "iteration_state",
++            "tags": ["origins", "semantic_compression", "nucleic_acid", "braiding", "carbon_organic"],
++            "meaning_candidate": {
++                "hypothesis": (
++                    "Carbon-organic nucleic-acid folding and semantic compression can be compared through "
++                    "fold/weave/knot invariants: recurrence, residue, closure, crossing, transition and retention."
++                ),
++                "confidence": 0.78,
++                "source": "local NOEMA CURRENT + Origins uploaded project files + deterministic v0.3 rewrite",
++                "context_required": True,
++                "canon_allowed": False,
++                "needs_repair": False,
++                "uncertainty_operator": "chyba",
++            },
++            "trace": self.to_dict(),
++            "certification_boundary": {
++                "empirical_abiogenesis_proof_claimed": False,
++                "thermodynamic_rna_folding_claimed": False,
++                "semantic_model_claimed": True,
++                "carbon_organic_scope": True,
++            },
++        }
++
++
++def _crosses(a: Tuple[int, int], b: Tuple[int, int]) -> bool:
++    i, j = a
++    k, l = b
++    return (i < k < j < l) or (k < i < l < j)
++
++
++def _crossing_number(pairs: Sequence[Tuple[int, int]]) -> int:
++    return sum(1 for i, a in enumerate(pairs) for b in pairs[i + 1:] if _crosses(a, b))
++
++
++def fold_nucleic_geometry(strand: NucleicStrand, *, min_loop: int = 3) -> FoldState:
++    pairs = strand.candidate_pairs(min_loop=min_loop)
++    crossings = _crossing_number(pairs)
++    closure_density = 0.0 if strand.length == 0 else len(pairs) / max(1, strand.length)
++    return FoldState(
++        base_pairs=pairs,
++        loop_count=len(pairs),
++        crossing_count=crossings,
++        closure_density=_clamp01(closure_density),
++    )
++
++
++def _edge_weight(edges: Iterable[MeaningEdge]) -> float:
++    return sum(max(0.0, e.weight) for e in edges)
++
++
++def weave_meaning_with_fold(
++    strand: NucleicStrand,
++    nodes: Sequence[MeaningNode],
++    edges: Sequence[MeaningEdge],
++    *,
++    min_loop: int = 3,
++) -> BraidingTrace:
++    if not nodes:
++        raise ValueError("At least one MeaningNode is required")
++    symbols = {n.symbol for n in nodes}
++    for node in nodes:
++        node.validate()
++    for edge in edges:
++        edge.validate(symbols)
++
++    fold = fold_nucleic_geometry(strand, min_loop=min_loop)
++    semantic_mass = sum(n.semantic_mass for n in nodes)
++    edge_weight = _edge_weight(edges)
++    relation_count = len(edges)
++
++    denom = max(1.0, strand.length + semantic_mass + edge_weight)
++    residue_score = _clamp01((fold.loop_count + fold.crossing_count + edge_weight) / denom)
++    recurrence_retention = _clamp01((relation_count + fold.loop_count) / max(1, strand.length + len(nodes)))
++    identity_retention = _clamp01(
++        0.28 * strand.gc_fraction
++        + 0.20 * strand.purine_pyrimidine_balance
++        + 0.20 * recurrence_retention
++        + 0.18 * residue_score
++        + 0.14 * fold.closure_density
++    )
++    knot_stability = _clamp01(
++        0.40 * identity_retention
++        + 0.25 * residue_score
++        + 0.20 * recurrence_retention
++        + 0.15 * (1.0 / (1.0 + abs(fold.crossing_count - fold.loop_count)))
++    )
++
++    metrics = BraidingMetrics(
++        semantic_mass=semantic_mass,
++        semantic_edge_weight=edge_weight,
++        nucleic_length=strand.length,
++        gc_fraction=strand.gc_fraction,
++        purine_pyrimidine_balance=strand.purine_pyrimidine_balance,
++        base_pair_candidates=fold.loop_count,
++        crossing_number_proxy=fold.crossing_count,
++        loop_closure_proxy=fold.loop_count,
++        closure_density=fold.closure_density,
++        residue_memory_score=residue_score,
++        recurrence_retention_proxy=recurrence_retention,
++        identity_retention_proxy=identity_retention,
++        knot_stability_proxy=knot_stability,
++        organic_status=strand.frame.organic_status,
++        solvent=strand.frame.solvent,
++        medium_phase=strand.frame.medium_phase,
++    )
++    return BraidingTrace(
++        schema=SCHEMA,
++        strand=strand,
++        meaning_nodes=list(nodes),
++        meaning_edges=list(edges),
++        fold=fold,
++        metrics=metrics,
++        interpretation=(
++            "fold = nucleic closure graph; weave = coupling to semantic recurrence/residue; "
++            "knot = compressed invariant trace for NOEMA. This is a proxy model, not empirical proof."
++        ),
++    )
++
++
++def knot_trace_for_noema(trace: BraidingTrace) -> Dict[str, Any]:
++    """Return the stable compressed representation intended for NOEMA snaps."""
++    t = trace.to_dict()
++    return {
++        "schema": "ORIGINS_BRAIDING_KNOT_TRACE_V0_3",
++        "sequence_length": trace.strand.length,
++        "organic_frame": t["organic_frame"],
++        "fold": t["fold"],
++        "metrics": t["metrics"],
++        "semantic_symbols": [n.symbol for n in trace.meaning_nodes],
++        "semantic_edges": [asdict(e) for e in trace.meaning_edges],
++        "compression_target": "invariant_relation_trace_not_byte_exact_sequence_archive",
++    }
++
++
++def demo_trace() -> BraidingTrace:
++    return weave_meaning_with_fold(
++        NucleicStrand(
++            "AUGCGUAUCGCA",
++            frame=CarbonOrganicFrame(solvent="ammonia_water_mixture", medium_phase="ammonia_aqueous_eutectic"),
++        ),
++        [
++            MeaningNode("recurrence", 1.4, 0.0),
++            MeaningNode("residue", 1.2, 0.3),
++            MeaningNode("transition", 1.0, 0.6),
++            MeaningNode("memory", 1.6, 0.9),
++        ],
++        [
++            MeaningEdge("recurrence", "residue", 1.0, "recurrence"),
++            MeaningEdge("residue", "memory", 1.3, "residue"),
++            MeaningEdge("transition", "memory", 0.9, "transition"),
++            MeaningEdge("memory", "recurrence", 0.7, "retention"),
++        ],
++    )
++
++
++# Backwards-compatible aliases from v0.1/v0.2 patch surface.
++OrganicFrame = CarbonOrganicFrame
++MeaningUnit = MeaningNode
++MeaningRelation = MeaningEdge
++NucleicAcidState = NucleicStrand
++braid_semantics_with_nucleic_acid = weave_meaning_with_fold
++
++__all__ = [
++    "CarbonOrganicFrame",
++    "OrganicFrame",
++    "MeaningNode",
++    "MeaningUnit",
++    "MeaningEdge",
++    "MeaningRelation",
++    "NucleicStrand",
++    "NucleicAcidState",
++    "FoldState",
++    "BraidingMetrics",
++    "BraidingTrace",
++    "fold_nucleic_geometry",
++    "weave_meaning_with_fold",
++    "braid_semantics_with_nucleic_acid",
++    "knot_trace_for_noema",
++    "demo_trace",
++]
+--- a/origins/abiogenesis/__init__.py
++++ b/origins/abiogenesis/__init__.py
+@@ -27,4 +27,27 @@
+     "build_origin_repository_state",
+     "AbiogenesisRunBundle",
+     "AbiogenesisRuntimeAdapter",
++    "CarbonOrganicFrame",
++    "OrganicFrame",
++    "MeaningNode",
++    "MeaningUnit",
++    "MeaningEdge",
++    "MeaningRelation",
++    "NucleicStrand",
++    "NucleicAcidState",
++    "FoldState",
++    "BraidingMetrics",
++    "BraidingTrace",
++    "fold_nucleic_geometry",
++    "weave_meaning_with_fold",
++    "braid_semantics_with_nucleic_acid",
++    "knot_trace_for_noema",
++    "semantic_nucleic_demo_trace",
+ ]
++from .geometric_semantic_braiding import (
++    CarbonOrganicFrame, OrganicFrame, MeaningNode, MeaningUnit, MeaningEdge, MeaningRelation,
++    NucleicStrand, NucleicAcidState, FoldState, BraidingMetrics, BraidingTrace,
++    fold_nucleic_geometry, weave_meaning_with_fold, braid_semantics_with_nucleic_acid,
++    knot_trace_for_noema, demo_trace as semantic_nucleic_demo_trace,
++)
++
+--- a/origins/abiogenesis/api.py
++++ b/origins/abiogenesis/api.py
+@@ -44,4 +44,19 @@
+     "run_feasibility_scan",
+     "run_origin_comparison",
+     "export_historical_state",
++    "weave_meaning_with_fold",
++    "knot_trace_for_noema",
++    "run_semantic_nucleic_braiding_demo",
+ ]
++from .geometric_semantic_braiding import (
++    demo_trace as _semantic_nucleic_demo_trace,
++    knot_trace_for_noema,
++    weave_meaning_with_fold,
++)
++
++
++def run_semantic_nucleic_braiding_demo(as_noema: bool = False):
++    """Run deterministic fold/weave/knot demo for semantic compression tests."""
++    trace = _semantic_nucleic_demo_trace()
++    return trace.to_noema_candidate() if as_noema else trace
++
+--- a/tests/test_semantic_nucleic_braiding.py
++++ b/tests/test_semantic_nucleic_braiding.py
+@@ -0,0 +1,38 @@
++from origins.abiogenesis.geometric_semantic_braiding import (
++    CarbonOrganicFrame, MeaningEdge, MeaningNode, NucleicStrand,
++    demo_trace, fold_nucleic_geometry, knot_trace_for_noema, weave_meaning_with_fold,
++)
++from origins.abiogenesis.api import run_semantic_nucleic_braiding_demo
++
++
++def test_ammonia_solvent_can_still_be_carbon_organic():
++    strand = NucleicStrand("AUGC", frame=CarbonOrganicFrame(solvent="ammonia", medium_phase="liquid_ammonia"))
++    assert strand.frame.backbone_element == "C"
++    assert strand.frame.organic_status == "carbon_based_organic"
++    assert strand.frame.solvent == "ammonia"
++
++
++def test_fold_weave_knot_trace_is_bounded_and_noema_ready():
++    trace = demo_trace()
++    data = knot_trace_for_noema(trace)
++    assert data["schema"] == "ORIGINS_BRAIDING_KNOT_TRACE_V0_3"
++    assert 0.0 <= data["metrics"]["identity_retention_proxy"] <= 1.0
++    assert 0.0 <= data["metrics"]["knot_stability_proxy"] <= 1.0
++    assert data["compression_target"] == "invariant_relation_trace_not_byte_exact_sequence_archive"
++
++
++def test_api_demo_can_emit_noema_candidate():
++    candidate = run_semantic_nucleic_braiding_demo(as_noema=True)
++    assert candidate["schema"] == "NOEMA_INGEST_CANDIDATE_V0_1"
++    assert candidate["certification_boundary"]["empirical_abiogenesis_proof_claimed"] is False
++    assert candidate["trace"]["schema"] == "ORIGINS_NOEMA_SEMANTIC_NUCLEIC_BRAIDING_V0_3"
++
++
++def test_custom_weave_accepts_meaning_graph():
++    trace = weave_meaning_with_fold(
++        NucleicStrand("AUGGCCAU"),
++        [MeaningNode("fold", 1.0), MeaningNode("memory", 1.2)],
++        [MeaningEdge("fold", "memory", 0.8, "binding")],
++    )
++    assert trace.fold.loop_count >= 0
++    assert trace.metrics.semantic_edge_weight == 0.8

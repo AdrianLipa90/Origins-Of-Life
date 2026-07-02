@@ -1,0 +1,333 @@
+{
+  "artifacts": [
+    "repo/origins/abiogenesis/dna_four_blocks.py",
+    "repo/tests/test_dna_four_blocks_v05.py",
+    "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "paper/main.tex"
+  ],
+  "created_at_utc": "2026-05-17T02:42:02+00:00",
+  "layer": "episodic",
+  "meaning_candidate": {
+    "canon_allowed": false,
+    "confidence": 0.82,
+    "context_required": true,
+    "hypothesis": "The four DNA blocks form two complementary axes, A-T and C-G, constrained by purine/pyrimidine opposition and a stability gradient; this is a compact invariant grammar, not four independent symbols.",
+    "needs_repair": false,
+    "source": "local NOEMA CURRENT + Origins v0.5 dna_four_blocks.py deterministic model",
+    "uncertainty_operator": "chyba"
+  },
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::dna_four_blocks_relation",
+  "report": {
+    "bases": [
+      {
+        "chemical_class": "purine",
+        "complement": "T",
+        "ring_count": 2,
+        "semantic_role": "information_splitter",
+        "symbol": "A"
+      },
+      {
+        "chemical_class": "pyrimidine",
+        "complement": "G",
+        "ring_count": 1,
+        "semantic_role": "stability_clamp",
+        "symbol": "C"
+      },
+      {
+        "chemical_class": "purine",
+        "complement": "C",
+        "ring_count": 2,
+        "semantic_role": "stability_clamp",
+        "symbol": "G"
+      },
+      {
+        "chemical_class": "pyrimidine",
+        "complement": "A",
+        "ring_count": 1,
+        "semantic_role": "information_splitter",
+        "symbol": "T"
+      }
+    ],
+    "certification_boundary": {
+      "carbon_organic_scope": true,
+      "empirical_abiogenesis_proof_claimed": false,
+      "quantum_chemistry_claimed": false,
+      "semantic_relation_model_claimed": true,
+      "thermodynamic_dna_folding_claimed": false
+    },
+    "complement_axes": {
+      "AT": {
+        "bases": [
+          "A",
+          "T"
+        ],
+        "hydrogen_bonds_proxy": 2,
+        "mean_semantic_affinity": 0.933333,
+        "mean_stability_proxy": 0.9,
+        "stability_role": "lower_stability_labile_information_axis"
+      },
+      "CG": {
+        "bases": [
+          "C",
+          "G"
+        ],
+        "hydrogen_bonds_proxy": 3,
+        "mean_semantic_affinity": 1.0,
+        "mean_stability_proxy": 1.0,
+        "stability_role": "higher_stability_clamp_axis"
+      }
+    },
+    "interpretation": "The four DNA bases are not modeled as four independent blocks. They form two complementary axes, A-T and C-G. The A-T axis is the more labile two-bond information splitter; the C-G axis is the stiffer three-bond clamp. Purine/pyrimidine opposition closes the alphabet, and semantic compression preserves the relation grammar as two axes plus class symmetry.",
+    "metrics": {
+      "alphabet_closure_proxy": 1.0,
+      "axis_balance_proxy": 0.933333,
+      "class_symmetry_proxy": 1.0,
+      "complement_ordered_relation_count": 4.0,
+      "complement_selectivity_proxy": 0.791667,
+      "grammar_compression_proxy": 0.875,
+      "identity_retention_proxy": 0.911833,
+      "mean_complement_affinity": 0.966667,
+      "mean_cross_class_affinity": 0.633333,
+      "mean_mismatch_affinity": 0.175,
+      "mean_same_class_affinity": 0.05,
+      "mean_semantic_affinity_all": 0.329167,
+      "mean_semantic_affinity_offdiag": 0.438889,
+      "ordered_relation_count": 16.0,
+      "transition_readiness_proxy": 0.909333,
+      "unordered_complement_axis_count": 2.0
+    },
+    "relation_matrix": {
+      "A": {
+        "A": 0.0,
+        "C": 0.3,
+        "G": 0.05,
+        "T": 0.933333
+      },
+      "C": {
+        "A": 0.3,
+        "C": 0.0,
+        "G": 1.0,
+        "T": 0.05
+      },
+      "G": {
+        "A": 0.05,
+        "C": 1.0,
+        "G": 0.0,
+        "T": 0.3
+      },
+      "T": {
+        "A": 0.933333,
+        "C": 0.05,
+        "G": 0.3,
+        "T": 0.0
+      }
+    },
+    "relations": [
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "identity_self",
+        "semantic_affinity": 0.0,
+        "source": "A",
+        "stability_proxy": 0.0,
+        "target": "A",
+        "transition_role": "self_identity_diagonal"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "cross_class_noncomplement",
+        "semantic_affinity": 0.3,
+        "source": "A",
+        "stability_proxy": 0.0,
+        "target": "C",
+        "transition_role": "cross_class_mismatch_transition"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "same_class_purine",
+        "semantic_affinity": 0.05,
+        "source": "A",
+        "stability_proxy": 0.0,
+        "target": "G",
+        "transition_role": "same_class_lateral_transition"
+      },
+      {
+        "complementarity": 1.0,
+        "hbond_count": 2,
+        "hbond_norm": 0.6666666666666666,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "watson_crick_complement",
+        "semantic_affinity": 0.9333333333333333,
+        "source": "A",
+        "stability_proxy": 0.8999999999999999,
+        "target": "T",
+        "transition_role": "AT_labile_axis"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "cross_class_noncomplement",
+        "semantic_affinity": 0.3,
+        "source": "C",
+        "stability_proxy": 0.0,
+        "target": "A",
+        "transition_role": "cross_class_mismatch_transition"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "identity_self",
+        "semantic_affinity": 0.0,
+        "source": "C",
+        "stability_proxy": 0.0,
+        "target": "C",
+        "transition_role": "self_identity_diagonal"
+      },
+      {
+        "complementarity": 1.0,
+        "hbond_count": 3,
+        "hbond_norm": 1.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "watson_crick_complement",
+        "semantic_affinity": 1.0,
+        "source": "C",
+        "stability_proxy": 1.0,
+        "target": "G",
+        "transition_role": "CG_stiff_axis"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "same_class_pyrimidine",
+        "semantic_affinity": 0.05,
+        "source": "C",
+        "stability_proxy": 0.0,
+        "target": "T",
+        "transition_role": "same_class_lateral_transition"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "same_class_purine",
+        "semantic_affinity": 0.05,
+        "source": "G",
+        "stability_proxy": 0.0,
+        "target": "A",
+        "transition_role": "same_class_lateral_transition"
+      },
+      {
+        "complementarity": 1.0,
+        "hbond_count": 3,
+        "hbond_norm": 1.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "watson_crick_complement",
+        "semantic_affinity": 1.0,
+        "source": "G",
+        "stability_proxy": 1.0,
+        "target": "C",
+        "transition_role": "CG_stiff_axis"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "identity_self",
+        "semantic_affinity": 0.0,
+        "source": "G",
+        "stability_proxy": 0.0,
+        "target": "G",
+        "transition_role": "self_identity_diagonal"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "cross_class_noncomplement",
+        "semantic_affinity": 0.3,
+        "source": "G",
+        "stability_proxy": 0.0,
+        "target": "T",
+        "transition_role": "cross_class_mismatch_transition"
+      },
+      {
+        "complementarity": 1.0,
+        "hbond_count": 2,
+        "hbond_norm": 0.6666666666666666,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "watson_crick_complement",
+        "semantic_affinity": 0.9333333333333333,
+        "source": "T",
+        "stability_proxy": 0.8999999999999999,
+        "target": "A",
+        "transition_role": "AT_labile_axis"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "same_class_pyrimidine",
+        "semantic_affinity": 0.05,
+        "source": "T",
+        "stability_proxy": 0.0,
+        "target": "C",
+        "transition_role": "same_class_lateral_transition"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 1.0,
+        "relation_kind": "cross_class_noncomplement",
+        "semantic_affinity": 0.3,
+        "source": "T",
+        "stability_proxy": 0.0,
+        "target": "G",
+        "transition_role": "cross_class_mismatch_transition"
+      },
+      {
+        "complementarity": 0.0,
+        "hbond_count": 0,
+        "hbond_norm": 0.0,
+        "purine_pyrimidine_opposition": 0.0,
+        "relation_kind": "identity_self",
+        "semantic_affinity": 0.0,
+        "source": "T",
+        "stability_proxy": 0.0,
+        "target": "T",
+        "transition_role": "self_identity_diagonal"
+      }
+    ],
+    "schema": "ORIGINS_NOEMA_DNA_FOUR_BLOCK_RELATION_V0_5"
+  },
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "snap_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "snap_sha256": "7f873eeeb8fc792e01a9884ffb0ac75645324717afb1528f07d712e06c56361b",
+  "snap_type": "iteration_state",
+  "tags": [
+    "origins",
+    "dna",
+    "four_blocks",
+    "semantic_compression",
+    "v05"
+  ]
+}

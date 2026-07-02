@@ -1,0 +1,36 @@
+{
+  "artifact": "origins_noema_temporal_climate_options_v07",
+  "boundary": {
+    "dna_first_historical_claimed": false,
+    "empirical_abiogenesis_proof_claimed": false,
+    "empirical_geological_timeline_claimed": false,
+    "quantum_chemistry_claimed": false,
+    "rate_of_change_proxy_claimed": true,
+    "scenario_options_claimed": true,
+    "semantic_relation_model_claimed": true,
+    "thermodynamic_membrane_simulation_claimed": false,
+    "time_varying_climate_holonomy_claimed": true
+  },
+  "created_at_utc": "2026-05-17T03:04:17+00:00",
+  "key_files": [
+    "repo/origins/abiogenesis/temporal_climate_options.py",
+    "repo/tests/test_temporal_climate_options_v07.py",
+    "paper/main.tex",
+    "results/TEMPORAL_CLIMATE_OPTIONS_REPORT_v07.json",
+    "results/TEMPORAL_OPTIONS_SUMMARY_v07.md",
+    "results/TEMPORAL_BASELINE_INTERVALS_v07.md",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/"
+  ],
+  "no_external_connectors_used": true,
+  "no_grep_used": true,
+  "no_internet_used": true,
+  "no_pdf_generated": true,
+  "schema": "ORIGINS_NOEMA_TEMPORAL_CLIMATE_OPTIONS_V0_7_ARTIFACT",
+  "snap_id": "NOEMA-20260517T052000-v07-temporal-climate-options",
+  "validation": {
+    "compileall_returncode": 0,
+    "noema_verify_ok": true,
+    "pdf_entries": [],
+    "pytest_selected_returncode": 0
+  }
+}

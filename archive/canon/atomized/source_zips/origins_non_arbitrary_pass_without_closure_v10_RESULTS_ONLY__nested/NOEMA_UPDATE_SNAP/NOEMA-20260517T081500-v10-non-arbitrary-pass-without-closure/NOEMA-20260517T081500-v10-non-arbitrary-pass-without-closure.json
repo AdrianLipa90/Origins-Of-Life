@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    "results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_REPORT_v10.json",
+    "paper/main.tex"
+  ],
+  "canon_allowed": false,
+  "claim": "proxy pass allowed, fact closure forbidden",
+  "previous_snap_id": "NOEMA-20260517T071500-v09-truth-calibrated-false-claims",
+  "schema": "ORIGINS_NOEMA_V10_NON_ARBITRARY_PASS_WITHOUT_CLOSURE",
+  "snap_id": "NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure"
+}

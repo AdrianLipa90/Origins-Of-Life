@@ -1,0 +1,53 @@
+{
+  "artifacts": {
+    "latex": "paper/main.tex",
+    "module": "repo/origins/abiogenesis/dna_to_protocell.py",
+    "report": "results/DNA_TO_PROTOCELL_REPORT_v06.json",
+    "stage_table": "results/DNA_TO_PROTOCELL_STAGE_TABLE_v06.md",
+    "tests": "repo/tests/test_dna_to_protocell_v06.py"
+  },
+  "canon_allowed": false,
+  "certification_boundary": {
+    "dna_first_historical_claimed": false,
+    "empirical_abiogenesis_proof_claimed": false,
+    "geological_timeline_claimed": false,
+    "protocell_readiness_proxy_claimed": true,
+    "quantum_chemistry_claimed": false,
+    "semantic_relation_model_claimed": true,
+    "thermodynamic_membrane_simulation_claimed": false,
+    "time_varying_climate_holonomy_claimed": true
+  },
+  "created_at_utc": "2026-05-17T02:58:15.216384+00:00",
+  "first_transition_index": 4,
+  "first_transition_stage": "protocell_candidate",
+  "meaning_candidate": {
+    "canon_allowed": false,
+    "confidence": 0.693658,
+    "context_required": true,
+    "hypothesis": "The v0.6 model says that the four-block DNA relation invariant alone is not a protocell. It becomes a protocell candidate only when the invariant information scaffold is repeatedly coupled to a time-varying climate-holonomic environment that provides cycling, mineral/ionic persistence, amphiphile-supported compartment co-localisation and recurrence. The first crossing is a proxy for co-localised proto-memory in a compartment, not empirical proof of abiogenesis.",
+    "needs_repair": false,
+    "source": "local NOEMA v05b + deterministic v06 model",
+    "uncertainty_operator": "chyba"
+  },
+  "memory_layer": "episodic",
+  "metrics": {
+    "final_climate_holonomy_proxy": 0.685714,
+    "final_compartment_co_localisation_proxy": 0.8425,
+    "information_core_proxy": 0.914639,
+    "initial_readiness_proxy": 0.29739,
+    "peak_protocell_readiness_proxy": 0.693658,
+    "readiness_gain_proxy": 0.396268,
+    "stage_count": 5.0,
+    "threshold_proxy": 0.692709,
+    "transition_detected": 1.0,
+    "transition_index": 4.0
+  },
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::dna_to_protocell_v06",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "snap_hash": "96dae92316d3e85cd43d7653daf90bf1ef1297c9e923fff5d5a00d4adef38784",
+  "snap_id": "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy",
+  "snap_type": "iteration_state",
+  "source_current_snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+  "uncertainty_operator": "chyba"
+}

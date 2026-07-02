@@ -1,0 +1,12 @@
+{
+  "canon_allowed": false,
+  "current_snap_hash": "a3e55035e04732caba6086e33a6398ca16fefa50ee4423a85b4056bcfd6e3d64",
+  "current_snap_id": "NOEMA-20260517T052000-v07-temporal-climate-options",
+  "current_state_note": "v0.7 temporal climate-holonomy rate/options layer appended locally; no PDF generated",
+  "memory_layer": "episodic",
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::temporal_climate_options_v07",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "uncertainty_operator": "chyba",
+  "updated_at_utc": "2026-05-17T03:04:17+00:00"
+}

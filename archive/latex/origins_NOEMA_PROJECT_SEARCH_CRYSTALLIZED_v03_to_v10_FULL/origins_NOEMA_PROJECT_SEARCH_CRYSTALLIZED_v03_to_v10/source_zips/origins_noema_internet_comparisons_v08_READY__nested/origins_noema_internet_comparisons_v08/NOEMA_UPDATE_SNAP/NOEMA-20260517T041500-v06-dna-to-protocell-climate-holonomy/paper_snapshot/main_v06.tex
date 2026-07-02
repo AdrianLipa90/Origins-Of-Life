@@ -1,0 +1,284 @@
+
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\title{Origins/NOEMA Semantic--Nucleic Braiding Protocol v0.6\\
+\large Four-Block DNA Relation Grammar, Semantic Invariant Compression, and NOEMA Audit Snap}
+\author{CIEL/NOEMA working artifact for Adrian Lipa}
+\date{2026-05-17}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document specifies the v0.5b Origins/NOEMA working model for the four canonical DNA blocks: adenine (A), cytosine (C), guanine (G), and thymine (T). The model is not a quantum-chemical simulation, not a thermodynamic folding engine, and not an empirical proof of abiogenesis. It is a deterministic relational model that treats the DNA alphabet as a minimal grammar of complementary axes, class symmetry, and stability gradients. The central result is that the four bases compress from four surface symbols into two Watson--Crick complementarity axes, A--T and C--G, plus a purine--pyrimidine closure symmetry. The NOEMA-facing interpretation is that a chemical alphabet becomes origin-relevant when its relation graph preserves an invariant transition trace after semantic compression.
+\end{abstract}
+
+\section*{NOEMA status}
+\begin{verbatim}
+sot_available: local_minimal_noema_from_uploaded_artifacts
+current_state_loaded: true
+current_state_id: NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy
+previous_state_id: NOEMA-20260517T024500-v05dnafourblocks
+memory_layer: episodic
+uncertainty_operator: chyba
+canon_allowed: false
+pdf_generated: false
+\end{verbatim}
+
+\section{Scope and epistemic boundary}
+The v0.5b artifact answers a narrow question: what does the current Origins/NOEMA model say about the relation between the four DNA blocks? It does not attempt to prove that DNA preceded RNA, that abiogenesis occurred through a specific nucleotide route, or that the numerical proxies are physical observables. The document uses established biochemical anchors---base complementarity, nucleic-acid structure, RNA-world motivation, protocell constraints, and prebiotic nucleotide chemistry---as background references \cite{WatsonCrick1953,RobertsonJoyce2012,PownerGerlandSutherland2009,JoyceSzostak2018,AdamalaSzostak2013}. The formal layer remains a semantic-relation and NOEMA-memory model.
+
+The organic boundary used here is carbon-organic at the information-backbone level. A hypothetical ammonia-solvent organism may still be organic if its persistent information-bearing backbone is carbon-based; ammonia would then be a medium, not the defining backbone. This follows the project distinction between \texttt{backbone\_element} and \texttt{solvent}; it also avoids conflating ordinary organic nomenclature with solvent-specific biology \cite{IUPACFunctionalGroup,IUPACBlueBookOrganic}.
+
+\section{Model objective}
+The model converts the DNA alphabet into a directed relation graph. It asks whether the alphabet is merely a set of four labels or whether it contains a compressed invariant grammar. In v0.5b, the answer is the latter: the DNA alphabet is represented by two complementary axes and one class symmetry:
+\[
+  \mathcal{A}_{DNA}=\{A,C,G,T\}\quad\longrightarrow\quad
+  \{A\leftrightarrow T,\ C\leftrightarrow G,\ \mathrm{purine}\leftrightarrow\mathrm{pyrimidine}\}.
+\]
+The A--T axis is modeled as the more labile information-splitting axis. The C--G axis is modeled as the more stable clamping axis. The purine--pyrimidine opposition closes the alphabet because every canonical complement joins one purine to one pyrimidine.
+
+\section{Data structures}
+Each base is represented as a typed node
+\[
+  b_i=(s_i,c_i,r_i,\kappa_i),
+\]
+where $s_i$ is the symbol, $c_i$ is the chemical class, $r_i$ is ring count, and $\kappa_i$ is the semantic role assigned by the model. The four nodes are listed in Table~\ref{tab:bases}.
+
+\begin{table}[h]
+\centering
+\caption{Four canonical DNA blocks as typed relation nodes.}
+\label{tab:bases}
+\begin{tabular}{lllll}
+\toprule
+Base & Symbol & Class & Ring count & Model role \\
+\midrule
+Adenine & A & purine & 2 & information splitter \\
+Cytosine & C & pyrimidine & 1 & stability clamp \\
+Guanine & G & purine & 2 & stability clamp \\
+Thymine & T & pyrimidine & 1 & information splitter \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The relation graph is the ordered product
+\[
+  R=\mathcal{A}_{DNA}\times\mathcal{A}_{DNA},\qquad |R|=16.
+\]
+Self-relations are retained in the graph but assigned zero affinity in the transition model. They represent identity diagonals rather than meaningful complementarity transitions.
+
+\section{Method}
+\subsection{NOEMA-first workflow}
+The implementation follows a NOEMA-first workflow. The local minimal NOEMA store is read before the update, the v0.5 DNA relation report is treated as the current source artifact, the paper is regenerated from the report, and a new append-only audit/update snap is written into a separate update directory. No external connector and no internet fetch is used for this repair pass. No PDF is generated.
+
+\subsection{Relation classification}
+For every ordered pair $(x,y)$ the model assigns a relation kind:
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{identity self}: $x=y$, diagonal relation, affinity $0$;
+  \item \textbf{Watson--Crick complement}: $A\leftrightarrow T$ or $C\leftrightarrow G$;
+  \item \textbf{same-class lateral}: purine--purine or pyrimidine--pyrimidine mismatch;
+  \item \textbf{cross-class non-complement}: purine--pyrimidine pair that is not a canonical complement.
+\end{enumerate}
+This classification separates true complementarity from weaker class transitions.
+
+\subsection{Hydrogen-bond proxy}
+The model uses the ordinary Watson--Crick bond-count distinction as a bounded proxy:
+\[
+  h(A,T)=h(T,A)=2,\qquad h(C,G)=h(G,C)=3.
+\]
+The normalized hydrogen-bond proxy is
+\[
+  H(x,y)=\frac{h(x,y)}{3}.
+\]
+Thus $H(A,T)=2/3$ and $H(C,G)=1$. The value is not a quantum-chemical bond energy. It is a simple structural proxy used to encode the stability difference between the two complement axes.
+
+\subsection{Semantic affinity proxy}
+The v0.5 implementation assigns semantic affinity as a deterministic relation score. Canonical complements receive high scores, same-class lateral transitions receive low scores, cross-class non-complements receive intermediate mismatch scores, and self-diagonals receive zero:
+\[
+S(x,y)=
+\begin{cases}
+0, & x=y,\\
+1.0, & (x,y)\in\{(C,G),(G,C)\},\\
+0.933333, & (x,y)\in\{(A,T),(T,A)\},\\
+0.3, & x,y\ \mathrm{cross\ class\ but\ noncomplementary},\\
+0.05, & x,y\ \mathrm{same\ class\ and}\ x\ne y.
+\end{cases}
+\]
+These values are model proxies, not measured thermodynamic parameters. Their function is to make the complement axes dominant while preserving the weaker mismatch structure needed for a complete transition graph.
+
+\subsection{Compression and identity metrics}
+The grammar compression proxy measures how much of the ordered relation surface collapses into the two unordered complement axes:
+\[
+  C_g = 1 - \frac{|\{A\!T,C\!G\}|}{|\mathcal{A}_{DNA}|^2}=1-\frac{2}{16}=0.875.
+\]
+The complement selectivity proxy compares mean complement affinity against mean mismatch affinity:
+\[
+  S_c = \overline{S}_{complement} - \overline{S}_{mismatch}=0.966667-0.175=0.791667.
+\]
+The identity-retention and transition-readiness proxies are aggregate scores exported by \texttt{dna\_four\_blocks.py}. They summarize whether the compressed grammar still preserves the dominant axes, class closure, and transition structure.
+
+\section{Results}
+\subsection{Relation matrix}
+Table~\ref{tab:matrix} is the central v0.5 result. It shows the semantic-affinity matrix over ordered pairs. The strongest entries are precisely the Watson--Crick complements, with C--G slightly above A--T because C--G carries the three-bond clamp proxy.
+
+\begin{table}[h]
+\centering
+\caption{Semantic-affinity matrix for the four-block DNA relation grammar. Rows are sources and columns are targets.}
+\label{tab:matrix}
+\begin{tabular}{lrrrr}
+\toprule
+ & A & C & G & T \\
+\midrule
+A & 0.000000 & 0.300000 & 0.050000 & 0.933333 \\
+C & 0.300000 & 0.000000 & 1.000000 & 0.050000 \\
+G & 0.050000 & 1.000000 & 0.000000 & 0.300000 \\
+T & 0.933333 & 0.050000 & 0.300000 & 0.000000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Complement axes}
+\begin{table}[h]
+\centering
+\caption{Complement-axis summary.}
+\label{tab:axes}
+\begin{tabular}{lllll}
+\toprule
+Axis & Bases & H-bond proxy & Mean affinity & Model role \\
+\midrule
+A--T & A,T & 2 & 0.933333 & labile information axis \\
+C--G & C,G & 3 & 1.000000 & stiff clamp axis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The model therefore does not treat A, C, G, and T as four independent blocks. It treats them as a closed pair of complementary axes with a stability gradient. A--T is the lower-stability, more labile axis; C--G is the higher-stability clamp axis.
+
+\subsection{Metric table}
+\begin{longtable}{llp{0.55\linewidth}}
+\caption{v0.5 DNA four-block relation metrics.}\label{tab:metrics}\\
+\toprule
+Metric & Value & Interpretation \\
+\midrule
+\endfirsthead
+\toprule
+Metric & Value & Interpretation \\
+\midrule
+\endhead
+ordered\_relation\_count & 16.000000 & Directed relation surface over four bases. \\
+complement\_ordered\_relation\_count & 4.000000 & Ordered complement relations: A--T, T--A, C--G, G--C. \\
+unordered\_complement\_axis\_count & 2.000000 & Compressed complement axes: A--T and C--G. \\
+mean\_semantic\_affinity\_all & 0.329167 & Mean score over all ordered relations including diagonals. \\
+mean\_semantic\_affinity\_offdiag & 0.438889 & Mean score over non-self transitions. \\
+mean\_complement\_affinity & 0.966667 & Mean affinity over canonical complement relations. \\
+mean\_mismatch\_affinity & 0.175000 & Mean affinity over non-complement off-diagonal relations. \\
+mean\_same\_class\_affinity & 0.050000 & Mean lateral purine--purine or pyrimidine--pyrimidine score. \\
+mean\_cross\_class\_affinity & 0.633333 & Mean across purine--pyrimidine relations, including complements and non-complements. \\
+complement\_selectivity\_proxy & 0.791667 & Separation between complement and mismatch regimes. \\
+axis\_balance\_proxy & 0.933333 & Balance between A--T and C--G axes after stability distinction. \\
+alphabet\_closure\_proxy & 1.000000 & Every base has one canonical complement in the alphabet. \\
+class\_symmetry\_proxy & 1.000000 & Complementarity always bridges purine and pyrimidine classes. \\
+grammar\_compression\_proxy & 0.875000 & Reduction from ordered relation surface to two complement axes. \\
+identity\_retention\_proxy & 0.911833 & Compressed grammar preserves the dominant identity of the relation graph. \\
+transition\_readiness\_proxy & 0.909333 & The graph is ready for proto-memory transition tests in the model. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Execution results}
+The v0.5 implementation was checked before this LaTeX repair. The test report recorded ten passing tests and a successful compile-all pass over the \texttt{origins} package:
+\begin{verbatim}
+pytest v05 suite: 10 passed in 1.58s
+compileall origins: PASS
+\end{verbatim}
+The v0.5b repair pass performs static LaTeX validation only and deliberately does not generate a PDF.
+
+\section{Interpretation}
+The model says that the DNA alphabet is already a compressed relational machine. Its surface has four symbols and sixteen ordered pair relations. Its invariant grammar has two complement axes and one class-closing symmetry. The key biological intuition is familiar: A pairs with T through a weaker two-bond relation, while C pairs with G through a stronger three-bond relation \cite{WatsonCrick1953}. The NOEMA interpretation is different: this pairing structure is a small relation grammar that can preserve identity under compression.
+
+In Origins/NOEMA language, a proto-life candidate is not identified merely by the existence of molecules. It is identified when a molecular relation graph begins to preserve a trace of its own transition structure. The four-block DNA model therefore functions as a small test case for the broader semantic-compression thesis: a system becomes origin-relevant when its surface dynamics can be reduced to an invariant trace without losing the relation grammar that makes the process identifiable.
+
+\section{Limitations}
+The following claims are explicitly not made:
+\begin{itemize}[leftmargin=2em]
+  \item no empirical proof of abiogenesis is claimed;
+  \item no quantum-chemical simulation is claimed;
+  \item no thermodynamic DNA or RNA folding engine is claimed;
+  \item no byte-exact compression claim is made;
+  \item no assertion is made that DNA historically preceded RNA;
+  \item no external NOEMA SoT write is claimed in this artifact.
+\end{itemize}
+The artifact is a semantic-relation model with reproducible local code, local reports, and append-only local NOEMA snaps.
+
+\section{Reproducibility package}
+The v0.5b package contains the code, reports, LaTeX source, bibliography, and a separate update snap directory:
+\begin{verbatim}
+repo/origins/abiogenesis/dna_four_blocks.py
+repo/tests/test_dna_four_blocks_v05.py
+reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json
+reports/RUN_REPORT_v05.json
+paper/main.tex
+paper/references.bib
+NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/
+\end{verbatim}
+No PDF is included or generated for the v0.5b no-PDF repair package.
+
+\section{Conclusion}
+The v0.5b result is compact: four DNA bases form a minimal closed relation grammar. The model compresses the alphabet from four symbolic blocks and sixteen ordered relations into two complement axes plus class symmetry. A--T acts as the labile information axis; C--G acts as the stiff stabilizing clamp. In the Origins/NOEMA framework this is a candidate mechanism for how molecular structure can become memory-like: relation survives compression, and the compressed relation still identifies the process.
+
+\bibliographystyle{plain}
+
+
+\section{v0.6: From Four-Block DNA Relation to Protocell Readiness}
+
+\subsection{Purpose and epistemic boundary}
+The v0.6 layer extends the v0.5 four-block DNA relation model toward a protocell-readiness calculation. The model does \emph{not} claim that DNA historically preceded RNA, does not simulate quantum chemistry, and does not infer a real protocell from geological measurements. In this layer, ``DNA'' denotes the four-base relation grammar A/C/G/T as a stable information-alphabet proxy. The protocell side is represented as a compartmentalisation proxy: membrane availability, polymer persistence, co-localisation pressure, recurrence, and environmental cycling.
+
+The core question is therefore narrower: given a closed four-block information scaffold, when do changing climate--holonomic conditions provide enough recurrent cycling and compartment co-localisation for the scaffold to become a protocell candidate?
+
+\subsection{Climate--holonomic trajectory}
+The calculation uses a relative-time climate--holonomic trajectory rather than a calendar-dated geological reconstruction. Each stage is represented by unitless proxies in $[0,1]$: hydration, thermal gradient, wet--dry cycling, mineral templating, amphiphile availability, ionic moderation, UV stress, compartment pressure, and holonomic recurrence. The trajectory encodes a model transition from an open information alphabet to a co-localised compartment candidate.
+
+\begin{table}[h]
+\centering
+\caption{v0.6 stage-readiness calculation. Values are deterministic proxies, not empirical measurements.}
+\begin{tabular}{lrrrrrr}
+\hline
+Stage & Climate & Polymer & Compartment & Coupling & Readiness & Crosses \\
+\hline
+alphabet\_only\_open\_surface & 0.364286 & 0.415000 & 0.145000 & 0.376294 & 0.297390 & false \\
+surface\_cycling\_concentration & 0.650000 & 0.627500 & 0.432500 & 0.633783 & 0.535929 & false \\
+vesicle\_contact\_with\_polymer\_trace & 0.692857 & 0.692500 & 0.695000 & 0.743147 & 0.645622 & false \\
+encapsulated\_recurrence & 0.685714 & 0.712500 & 0.800000 & 0.773245 & 0.679453 & false \\
+protocell\_candidate & 0.685714 & 0.720000 & 0.842500 & 0.785369 & 0.693658 & true \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Threshold derivation}
+The transition threshold is derived from v0.5 rather than inserted as a free standalone number:
+\[
+\Theta_{proto} = C_{selectivity} \cdot G_{compression} = 0.791667 \cdot 0.875 = 0.692709.
+\]
+Here $C_{selectivity}$ is the complement-selectivity proxy and $G_{compression}$ is the grammar-compression proxy from the four-block DNA relation model. The threshold therefore requires both selective complementarity and reducible grammar structure.
+
+\subsection{Scoring functions}
+The information-core proxy is the mean of six v0.5 quantities: complement selectivity, grammar compression, identity retention, transition readiness, alphabet closure, and class symmetry. Climate holonomy is the mean of hydration, thermal gradient, wet--dry cycling, mineral templating, ionic moderation, UV balance, and recurrence. Polymer persistence combines hydration, mineral templating, ionic moderation, and UV balance. Compartment co-localisation combines amphiphile availability, compartment pressure, ionic moderation, and wet--dry cycling. The final readiness proxy is the information core multiplied by the mean of climate support, polymer persistence, compartment co-localisation, and the geometric coupling term.
+
+\subsection{Result}
+The first threshold crossing occurs only in the final stage, \texttt{protocell\_candidate}, where readiness reaches 0.693658 against a threshold of 0.692709. Earlier stages remain below threshold. The model therefore says that the four-block information grammar alone is not a protocell. It becomes a protocell candidate only when environmental recurrence, polymer persistence, and compartment co-localisation become jointly sufficient.
+
+\subsection{Interpretation}
+The v0.6 result is best read as a proto-memory/protocell readiness detector. The invariant alphabet supplies a compact relational grammar; the climate--holonomic trajectory supplies recurrence, concentration, cycling, and compartmental pressure. The transition appears when the information scaffold and compartment scaffold become mutually co-localised. This is not empirical proof of abiogenesis. It is a deterministic criterion for when the model's symbolic-organic trace becomes protocell-like.
+
+\bibliography{references}
+
+\end{document}

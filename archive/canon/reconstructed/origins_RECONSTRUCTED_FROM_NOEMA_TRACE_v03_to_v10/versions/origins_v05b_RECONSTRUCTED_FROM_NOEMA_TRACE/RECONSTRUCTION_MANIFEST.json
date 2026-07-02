@@ -1,0 +1,34 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v05b",
+  "title": "LaTeX standard no PDF",
+  "created_at_utc": "2026-05-18T01:26:32.254463+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+  ],
+  "confidence": "materialized_snap_plus_reconstructed_repo",
+  "found_artifacts": [
+    "MANIFEST_v05b_NOPDF.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "noema_trace/NOEMA-20260517T031500-v05b-latex-standard-nopdf.json",
+    "paper/main.tex",
+    "paper/references.bib",
+    "results/CURRENT_AFTER_v05b_NOPDF.json",
+    "results/LATEX_REPAIR_REPORT_v05b_NOPDF.json",
+    "results/LATEX_STATIC_VALIDATION_v05b_NOPDF.json",
+    "results/RUN_REPORT_v05b_NOPDF.json"
+  ],
+  "missing_artifacts_or_snap_refs": [],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

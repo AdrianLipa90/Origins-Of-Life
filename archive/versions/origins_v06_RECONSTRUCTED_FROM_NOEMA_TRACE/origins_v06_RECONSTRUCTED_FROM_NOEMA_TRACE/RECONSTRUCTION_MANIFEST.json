@@ -1,0 +1,35 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v06",
+  "title": "DNA to protocell climate holonomy",
+  "created_at_utc": "2026-05-18T01:26:32.587477+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy"
+  ],
+  "confidence": "materialized_snap_plus_reconstructed_repo",
+  "found_artifacts": [
+    "MANIFEST_v06.json",
+    "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy",
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "noema_trace/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy.json",
+    "paper/main.tex",
+    "paper/references.bib",
+    "repo/origins/abiogenesis/dna_to_protocell.py",
+    "repo/tests/test_dna_to_protocell_v06.py",
+    "reports/RUN_REPORT_v06.json",
+    "results/DNA_TO_PROTOCELL_REPORT_v06.json",
+    "results/DNA_TO_PROTOCELL_STAGE_TABLE_v06.md"
+  ],
+  "missing_artifacts_or_snap_refs": [],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

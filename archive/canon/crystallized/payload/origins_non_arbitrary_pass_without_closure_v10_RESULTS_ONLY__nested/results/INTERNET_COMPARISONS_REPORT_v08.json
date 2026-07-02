@@ -1,0 +1,42 @@
+{
+  "schema": "ORIGINS_NOEMA_V08_INTERNET_COMPARISONS",
+  "snap_id": "NOEMA-20260517T061500-v08-internet-comparisons-citations",
+  "previous_state_id": "NOEMA-20260517T052000-v07-temporal-climate-options",
+  "internet_used": true,
+  "pdf_generated": false,
+  "sections_updated_with_comparisons": [
+    "scope_epistemic_boundary",
+    "four_block_grammar_vs_rna_world",
+    "semantic_compression_vs_hypercycles",
+    "hydration_cycles_vs_warm_ponds_hot_springs",
+    "mineral_templating_vs_clay_surface_metabolism",
+    "thermal_gradients_vs_alkaline_vents",
+    "ionic_moderation_amphiphiles_protocells",
+    "compartmentalisation_vesicles_droplets_condensates_vents",
+    "holonomic_recurrence_vs_autocatalytic_systems_chemistry",
+    "climate_holonomic_change_through_time"
+  ],
+  "references_added_or_rewritten": 23,
+  "retained_metrics": {
+    "threshold_proxy": 0.692709,
+    "baseline_peak_readiness": 0.693658,
+    "best_option": "ionic_moderation_window",
+    "best_option_peak_readiness": 0.708705,
+    "fastest_growth_option": "wet_dry_pulse_amplified",
+    "fastest_growth_max_velocity": 0.256095,
+    "negative_control": "uv_and_dilution_stress",
+    "negative_control_peak_readiness": 0.670506,
+    "negative_control_transition_detected": false
+  },
+  "claims": {
+    "semantic_relation_model_claimed": true,
+    "time_varying_environment_options_claimed": true,
+    "internet_backed_comparisons_added": true,
+    "bibtex_references_added": true,
+    "empirical_abiogenesis_proof_claimed": false,
+    "DNA_first_claimed": false,
+    "quantum_chemistry_claimed": false,
+    "thermodynamic_membrane_simulation_claimed": false,
+    "geological_timeline_claimed": false
+  }
+}

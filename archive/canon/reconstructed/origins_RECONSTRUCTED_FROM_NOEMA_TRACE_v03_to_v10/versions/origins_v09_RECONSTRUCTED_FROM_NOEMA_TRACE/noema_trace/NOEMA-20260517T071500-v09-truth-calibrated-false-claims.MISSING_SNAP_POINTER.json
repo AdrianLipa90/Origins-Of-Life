@@ -1,0 +1,10 @@
+{
+  "snap_id": "NOEMA-20260517T071500-v09-truth-calibrated-false-claims",
+  "status": "missing_physical_snap_file",
+  "reconstructed_from": [
+    "results/TRUTH_CALIBRATED_FALSE_CLAIMS_REPORT_v09.json",
+    "results/TRUTH_CALIBRATED_FALSE_CLAIMS_SUMMARY_v09.md",
+    "results/RUN_REPORT_v09.json"
+  ],
+  "note": "No physical NOEMA_UPDATE_SNAP or noema/store/snaps JSON for v09 was found under /mnt; v09 is reconstructed from v10 result traces."
+}

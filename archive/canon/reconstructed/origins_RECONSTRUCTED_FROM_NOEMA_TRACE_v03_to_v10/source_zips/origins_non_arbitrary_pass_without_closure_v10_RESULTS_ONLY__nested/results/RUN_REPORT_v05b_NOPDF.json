@@ -1,0 +1,42 @@
+{
+  "created_at_utc": "2026-05-17T02:53:41+00:00",
+  "external_connectors_used": false,
+  "internet_used": false,
+  "notes": [
+    "LaTeX was rewritten in English to include detailed methods, formulas, relation matrix, metric table, results, limitations, and reproducibility notes.",
+    "No PDF was generated or packaged by this repair pass.",
+    "Any .pdf/.aux/.log/.out and Python cache files are removed before packaging."
+  ],
+  "ok": true,
+  "pdf_generated": false,
+  "schema": "RUN_REPORT_V05B_LATEX_STANDARD_NOPDF",
+  "snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+  "source_current_state_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "static_latex_validation_ok": true,
+  "tests": [
+    {
+      "cmd": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "pytest",
+        "-q",
+        "/mnt/data/origins_v05b_nopdf_build/origins_noema_latex_standard_v05b_NOPDF/repo/tests/test_dna_four_blocks_v05.py",
+        "/mnt/data/origins_v05b_nopdf_build/origins_noema_latex_standard_v05b_NOPDF/repo/tests/test_semantic_compression_v04.py",
+        "/mnt/data/origins_v05b_nopdf_build/origins_noema_latex_standard_v05b_NOPDF/repo/tests/test_semantic_nucleic_braiding.py"
+      ],
+      "output": "..........                                                               [100%]\n10 passed in 1.65s\n",
+      "returncode": 0
+    },
+    {
+      "cmd": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "compileall",
+        "-q",
+        "/mnt/data/origins_v05b_nopdf_build/origins_noema_latex_standard_v05b_NOPDF/repo/origins"
+      ],
+      "output": "",
+      "returncode": 0
+    }
+  ]
+}

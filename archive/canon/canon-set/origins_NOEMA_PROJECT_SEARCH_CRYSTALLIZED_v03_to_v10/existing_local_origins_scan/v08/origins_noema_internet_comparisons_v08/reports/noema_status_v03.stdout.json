@@ -1,0 +1,10 @@
+{
+  "NOEMA_STATUS": {
+    "sot_available": true,
+    "current_state_loaded": true,
+    "current_state_id": "NOEMA-20260517T022726-3fc21483ca",
+    "memory_layer": "episodic",
+    "uncertainty_operator": "chyba",
+    "canon_allowed": false
+  }
+}

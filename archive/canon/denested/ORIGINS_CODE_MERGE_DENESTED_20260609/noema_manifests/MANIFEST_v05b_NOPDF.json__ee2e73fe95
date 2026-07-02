@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-05-17T02:53:41+00:00",
+  "external_connectors_used": false,
+  "internet_used": false,
+  "latex_standard_updated": true,
+  "package": "origins_noema_latex_standard_v05b_NOPDF",
+  "pdf_generated": false,
+  "pdf_included": false,
+  "previous_state_id": "NOEMA-20260517T024500-v05dnafourblocks",
+  "schema": "ORIGINS_NOEMA_LATEX_STANDARD_V05B_NOPDF_MANIFEST",
+  "snap_id": "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+  "source_zip": "origins_dna_four_blocks_v05_READY.zip",
+  "static_latex_validation_ok": true,
+  "test_ok": true
+}

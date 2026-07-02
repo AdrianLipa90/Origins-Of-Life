@@ -1,0 +1,20 @@
+{
+  "cache_entries_excluded_from_zip": true,
+  "commands": [
+    {
+      "name": "pytest_v10",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "..                                                                       [100%]\n2 passed in 2.57s\n"
+    },
+    {
+      "name": "compileall_origins",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "pass": true,
+  "pdf_entries": [],
+  "schema": "RUN_REPORT_V10"
+}

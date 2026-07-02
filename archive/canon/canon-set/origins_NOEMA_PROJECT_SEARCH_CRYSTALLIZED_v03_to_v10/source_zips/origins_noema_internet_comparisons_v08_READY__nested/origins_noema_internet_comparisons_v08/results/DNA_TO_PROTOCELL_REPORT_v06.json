@@ -1,0 +1,156 @@
+{
+  "certification_boundary": {
+    "dna_first_historical_claimed": false,
+    "empirical_abiogenesis_proof_claimed": false,
+    "geological_timeline_claimed": false,
+    "protocell_readiness_proxy_claimed": true,
+    "quantum_chemistry_claimed": false,
+    "semantic_relation_model_claimed": true,
+    "thermodynamic_membrane_simulation_claimed": false,
+    "time_varying_climate_holonomy_claimed": true
+  },
+  "first_transition_index": 4,
+  "first_transition_stage": "protocell_candidate",
+  "interpretation": "The v0.6 model says that the four-block DNA relation invariant alone is not a protocell. It becomes a protocell candidate only when the invariant information scaffold is repeatedly coupled to a time-varying climate-holonomic environment that provides cycling, mineral/ionic persistence, amphiphile-supported compartment co-localisation and recurrence. The first crossing is a proxy for co-localised proto-memory in a compartment, not empirical proof of abiogenesis.",
+  "metrics": {
+    "final_climate_holonomy_proxy": 0.685714,
+    "final_compartment_co_localisation_proxy": 0.8425,
+    "information_core_proxy": 0.914639,
+    "initial_readiness_proxy": 0.29739,
+    "peak_protocell_readiness_proxy": 0.693658,
+    "readiness_gain_proxy": 0.396268,
+    "stage_count": 5.0,
+    "threshold_proxy": 0.692709,
+    "transition_detected": 1.0,
+    "transition_index": 4.0
+  },
+  "schema": "ORIGINS_NOEMA_DNA_TO_PROTOCELL_V0_6",
+  "source_four_block_schema": "ORIGINS_NOEMA_DNA_FOUR_BLOCK_RELATION_V0_5",
+  "stages": [
+    {
+      "climate_holonomy_proxy": 0.364286,
+      "compartment_co_localisation_proxy": 0.145,
+      "coupling_proxy": 0.376294,
+      "crosses_threshold": false,
+      "information_core_proxy": 0.914639,
+      "polymer_persistence_proxy": 0.415,
+      "protocell_readiness_proxy": 0.29739,
+      "stage": {
+        "amphiphile_availability": 0.1,
+        "compartment_pressure": 0.1,
+        "holonomic_recurrence": 0.25,
+        "hydration": 0.35,
+        "ionic_moderation": 0.3,
+        "mineral_template": 0.4,
+        "name": "alphabet_only_open_surface",
+        "relative_time_order": 0,
+        "thermal_gradient": 0.3,
+        "uv_stress": 0.7,
+        "wet_dry_cycling": 0.2
+      },
+      "threshold": 0.692709,
+      "transition_label": "pre_protocell"
+    },
+    {
+      "climate_holonomy_proxy": 0.65,
+      "compartment_co_localisation_proxy": 0.4325,
+      "coupling_proxy": 0.633783,
+      "crosses_threshold": false,
+      "information_core_proxy": 0.914639,
+      "polymer_persistence_proxy": 0.6275,
+      "protocell_readiness_proxy": 0.535929,
+      "stage": {
+        "amphiphile_availability": 0.35,
+        "compartment_pressure": 0.35,
+        "holonomic_recurrence": 0.55,
+        "hydration": 0.55,
+        "ionic_moderation": 0.45,
+        "mineral_template": 0.75,
+        "name": "surface_cycling_concentration",
+        "relative_time_order": 1,
+        "thermal_gradient": 0.65,
+        "uv_stress": 0.65,
+        "wet_dry_cycling": 0.8
+      },
+      "threshold": 0.692709,
+      "transition_label": "pre_protocell"
+    },
+    {
+      "climate_holonomy_proxy": 0.692857,
+      "compartment_co_localisation_proxy": 0.695,
+      "coupling_proxy": 0.743147,
+      "crosses_threshold": false,
+      "information_core_proxy": 0.914639,
+      "polymer_persistence_proxy": 0.6925,
+      "protocell_readiness_proxy": 0.645622,
+      "stage": {
+        "amphiphile_availability": 0.7,
+        "compartment_pressure": 0.75,
+        "holonomic_recurrence": 0.7,
+        "hydration": 0.65,
+        "ionic_moderation": 0.6,
+        "mineral_template": 0.65,
+        "name": "vesicle_contact_with_polymer_trace",
+        "relative_time_order": 2,
+        "thermal_gradient": 0.55,
+        "uv_stress": 0.45,
+        "wet_dry_cycling": 0.7
+      },
+      "threshold": 0.692709,
+      "transition_label": "pre_protocell"
+    },
+    {
+      "climate_holonomy_proxy": 0.685714,
+      "compartment_co_localisation_proxy": 0.8,
+      "coupling_proxy": 0.773245,
+      "crosses_threshold": false,
+      "information_core_proxy": 0.914639,
+      "polymer_persistence_proxy": 0.7125,
+      "protocell_readiness_proxy": 0.679453,
+      "stage": {
+        "amphiphile_availability": 0.85,
+        "compartment_pressure": 0.9,
+        "holonomic_recurrence": 0.85,
+        "hydration": 0.75,
+        "ionic_moderation": 0.75,
+        "mineral_template": 0.55,
+        "name": "encapsulated_recurrence",
+        "relative_time_order": 3,
+        "thermal_gradient": 0.45,
+        "uv_stress": 0.35,
+        "wet_dry_cycling": 0.55
+      },
+      "threshold": 0.692709,
+      "transition_label": "pre_protocell"
+    },
+    {
+      "climate_holonomy_proxy": 0.685714,
+      "compartment_co_localisation_proxy": 0.8425,
+      "coupling_proxy": 0.785369,
+      "crosses_threshold": true,
+      "information_core_proxy": 0.914639,
+      "polymer_persistence_proxy": 0.72,
+      "protocell_readiness_proxy": 0.693658,
+      "stage": {
+        "amphiphile_availability": 0.9,
+        "compartment_pressure": 0.95,
+        "holonomic_recurrence": 0.95,
+        "hydration": 0.8,
+        "ionic_moderation": 0.85,
+        "mineral_template": 0.5,
+        "name": "protocell_candidate",
+        "relative_time_order": 4,
+        "thermal_gradient": 0.4,
+        "uv_stress": 0.25,
+        "wet_dry_cycling": 0.5
+      },
+      "threshold": 0.692709,
+      "transition_label": "protocell_candidate_crossing"
+    }
+  ],
+  "threshold_derivation": {
+    "complement_selectivity_proxy": 0.791667,
+    "grammar_compression_proxy": 0.875,
+    "threshold_proxy": 0.692709
+  }
+}

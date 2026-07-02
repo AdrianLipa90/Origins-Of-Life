@@ -1,0 +1,38 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v03",
+  "title": "NOEMA rewrite semantic nucleic braiding",
+  "created_at_utc": "2026-05-18T01:26:31.286436+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T021109-a97dc110e6",
+    "NOEMA-20260517T022726-3fc21483ca"
+  ],
+  "confidence": "trace_reconstructed_high_for_artifacts_not_byte_exact_full_source",
+  "found_artifacts": [
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "noema_trace/NOEMA-20260517T021109-a97dc110e6.json",
+    "noema_trace/NOEMA-20260517T022726-3fc21483ca.json",
+    "paper/main.tex",
+    "paper/references.bib",
+    "patch/origins_noema_rewrite_v03.diff",
+    "repo/origins/abiogenesis/geometric_semantic_braiding.py",
+    "repo/tests/test_semantic_nucleic_braiding.py",
+    "reports/demo_trace_v03.json",
+    "reports/knot_trace_v03.json",
+    "reports/noema_append_content_v03.json",
+    "reports/noema_status_v03.stdout.json",
+    "reports/noema_verify_v03.stdout.json"
+  ],
+  "missing_artifacts_or_snap_refs": [],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

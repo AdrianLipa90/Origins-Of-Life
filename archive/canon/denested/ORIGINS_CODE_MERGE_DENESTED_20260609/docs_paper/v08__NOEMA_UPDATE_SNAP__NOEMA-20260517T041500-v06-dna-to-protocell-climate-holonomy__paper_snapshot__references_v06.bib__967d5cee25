@@ -1,0 +1,107 @@
+@article{WatsonCrick1953,
+  author = {Watson, James D. and Crick, Francis H. C.},
+  title = {Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid},
+  journal = {Nature},
+  year = {1953},
+  volume = {171},
+  pages = {737--738},
+  doi = {10.1038/171737a0}
+}
+
+@article{RobertsonJoyce2012,
+  author = {Robertson, Michael P. and Joyce, Gerald F.},
+  title = {The Origins of the RNA World},
+  journal = {Cold Spring Harbor Perspectives in Biology},
+  year = {2012},
+  volume = {4},
+  number = {5},
+  pages = {a003608},
+  doi = {10.1101/cshperspect.a003608},
+  url = {https://pmc.ncbi.nlm.nih.gov/articles/PMC3331698/}
+}
+
+@article{PownerGerlandSutherland2009,
+  author = {Powner, Matthew W. and Gerland, B{\'e}atrice and Sutherland, John D.},
+  title = {Synthesis of activated pyrimidine ribonucleotides in prebiotically plausible conditions},
+  journal = {Nature},
+  year = {2009},
+  volume = {459},
+  pages = {239--242},
+  doi = {10.1038/nature08013},
+  url = {https://www.nature.com/articles/nature08013}
+}
+
+@article{JoyceSzostak2018,
+  author = {Joyce, Gerald F. and Szostak, Jack W.},
+  title = {Protocells and RNA Self-Replication},
+  journal = {Cold Spring Harbor Perspectives in Biology},
+  year = {2018},
+  volume = {10},
+  number = {9},
+  pages = {a034801},
+  doi = {10.1101/cshperspect.a034801},
+  url = {https://pubmed.ncbi.nlm.nih.gov/30181195/}
+}
+
+@article{EigenSchuster1977,
+  author = {Eigen, Manfred and Schuster, Peter},
+  title = {The hypercycle. A principle of natural self-organization. Part A: Emergence of the hypercycle},
+  journal = {Naturwissenschaften},
+  year = {1977},
+  volume = {64},
+  number = {11},
+  pages = {541--565},
+  doi = {10.1007/BF00450633},
+  url = {https://pubmed.ncbi.nlm.nih.gov/593400/}
+}
+
+@article{Weeks2010,
+  author = {Weeks, Kevin M.},
+  title = {Advances in RNA Secondary and Tertiary Structure Analysis by Chemical Probing},
+  journal = {Current Opinion in Structural Biology},
+  year = {2010},
+  volume = {20},
+  number = {3},
+  pages = {295--304},
+  doi = {10.1016/j.sbi.2010.04.001},
+  url = {https://pmc.ncbi.nlm.nih.gov/articles/PMC2916962/}
+}
+
+@article{AdamalaSzostak2013,
+  author = {Adamala, Katarzyna and Szostak, Jack W.},
+  title = {Nonenzymatic template-directed RNA synthesis inside model protocells},
+  journal = {Science},
+  year = {2013},
+  volume = {342},
+  number = {6162},
+  pages = {1098--1100},
+  doi = {10.1126/science.1241888},
+  url = {https://pmc.ncbi.nlm.nih.gov/articles/PMC4104020/}
+}
+
+@article{BennerKimCarrigan2012,
+  author = {Benner, Steven A. and Kim, Hyo-Joong and Carrigan, Matthew A.},
+  title = {Asphalt, Water, and the Prebiotic Synthesis of Ribose, Ribonucleosides, and RNA},
+  journal = {Accounts of Chemical Research},
+  year = {2012},
+  volume = {45},
+  number = {12},
+  pages = {2025--2034},
+  doi = {10.1021/ar200332w},
+  url = {https://pubmed.ncbi.nlm.nih.gov/22455515/}
+}
+
+@misc{IUPACFunctionalGroup,
+  author = {{IUPAC Gold Book}},
+  title = {Functional group},
+  year = {2019},
+  doi = {10.1351/goldbook.F02555},
+  url = {https://goldbook.iupac.org/terms/view/F02555}
+}
+
+@misc{IUPACBlueBookOrganic,
+  author = {{IUPAC}},
+  title = {Blue Book P-1: Nomenclature of Organic Compounds},
+  year = {2013},
+  url = {https://iupac.qmul.ac.uk/BlueBook/P1.html}
+}

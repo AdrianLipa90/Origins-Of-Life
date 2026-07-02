@@ -1,0 +1,4116 @@
+[
+  {
+    "normalized_path": "README_RECONSTRUCTED.md",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 6
+  },
+  {
+    "normalized_path": "RECONSTRUCTION_MANIFEST.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 6
+  },
+  {
+    "normalized_path": "README.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 11,
+    "unique_sha": 4
+  },
+  {
+    "normalized_path": "SHA256SUMS.txt",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 5,
+    "unique_sha": 3
+  },
+  {
+    "normalized_path": ".gitignore",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "origins/simulator/universal.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "origins/topology/fields.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "origins/abiogenesis/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "origins/abiogenesis/api.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "reports/RUN_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08",
+      "v10"
+    ],
+    "count": 6,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "noema/CURRENT.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "noema/store/CURRENT.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "paper/main.tex",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "MANIFEST.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 2
+  },
+  {
+    "normalized_path": "OriginOfLife.v2.0.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08",
+      "v2"
+    ],
+    "count": 10,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "OriginOfLife.v3.0_2Src.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08",
+      "v3"
+    ],
+    "count": 10,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "OriginOfLife.v4.0_ET.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08",
+      "v4"
+    ],
+    "count": 10,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "OriginsKahlerEulerBerry.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 10,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": ".github/FUNDING.yml",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "LICENSE ",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "Proof-of-concept.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "Proof-of-concept2.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "ciel-cmb-analyzer.zip.zip",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "new holonomy/originsHolo1",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "new holonomy/originsHolo2.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "new holonomy/originsphaseholoext.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/analysis/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/analysis/sweep.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/biology/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/biology/protocell.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/biology/rna.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/chemistry/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/chemistry/clay.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/chemistry/fields.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/constants.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/cosmology/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/cosmology/operators.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/cosmology/pbh.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/scenarios.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/simulator/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/topology/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/topology/constraints.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/app.js",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/app_1.js",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/app.js",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/index.html",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/style.css",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/ciel0_cmb_analyzer_english.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/index.html",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/script.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "spectrum.zip (1)_FILES/style.css",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 9,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "requirements.txt",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_cmb_analysis.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_simulation.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_sweep.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "setup.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_biology.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_chemistry.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_simulator.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_topology.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 8,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": ".github/workflows/abiogenesis-canon.yml",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "LICENSE",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "START_HERE_ORIGINS.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/ABIOGENESIS_PUBLIC_SURFACE.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/ABIOGENESIS_WORKFLOWS.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/APPLY_FULL_ORBITAL_FORMALISM_LAYERWISE.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/APPLY_ORBITAL_FORMALISM_TO_REPO.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/BINDINGS.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/DEFINITIONAL_RUNTIME_LAYER.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/DEFINITIONS.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/NATIVE_UNIVERSAL_ORBITAL_SWITCH.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/ORBITAL_RUNTIME_BRIDGE.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/REGISTRY.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/REPO_POSITIONING_AND_ADOPTION.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/SEMANTIC_CANON_FOR_ORIGINS.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/architecture.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "docs/observations_and_conclusions/bloch_rna_emergence_2026-04-30.md",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/emergence_state.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/habitat.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/workflows.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/analysis/sweep_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/bindings.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/biology/first_rna.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/catalog.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/definitions.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/bundle_builder.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/memory.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/oorp.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/potentials.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/repository_assignment.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/runtime_bridge.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/sphere.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/state.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/subjective_time.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital/winding.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/orbital_formalism.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/registry.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/simulator/factory.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/simulator/universal_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/audit_abiogenesis_surface.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/check_public_semantics.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/export_orbital_manifest.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_abiogenesis.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_simulation_native_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_simulation_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_sweep_native_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/run_sweep_orbital.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/__init__.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/adapters.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/bindings.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/catalog.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/cli.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/definitions.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/grid.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/plotting.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/registry.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/runners.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/scenarios.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/simulator.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/sweep_v3.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08",
+      "v3"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/sweeps.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "src/origin_of_life/utils.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_abiogenesis_canon.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_abiogenesis_workflows.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_bloch_holonomy.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_public_semantics_guard.py",
+    "versions": [
+      "unknown",
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 7,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "artifacts/paper/main.tex",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "artifacts/paper/references.bib",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema_trace/noema/CURRENT.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema_trace/noema/store/CURRENT.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema_trace/noema/store/index.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema_trace/noema/store/manifest.jsonl",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/dna_four_blocks.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/dna_to_protocell.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/execution.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/feasibility.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/geometric_semantic_braiding.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/local_clock.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/recurrence.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/repository_semantics.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/residue_memory.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/semantic_compression.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/temporal_climate_options.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "origins/abiogenesis/transition.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08",
+      "v10"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_dna_four_blocks_v05.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_dna_to_protocell_v06.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_semantic_compression_v04.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_semantic_nucleic_braiding.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "tests/test_temporal_climate_options_v07.py",
+    "versions": [
+      "v03",
+      "v05",
+      "v06",
+      "v07",
+      "v08"
+    ],
+    "count": 6,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "paper/references.bib",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/CHANGED_FILES.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/RUN_REPORT.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/RUN_REPORT_v06.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/V04_DEMO_OUTPUT.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/compileall_origins.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/compileall_origins.stdout.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/demo_trace_v03.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/knot_trace_v03.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_append_content_v03.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_append_v03.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_append_v03.stdout.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_current_v03.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_current_v03.stdout.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_status_v03.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_status_v03.stdout.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_verify_v03.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/noema_verify_v03.stdout.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/pytest_public_semantics_guard.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/pytest_public_semantics_guard.stdout.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/pytest_semantic_braiding.stderr.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/pytest_semantic_braiding.stdout.txt",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/CURRENT_AFTER_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/DNA_TO_PROTOCELL_REPORT_v06.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/DNA_TO_PROTOCELL_STAGE_TABLE_v06.md",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/INTERNET_COMPARISONS_REPORT_v08.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/LATEX_REPAIR_REPORT_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/LATEX_STATIC_VALIDATION_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/LATEX_STATIC_VALIDATION_v08.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/RUN_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/RUN_REPORT_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/RUN_REPORT_v07.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/TEMPORAL_BASELINE_INTERVALS_v07.md",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/TEMPORAL_CLIMATE_OPTIONS_REPORT_v07.json",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/TEMPORAL_OPTIONS_SUMMARY_v07.md",
+    "versions": [
+      "v03",
+      "v08",
+      "v10"
+    ],
+    "count": 5,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "MANIFEST_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "MANIFEST_v06.json",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "MANIFEST_v07.json",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "MANIFEST_v08.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/CURRENT_AFTER_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/NOEMA-20260517T031500-v05b-latex-standard-nopdf.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/LATEX_REPAIR_REPORT_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/LATEX_STATIC_VALIDATION_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/audit/RUN_REPORT_v05b_NOPDF.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/paper_snapshot/main_v05b.tex",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/paper_snapshot/references_v05b.bib",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/results/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T031500-v05b-latex-standard-nopdf/results/RUN_REPORT_v05.json",
+    "versions": [
+      "v03",
+      "v05",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/CURRENT_AFTER_v06.json",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy.json",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/audit/RUN_REPORT_v06.json",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/paper_snapshot/main_v06.tex",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/paper_snapshot/references_v06.bib",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/results/DNA_TO_PROTOCELL_REPORT_v06.json",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy/results/DNA_TO_PROTOCELL_STAGE_TABLE_v06.md",
+    "versions": [
+      "v03",
+      "v06",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/CURRENT_AFTER_v07.json",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/NOEMA-20260517T052000-v07-temporal-climate-options.json",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/audit/RUN_REPORT_v07.json",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/paper_snapshot/main_v07.tex",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/paper_snapshot/references_v07.bib",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/results/TEMPORAL_BASELINE_INTERVALS_v07.md",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/results/TEMPORAL_CLIMATE_OPTIONS_REPORT_v07.json",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T052000-v07-temporal-climate-options/results/TEMPORAL_OPTIONS_SUMMARY_v07.md",
+    "versions": [
+      "v03",
+      "v07",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/CURRENT_AFTER_v08.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/NOEMA-20260517T061500-v08-internet-comparisons-citations.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/audit/LATEX_STATIC_VALIDATION_v08.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/paper_snapshot/main_v08.tex",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/paper_snapshot/references_v08.bib",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T061500-v08-internet-comparisons-citations/results/INTERNET_COMPARISONS_REPORT_v08.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 4,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "SHA256SUMS_v07.txt",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "SHA256SUMS_v08.txt",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/index.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/manifest.jsonl",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T021109-a97dc110e6.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T022726-3fc21483ca.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T023557-v04semanticcompression.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T024500-v05dnafourblocks.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T031500-v05b-latex-standard-nopdf.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "noema/store/snaps/NOEMA-20260517T052000-v07-temporal-climate-options.json",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "patch/origins_noema_rewrite_v03.diff",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/.github/FUNDING.yml",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/.github/workflows/abiogenesis-canon.yml",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/.gitignore",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/LICENSE",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/LICENSE ",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/OriginOfLife.v2.0.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/OriginOfLife.v3.0_2Src.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/OriginOfLife.v4.0_ET.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/OriginsKahlerEulerBerry.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/Proof-of-concept.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/Proof-of-concept2.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/README.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/START_HERE_ORIGINS.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/ciel-cmb-analyzer.zip.zip",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/ABIOGENESIS_PUBLIC_SURFACE.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/ABIOGENESIS_WORKFLOWS.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/APPLY_FULL_ORBITAL_FORMALISM_LAYERWISE.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/APPLY_ORBITAL_FORMALISM_TO_REPO.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/BINDINGS.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/DEFINITIONAL_RUNTIME_LAYER.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/DEFINITIONS.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/NATIVE_UNIVERSAL_ORBITAL_SWITCH.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/ORBITAL_RUNTIME_BRIDGE.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/REGISTRY.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/REPO_POSITIONING_AND_ADOPTION.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/SEMANTIC_CANON_FOR_ORIGINS.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/architecture.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/docs/observations_and_conclusions/bloch_rna_emergence_2026-04-30.md",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/new holonomy/originsHolo1",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/new holonomy/originsHolo2.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/new holonomy/originsphaseholoext.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/api.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/dna_four_blocks.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/dna_to_protocell.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/emergence_state.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/execution.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/feasibility.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/geometric_semantic_braiding.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/habitat.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/local_clock.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/recurrence.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/repository_semantics.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/residue_memory.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/semantic_compression.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/temporal_climate_options.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/transition.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/abiogenesis/workflows.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/analysis/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/analysis/sweep.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/analysis/sweep_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/bindings.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/biology/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/biology/first_rna.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/biology/protocell.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/biology/rna.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/catalog.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/chemistry/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/chemistry/clay.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/chemistry/fields.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/constants.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/cosmology/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/cosmology/operators.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/cosmology/pbh.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/definitions.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/bundle_builder.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/memory.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/oorp.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/potentials.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/repository_assignment.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/runtime_bridge.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/sphere.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/state.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/subjective_time.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital/winding.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/orbital_formalism.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/registry.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/scenarios.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/simulator/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/simulator/factory.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/simulator/universal.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/simulator/universal_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/topology/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/topology/constraints.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/origins/topology/fields.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/requirements.txt",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/audit_abiogenesis_surface.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/check_public_semantics.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/export_orbital_manifest.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_abiogenesis.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_cmb_analysis.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_simulation.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_simulation_native_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_simulation_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_sweep.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_sweep_native_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/scripts/run_sweep_orbital.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/setup.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/app.js",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/app_1.js",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/app.js",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/index.html",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/ciel-cmb-analyzer.zip/style.css",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/ciel0_cmb_analyzer_english.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/index.html",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/script.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/spectrum.zip (1)_FILES/style.css",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/adapters.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/bindings.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/catalog.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/cli.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/definitions.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/grid.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/plotting.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/registry.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/runners.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/scenarios.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/simulator.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/sweep_v3.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/sweeps.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/src/origin_of_life/utils.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/__init__.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_abiogenesis_canon.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_abiogenesis_workflows.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_biology.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_bloch_holonomy.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_chemistry.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_dna_four_blocks_v05.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_dna_to_protocell_v06.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_public_semantics_guard.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_semantic_compression_v04.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_semantic_nucleic_braiding.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_simulator.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_temporal_climate_options_v07.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "repo/tests/test_topology.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "scripts/noema_minimal_monolith.py",
+    "versions": [
+      "v03",
+      "v08"
+    ],
+    "count": 3,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "MANIFEST_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/CURRENT_AFTER_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/audit/RUN_REPORT_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/paper_snapshot/main_v10.tex",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_REPORT_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "NOEMA_UPDATE_SNAP/NOEMA-20260517T081500-v10-non-arbitrary-pass-without-closure/results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_SUMMARY_v10.md",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "reports/RUN_REPORT_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_REPORT_v10.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/NON_ARBITRARY_PASS_WITHOUT_CLOSURE_SUMMARY_v10.md",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/RUN_REPORT_v09.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/TRUTH_CALIBRATED_FALSE_CLAIMS_REPORT_v09.json",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  },
+  {
+    "normalized_path": "results/TRUTH_CALIBRATED_FALSE_CLAIMS_SUMMARY_v09.md",
+    "versions": [
+      "v03",
+      "v10"
+    ],
+    "count": 2,
+    "unique_sha": 1
+  }
+]

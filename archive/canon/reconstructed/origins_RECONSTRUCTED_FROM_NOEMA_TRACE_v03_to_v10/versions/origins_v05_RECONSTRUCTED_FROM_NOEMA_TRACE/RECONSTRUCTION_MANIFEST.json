@@ -1,0 +1,34 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v05",
+  "title": "DNA four blocks relation",
+  "created_at_utc": "2026-05-18T01:26:31.912907+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T024500-v05dnafourblocks"
+  ],
+  "confidence": "trace_reconstructed_high_for_changed_artifacts",
+  "found_artifacts": [
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "noema_trace/NOEMA-20260517T024500-v05dnafourblocks.json",
+    "paper/main.tex",
+    "paper/references.bib",
+    "repo/origins/abiogenesis/dna_four_blocks.py",
+    "repo/tests/test_dna_four_blocks_v05.py",
+    "reports/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "reports/RUN_REPORT_v05.json",
+    "results/DNA_FOUR_BLOCK_RELATION_REPORT_v05.json",
+    "results/RUN_REPORT_v05.json"
+  ],
+  "missing_artifacts_or_snap_refs": [],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

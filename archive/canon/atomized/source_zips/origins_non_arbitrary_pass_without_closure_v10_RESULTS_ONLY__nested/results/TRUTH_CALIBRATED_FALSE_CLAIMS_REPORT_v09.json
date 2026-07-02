@@ -1,0 +1,258 @@
+{
+  "claim_calibrations": [
+    {
+      "calibrated": {
+        "DNA_first_claimed": false,
+        "DNA_first_claimed__calibration": {
+          "claim": "DNA_first_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.08,
+          "required_evidence_to_promote": "historical evidence that DNA, not RNA or mixed nucleic chemistry, was the early primary carrier",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "bibtex_references_added": true,
+        "empirical_abiogenesis_proof_claimed": false,
+        "empirical_abiogenesis_proof_claimed__calibration": {
+          "claim": "empirical_abiogenesis_proof_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.18,
+          "required_evidence_to_promote": "independent wet-lab or validated geochemical evidence connecting the proxy transition to a real prebiotic pathway",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "speculative_aperture_only"
+        },
+        "geological_timeline_claimed": false,
+        "geological_timeline_claimed__calibration": {
+          "claim": "geological_timeline_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.42,
+          "required_evidence_to_promote": "dated environmental constraints and a geochemical time-series, not relative stage order only",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "internet_backed_comparisons_added": true,
+        "quantum_chemistry_claimed": false,
+        "quantum_chemistry_claimed__calibration": {
+          "claim": "quantum_chemistry_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.12,
+          "required_evidence_to_promote": "explicit quantum-chemical calculations or cited computed reaction energetics",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "semantic_relation_model_claimed": true,
+        "thermodynamic_membrane_simulation_claimed": false,
+        "thermodynamic_membrane_simulation_claimed__calibration": {
+          "claim": "thermodynamic_membrane_simulation_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.38,
+          "required_evidence_to_promote": "explicit free-energy or kinetic membrane model with amphiphile parameters and validation data",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "time_varying_environment_options_claimed": true
+      },
+      "path": "results/INTERNET_COMPARISONS_REPORT_v08.json",
+      "source": "v08_claims"
+    },
+    {
+      "calibrated": {
+        "dna_first_historical_claimed": false,
+        "dna_first_historical_claimed__calibration": {
+          "claim": "dna_first_historical_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.08,
+          "required_evidence_to_promote": "historical evidence that DNA, not RNA or mixed nucleic chemistry, was the early primary carrier",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "empirical_abiogenesis_proof_claimed": false,
+        "empirical_abiogenesis_proof_claimed__calibration": {
+          "claim": "empirical_abiogenesis_proof_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.18,
+          "required_evidence_to_promote": "independent wet-lab or validated geochemical evidence connecting the proxy transition to a real prebiotic pathway",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "speculative_aperture_only"
+        },
+        "empirical_geological_timeline_claimed": false,
+        "empirical_geological_timeline_claimed__calibration": {
+          "claim": "empirical_geological_timeline_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.42,
+          "required_evidence_to_promote": "dated environmental constraints and a geochemical time-series, not relative stage order only",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "quantum_chemistry_claimed": false,
+        "quantum_chemistry_claimed__calibration": {
+          "claim": "quantum_chemistry_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.12,
+          "required_evidence_to_promote": "explicit quantum-chemical calculations or cited computed reaction energetics",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "rate_of_change_proxy_claimed": true,
+        "scenario_options_claimed": true,
+        "semantic_relation_model_claimed": true,
+        "thermodynamic_membrane_simulation_claimed": false,
+        "thermodynamic_membrane_simulation_claimed__calibration": {
+          "claim": "thermodynamic_membrane_simulation_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.38,
+          "required_evidence_to_promote": "explicit free-energy or kinetic membrane model with amphiphile parameters and validation data",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "time_varying_climate_holonomy_claimed": true
+      },
+      "path": "results/TEMPORAL_CLIMATE_OPTIONS_REPORT_v07.json",
+      "source": "v07_certification_boundary"
+    },
+    {
+      "calibrated": {
+        "dna_first_historical_claimed": false,
+        "dna_first_historical_claimed__calibration": {
+          "claim": "dna_first_historical_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.08,
+          "required_evidence_to_promote": "historical evidence that DNA, not RNA or mixed nucleic chemistry, was the early primary carrier",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "empirical_abiogenesis_proof_claimed": false,
+        "empirical_abiogenesis_proof_claimed__calibration": {
+          "claim": "empirical_abiogenesis_proof_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.18,
+          "required_evidence_to_promote": "independent wet-lab or validated geochemical evidence connecting the proxy transition to a real prebiotic pathway",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "speculative_aperture_only"
+        },
+        "geological_timeline_claimed": false,
+        "geological_timeline_claimed__calibration": {
+          "claim": "geological_timeline_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.42,
+          "required_evidence_to_promote": "dated environmental constraints and a geochemical time-series, not relative stage order only",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "protocell_readiness_proxy_claimed": true,
+        "quantum_chemistry_claimed": false,
+        "quantum_chemistry_claimed__calibration": {
+          "claim": "quantum_chemistry_claimed",
+          "claimed": false,
+          "honest_label": "false_low_support_boundary",
+          "plausibility_score": 0.12,
+          "required_evidence_to_promote": "explicit quantum-chemical calculations or cited computed reaction energetics",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "out_of_scope_or_low_support"
+        },
+        "semantic_relation_model_claimed": true,
+        "thermodynamic_membrane_simulation_claimed": false,
+        "thermodynamic_membrane_simulation_claimed__calibration": {
+          "claim": "thermodynamic_membrane_simulation_claimed",
+          "claimed": false,
+          "honest_label": "false_but_calibrated_not_yet",
+          "plausibility_score": 0.38,
+          "required_evidence_to_promote": "explicit free-energy or kinetic membrane model with amphiphile parameters and validation data",
+          "semantic_ontological_aperture": "not true in the present model, but left open as an explicitly marked future evidence channel",
+          "support_level": "weak_or_partial_support"
+        },
+        "time_varying_climate_holonomy_claimed": true
+      },
+      "path": "results/DNA_TO_PROTOCELL_REPORT_v06.json",
+      "source": "v06_certification_boundary"
+    }
+  ],
+  "epistemic_boundary": {
+    "calibrated_not_yet_claims_added": true,
+    "empirical_abiogenesis_proof_claimed": false,
+    "semantic_invariant_transition_proxy_claimed": true,
+    "semantic_ontological_aperture_left_open": true
+  },
+  "false_claims_calibrated": 15,
+  "false_claims_promoted_to_true": 0,
+  "negative_control_calibration": {
+    "honest_label": "near_threshold_negative_control",
+    "near_miss_ratio": 0.967948,
+    "negative_control_peak_readiness": 0.670506,
+    "negative_control_transition_detected": false,
+    "semantic_ontological_aperture": "failure to cross remains informative because it estimates how close stress conditions came to the protocell threshold",
+    "threshold_gap": 0.022203,
+    "threshold_proxy": 0.692709
+  },
+  "no_fake_true": true,
+  "previous_state_id": "NOEMA-20260517T061500-v08-internet-comparisons-citations",
+  "principle": "Preserve false boundaries while adding calibrated probability, support level, and semantic-ontological aperture.",
+  "remaining_false_boundaries": 15,
+  "schema": "ORIGINS_NOEMA_V09_TRUTH_CALIBRATED_FALSE_CLAIMS",
+  "snap_id": "NOEMA-20260517T071500-v09-truth-calibrated-false-claims",
+  "stage_threshold_calibrations": [
+    {
+      "crosses_threshold": false,
+      "proto_tendency_score": 0.429314,
+      "protocell_readiness_proxy": 0.29739,
+      "semantic_ontological_aperture": "pre-threshold but directionally informative",
+      "stage_name": "alphabet_only_open_surface",
+      "threshold": 0.692709,
+      "threshold_gap": 0.395319
+    },
+    {
+      "crosses_threshold": false,
+      "proto_tendency_score": 0.773671,
+      "protocell_readiness_proxy": 0.535929,
+      "semantic_ontological_aperture": "pre-threshold but directionally informative",
+      "stage_name": "surface_cycling_concentration",
+      "threshold": 0.692709,
+      "threshold_gap": 0.15678
+    },
+    {
+      "crosses_threshold": false,
+      "proto_tendency_score": 0.932025,
+      "protocell_readiness_proxy": 0.645622,
+      "semantic_ontological_aperture": "pre-threshold but directionally informative",
+      "stage_name": "vesicle_contact_with_polymer_trace",
+      "threshold": 0.692709,
+      "threshold_gap": 0.047087
+    },
+    {
+      "crosses_threshold": false,
+      "proto_tendency_score": 0.980864,
+      "protocell_readiness_proxy": 0.679453,
+      "semantic_ontological_aperture": "pre-threshold but directionally informative",
+      "stage_name": "encapsulated_recurrence",
+      "threshold": 0.692709,
+      "threshold_gap": 0.013256
+    },
+    {
+      "crosses_threshold": true,
+      "proto_tendency_score": 1.0,
+      "protocell_readiness_proxy": 0.693658,
+      "semantic_ontological_aperture": "threshold-crossing proxy, not empirical proof",
+      "stage_name": "protocell_candidate",
+      "threshold": 0.692709,
+      "threshold_gap": 0.0
+    }
+  ],
+  "summary": {
+    "highest_future_evidence_value": "thermodynamic_membrane_simulation and geological timeline layers can be upgraded by adding explicit physical/geochemical modules",
+    "most_important_closed_boundary": "DNA_first_claimed remains low plausibility because the model uses DNA as an alphabet proxy, not a historical assertion",
+    "strongest_near_true_channel": "negative_control_transition_detected remains false but near_miss_ratio is high"
+  }
+}

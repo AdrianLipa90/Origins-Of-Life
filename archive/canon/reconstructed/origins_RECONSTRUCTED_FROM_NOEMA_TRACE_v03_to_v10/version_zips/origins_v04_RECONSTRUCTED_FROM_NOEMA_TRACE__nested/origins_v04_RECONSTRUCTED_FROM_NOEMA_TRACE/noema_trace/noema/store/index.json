@@ -1,0 +1,135 @@
+{
+  "by_layer": {
+    "episodic": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression",
+      "NOEMA-20260517T024500-v05dnafourblocks",
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ]
+  },
+  "by_namespace": {
+    "Origins-Of-Life": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression",
+      "NOEMA-20260517T024500-v05dnafourblocks",
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ]
+  },
+  "by_project": {
+    "Origins-Of-Life::dna_four_blocks_relation": [
+      "NOEMA-20260517T024500-v05dnafourblocks"
+    ],
+    "Origins-Of-Life::latex_standard_v05b_nopdf": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "Origins-Of-Life::semantic_nucleic_braiding": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression"
+    ],
+    "Origins-Of-Life::temporal_climate_options_v07": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ]
+  },
+  "by_tag": {
+    "braiding": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression"
+    ],
+    "carbon_organic": [
+      "NOEMA-20260517T021109-a97dc110e6"
+    ],
+    "climate_holonomy": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ],
+    "dna": [
+      "NOEMA-20260517T024500-v05dnafourblocks",
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "four_blocks": [
+      "NOEMA-20260517T024500-v05dnafourblocks",
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "latex": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "methods": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "no_pdf": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "nucleic_acid": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression"
+    ],
+    "origins": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression",
+      "NOEMA-20260517T024500-v05dnafourblocks",
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ],
+    "protocell": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ],
+    "results": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "scenario_options": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ],
+    "semantic_compression": [
+      "NOEMA-20260517T021109-a97dc110e6",
+      "NOEMA-20260517T022726-3fc21483ca",
+      "NOEMA-20260517T023557-v04semanticcompression",
+      "NOEMA-20260517T024500-v05dnafourblocks"
+    ],
+    "temporal_dynamics": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ],
+    "transition_detector": [
+      "NOEMA-20260517T023557-v04semanticcompression"
+    ],
+    "v04": [
+      "NOEMA-20260517T023557-v04semanticcompression"
+    ],
+    "v05": [
+      "NOEMA-20260517T024500-v05dnafourblocks"
+    ],
+    "v05b": [
+      "NOEMA-20260517T031500-v05b-latex-standard-nopdf"
+    ],
+    "v07": [
+      "NOEMA-20260517T052000-v07-temporal-climate-options"
+    ]
+  },
+  "current_snap_id": "NOEMA-20260517T052000-v07-temporal-climate-options",
+  "rebuilt_at_utc": "2026-05-17T03:04:17+00:00",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "snap_ids": [
+    "NOEMA-20260517T021109-a97dc110e6",
+    "NOEMA-20260517T022726-3fc21483ca",
+    "NOEMA-20260517T023557-v04semanticcompression",
+    "NOEMA-20260517T024500-v05dnafourblocks",
+    "NOEMA-20260517T031500-v05b-latex-standard-nopdf",
+    "NOEMA-20260517T052000-v07-temporal-climate-options"
+  ],
+  "snaps": [
+    {
+      "sha256": "96dae92316d3e85cd43d7653daf90bf1ef1297c9e923fff5d5a00d4adef38784",
+      "snap_id": "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy"
+    },
+    {
+      "sha256": "a3e55035e04732caba6086e33a6398ca16fefa50ee4423a85b4056bcfd6e3d64",
+      "snap_id": "NOEMA-20260517T052000-v07-temporal-climate-options"
+    }
+  ]
+}

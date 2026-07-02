@@ -1,0 +1,46 @@
+{
+  "tests": [
+    {
+      "cmd": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "pytest",
+        "-q",
+        "/mnt/data/origins_v05_build/origins_noema_rewrite_v05/repo/tests/test_dna_four_blocks_v05.py",
+        "/mnt/data/origins_v05_build/origins_noema_rewrite_v05/repo/tests/test_semantic_compression_v04.py",
+        "/mnt/data/origins_v05_build/origins_noema_rewrite_v05/repo/tests/test_semantic_nucleic_braiding.py"
+      ],
+      "returncode": 0,
+      "output": "..........                                                               [100%]\n10 passed in 1.58s\n"
+    },
+    {
+      "cmd": [
+        "/opt/pyvenv/bin/python3",
+        "-m",
+        "compileall",
+        "-q",
+        "/mnt/data/origins_v05_build/origins_noema_rewrite_v05/repo/origins"
+      ],
+      "returncode": 0,
+      "output": ""
+    }
+  ],
+  "report_metrics": {
+    "ordered_relation_count": 16.0,
+    "complement_ordered_relation_count": 4.0,
+    "unordered_complement_axis_count": 2.0,
+    "mean_semantic_affinity_all": 0.329167,
+    "mean_semantic_affinity_offdiag": 0.438889,
+    "mean_complement_affinity": 0.966667,
+    "mean_mismatch_affinity": 0.175,
+    "mean_same_class_affinity": 0.05,
+    "mean_cross_class_affinity": 0.633333,
+    "complement_selectivity_proxy": 0.791667,
+    "axis_balance_proxy": 0.933333,
+    "alphabet_closure_proxy": 1.0,
+    "class_symmetry_proxy": 1.0,
+    "grammar_compression_proxy": 0.875,
+    "identity_retention_proxy": 0.911833,
+    "transition_readiness_proxy": 0.909333
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "snap_id": "NOEMA-20260517T061500-v08-internet-comparisons-citations",
+  "type": "iteration_state",
+  "created_utc": "2026-05-17T06:15:00Z",
+  "description": "v08 internet-backed comparisons and citations added to LaTeX",
+  "source": "local v07 package + web-backed bibliography",
+  "write_mode": "append_only"
+}

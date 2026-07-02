@@ -1,0 +1,36 @@
+{
+  "artifacts": [
+    "repo/origins/abiogenesis/dna_to_protocell.py",
+    "repo/tests/test_dna_to_protocell_v06.py",
+    "paper/main.tex",
+    "results/DNA_TO_PROTOCELL_REPORT_v06.json"
+  ],
+  "base_zip": "/mnt/data/origins_noema_latex_standard_v05b_NOPDF_READY.zip",
+  "created_at_utc": "2026-05-17T02:58:15.216384+00:00",
+  "noema_current": {
+    "canon_allowed": false,
+    "current_snap_hash": "96dae92316d3e85cd43d7653daf90bf1ef1297c9e923fff5d5a00d4adef38784",
+    "current_snap_id": "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy",
+    "current_state_note": "v0.6 DNA-four-block to protocell-readiness model appended locally; no PDF generated",
+    "memory_layer": "episodic",
+    "namespace": "Origins-Of-Life",
+    "project_id": "Origins-Of-Life::dna_to_protocell_v06",
+    "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+    "uncertainty_operator": "chyba",
+    "updated_at_utc": "2026-05-17T02:58:15.216384+00:00"
+  },
+  "package": "origins_noema_dna_to_protocell_v06_READY",
+  "snap_id": "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy",
+  "tests": {
+    "compileall_returncode": 0,
+    "compileall_stderr": "",
+    "compileall_stdout": "",
+    "current_ok": true,
+    "no_pdf_generated": true,
+    "ok": true,
+    "pytest_returncode": 0,
+    "pytest_stderr": "",
+    "pytest_stdout": "....                                                                     [100%]\n4 passed in 1.42s",
+    "snap_count": 6
+  }
+}

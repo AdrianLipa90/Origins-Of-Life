@@ -1,0 +1,19 @@
+{
+  "compileall": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "pytest_selected": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "............                                                             [100%]\n12 passed in 2.68s\n"
+  },
+  "snap_id": "NOEMA-20260517T071500-v09-truth-calibrated-false-claims",
+  "static": {
+    "bib_at_end": true,
+    "contains_v09": true,
+    "pdf_entries": 0,
+    "pyc_entries": 61
+  }
+}

@@ -98,6 +98,19 @@ Additional docs:
 - `docs/ABIOGENESIS_WORKFLOWS.md`
 - `docs/REPO_POSITIONING_AND_ADOPTION.md`
 
+## Archive (extracted 2026-07-02)
+
+The `archive/` directory contains the full project extraction from the master bundle `ORIGINS_OF_LIFE_FULL_ZIP_ONLY_SET_20260702.zip`:
+
+| Directory | Source | Description | Files |
+|-----------|--------|-------------|-------|
+| `archive/versions/` | v03–v10 NOEMA trace reconstructions | Historical snapshots (13 archives) | 2714 |
+| `archive/results/` | RESULTS_ONLY v05+v06 | Simulation outputs and metrics | 30 |
+| `archive/canon/` | Full canon solver (denested, crystallized, reconstructed, atomized) | Code merges, traces, search results | 5138 |
+| `archive/latex/` | TeX/Bib/Class from all archives | Paper sources and styles | 160 |
+| `archive/failures/` | v10 non-arbitrary pass without closure | Semantic closure failure record | 54 |
+| `archive/docs/` | 9-chapter documentation | Theory, computation, chronology, analysis, closure | 10 |
+
 ## Historical note
 
 The repository still contains legacy theoretical framing around CIEL/0, CMB intelligence detection and broader cosmic signaling concepts. That material remains historically relevant to the project’s evolution, but it is not the best semantic entrypoint for the current runnable repository surface.

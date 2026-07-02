@@ -1,0 +1,12 @@
+{
+  "canon_allowed": false,
+  "current_snap_hash": "96dae92316d3e85cd43d7653daf90bf1ef1297c9e923fff5d5a00d4adef38784",
+  "current_snap_id": "NOEMA-20260517T041500-v06-dna-to-protocell-climate-holonomy",
+  "current_state_note": "v0.6 DNA-four-block to protocell-readiness model appended locally; no PDF generated",
+  "memory_layer": "episodic",
+  "namespace": "Origins-Of-Life",
+  "project_id": "Origins-Of-Life::dna_to_protocell_v06",
+  "schema": "NOEMA_MINIMAL_MONOLITH_V0_1",
+  "uncertainty_operator": "chyba",
+  "updated_at_utc": "2026-05-17T02:58:15.216384+00:00"
+}

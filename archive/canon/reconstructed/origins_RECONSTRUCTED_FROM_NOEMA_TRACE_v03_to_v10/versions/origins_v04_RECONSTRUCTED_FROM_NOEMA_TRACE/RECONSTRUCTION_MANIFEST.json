@@ -1,0 +1,35 @@
+{
+  "schema": "ORIGINS_VERSION_RECONSTRUCTION_FROM_NOEMA_TRACE_V1",
+  "version": "v04",
+  "title": "semantic compression + transition detector",
+  "created_at_utc": "2026-05-18T01:26:31.578889+00:00",
+  "method": "trace reconstruction from local /mnt NOEMA snaps, manifests, results, and latest available repo snapshot; not byte-perfect original unless marked materialized.",
+  "source_roots": [
+    "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08",
+    "/mnt/data/origins_scan/v10"
+  ],
+  "snap_ids": [
+    "NOEMA-20260517T023557-v04semanticcompression"
+  ],
+  "confidence": "trace_reconstructed_high_for_changed_artifacts",
+  "found_artifacts": [
+    "noema/CURRENT.json",
+    "noema/store/CURRENT.json",
+    "noema/store/index.json",
+    "noema/store/manifest.jsonl",
+    "noema_trace/NOEMA-20260517T023557-v04semanticcompression.json",
+    "paper/main.tex",
+    "paper/references.bib",
+    "repo/origins/abiogenesis/__init__.py",
+    "repo/origins/abiogenesis/api.py",
+    "repo/origins/abiogenesis/semantic_compression.py",
+    "repo/tests/test_semantic_compression_v04.py",
+    "reports/RUN_REPORT.json",
+    "reports/V04_DEMO_OUTPUT.json",
+    "reports/pytest_semantic_braiding.stdout.txt"
+  ],
+  "missing_artifacts_or_snap_refs": [],
+  "repo_snapshot_source": "/mnt/data/origins_scan/v08/origins_noema_internet_comparisons_v08/repo",
+  "repo_snapshot_note": "Full repo snapshot copied from v08 source as closest materialized full repository surface. Version-specific artifacts are also copied separately under artifacts/.",
+  "epistemic_boundary": "Reconstructed package; use manifests and noema_trace/ for provenance. Do not treat trace-only versions as original byte-exact source ZIPs."
+}

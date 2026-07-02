@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+outputs/
+sweep*/
+cmb_outputs/
+*.npz
+*.csv

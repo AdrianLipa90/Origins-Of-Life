@@ -1,0 +1,20 @@
+[
+  {
+    "scenario": "A",
+    "scenario_name": "Shallow Ocean + UV (Clay Hypothesis)",
+    "final_time_h": 2.0000000000000004,
+    "final_mean_R": 0.01432396937161684,
+    "final_mean_M": 0.004069475897768083,
+    "final_n_polymers": 26,
+    "final_n_protocells": 0
+  },
+  {
+    "scenario": "E",
+    "scenario_name": "Enceladus Subsurface Ocean (Under-Ice Life)",
+    "final_time_h": 2.0000000000000004,
+    "final_mean_R": 0.002258145483210683,
+    "final_mean_M": 0.004074245722475405,
+    "final_n_polymers": 16,
+    "final_n_protocells": 0
+  }
+]
