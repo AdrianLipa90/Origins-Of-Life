@@ -1,9 +1,50 @@
+# --- Python ---
 __pycache__/
 *.py[cod]
 *.pyo
+*.egg
 *.egg-info/
 dist/
 build/
+.eggs/
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+
+# --- LaTeX ---
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.idx
+*.ind
+*.ilg
+*.dvi
+*.ps
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- IDE ---
+.vscode/
+.idea/
+
+# --- Project-specific ---
 outputs/
 sweep*/
 cmb_outputs/
