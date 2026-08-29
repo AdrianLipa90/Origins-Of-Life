@@ -29,9 +29,9 @@ Treat these as the repo-facing semantic layer.
 ## Internal implementation substrate
 
 The lower-level execution substrate remains:
-- `origins.orbital`
-- `origins.simulator.universal_orbital`
-- `origins.analysis.sweep_orbital`
+- internal implementation substrate: `origins.orbital`
+- internal implementation substrate: `origins.simulator.universal_orbital`
+- internal implementation substrate: `origins.analysis.sweep_orbital`
 
 Those names are acceptable internally, but public examples should prefer the `abiogenesis` surface.
 
