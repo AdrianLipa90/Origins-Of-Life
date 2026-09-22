@@ -1,0 +1,55 @@
+name: Zeta Spectral Specificity v0.2
+
+on:
+  pull_request:
+    paths:
+      - "docs/ZETA_SPECTRAL_SPECIFICITY_PREREG_V0_2.md"
+      - "origins/analysis/zeta_specificity_v02.py"
+      - "scripts/run_zeta_specificity_v02.py"
+      - "tests/test_zeta_specificity_v02.py"
+      - ".github/workflows/zeta-spectral-specificity-v02.yml"
+
+jobs:
+  preregistered-v02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [A, C]
+        seed_block:
+          - "201,202,203,204,205"
+          - "206,207,208,209,210"
+          - "211,212,213,214,215"
+          - "216,217,218,219,220"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run frozen v0.2 block
+        run: |
+          block="${{ matrix.seed_block }}"
+          first="${block%%,*}"
+          last="${block##*,}"
+          python scripts/run_zeta_specificity_v02.py \
+            --scenario ${{ matrix.scenario }} \
+            --seeds "${block}" \
+            --outdir "zeta_specificity_v02_${{ matrix.scenario }}_${first}_${last}"
+
+      - name: Upload v0.2 block
+        uses: actions/upload-artifact@v4
+        with:
+          name: zeta-specificity-v02-${{ matrix.scenario }}-${{ matrix.seed_block }}
+          path: zeta_specificity_v02_*/
+          if-no-files-found: error
