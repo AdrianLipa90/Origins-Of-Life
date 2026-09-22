@@ -1,4 +1,7 @@
 from copy import deepcopy
+from pathlib import Path
+import subprocess
+import sys
 
 import pandas as pd
 
@@ -67,3 +70,16 @@ def test_factorial_effects_uses_standard_2x2_contrast():
     assert first["geometry_at_zero_zeta"] == 2.0
     assert first["interaction"] == 5.0
     assert first["full_minus_chemistry"] == 10.0
+
+
+def test_ablation_cli_is_directly_executable():
+    repo_root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(repo_root / "scripts" / "run_matched_ablation.py"), "--help"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert "Matched 2x2 ablation" in proc.stdout
