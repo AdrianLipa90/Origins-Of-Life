@@ -84,3 +84,27 @@ The current model can test whether its chemistry reaches polymerase-sized RNA.
 It still cannot prove emergence of a functional self-replicating RNA system.
 
 That gap is now explicit rather than hidden behind a stochastic threshold.
+
+
+## Geometry-control correction
+
+The historical first-RNA kinetic expression also contained a control error:
+setting `topo_strength=0` did not remove the geometric contribution. A zero
+field maps to `bloch_coherence=1`, while the historical factor was
+
+```
+1 + 2 * bloch_coherence
+```
+
+so the supposed zero-strength control still multiplied ligation by 3 before
+the Berry term.
+
+The hardened runtime therefore uses an explicit causal switch:
+
+- `geometry_mode="off"` (default): Bloch/Berry diagnostics may still be
+  computed, but their ligation multiplier is exactly 1;
+- `geometry_mode="legacy_candidate"`: restores the historical experimental
+  coupling for controlled comparisons.
+
+This prevents a zero-valued synthetic field from being mislabeled as a
+chemistry-only control.
