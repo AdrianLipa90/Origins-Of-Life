@@ -1,14 +1,43 @@
 from __future__ import annotations
 
 import numpy as np
-from scipy.ndimage import label
+
+
+def _periodic_label(mask: np.ndarray) -> tuple[np.ndarray, int]:
+    """4-neighbour connected components on a 2D periodic lattice."""
+    array = np.asarray(mask, dtype=bool)
+    nx, ny = array.shape
+    labels = np.zeros((nx, ny), dtype=np.int32)
+    component = 0
+
+    for i in range(nx):
+        for j in range(ny):
+            if not array[i, j] or labels[i, j] != 0:
+                continue
+            component += 1
+            labels[i, j] = component
+            stack = [(i, j)]
+            while stack:
+                x, y = stack.pop()
+                for xx, yy in (
+                    ((x - 1) % nx, y),
+                    ((x + 1) % nx, y),
+                    (x, (y - 1) % ny),
+                    (x, (y + 1) % ny),
+                ):
+                    if array[xx, yy] and labels[xx, yy] == 0:
+                        labels[xx, yy] = component
+                        stack.append((xx, yy))
+
+    return labels, component
 
 
 def bounded_compartment_observation(mask: np.ndarray) -> dict[str, object]:
     """Classify threshold-positive regions without mistaking global saturation for a compartment.
 
-    The transport operators use periodic rolls, so the natural diagnostic
-    domain is a discrete torus. A uniformly TRUE mask has no internal/external
+    The transport operators use periodic rolls, so both component connectivity
+    and boundary detection are evaluated on a discrete torus. A uniformly TRUE
+    mask has no internal/external
     interface on that torus and therefore cannot satisfy the bounded-system
     observable merely because a connected-component routine returns one label.
     """
@@ -18,7 +47,7 @@ def bounded_compartment_observation(mask: np.ndarray) -> dict[str, object]:
     if array.size == 0:
         raise ValueError("compartment mask must be non-empty")
 
-    labels, raw_count = label(array)
+    labels, raw_count = _periodic_label(array)
     area_pixels = int(array.sum())
     total_pixels = int(array.size)
     occupancy_fraction = float(area_pixels / total_pixels)
