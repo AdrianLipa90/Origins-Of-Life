@@ -1,0 +1,43 @@
+name: First RNA Linkage Holdout v0.6
+
+on:
+  pull_request:
+    paths:
+      - "docs/FIRST_RNA_LINKAGE_HOLDOUT_PREREG_V0_6.md"
+      - "origins/analysis/first_rna_linkage_holdout_v06.py"
+      - "scripts/run_first_rna_linkage_holdout_v06.py"
+      - "tests/test_first_rna_linkage_holdout_v06.py"
+      - ".github/workflows/first-rna-linkage-holdout-v06.yml"
+
+jobs:
+  linkage-structural-holdout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy pytest
+
+      - name: Run linkage structural holdout
+        run: |
+          python scripts/run_first_rna_linkage_holdout_v06.py
+
+      - name: Run linkage holdout tests
+        run: |
+          pytest -q tests/test_first_rna_linkage_holdout_v06.py
+
+      - name: Upload linkage holdout receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-linkage-holdout-v06
+          path: first_rna_linkage_holdout_v06/
+          if-no-files-found: error
