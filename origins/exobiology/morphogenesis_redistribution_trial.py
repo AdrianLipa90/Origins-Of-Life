@@ -27,6 +27,7 @@ class BoundaryRedistributionTrialPair:
     intervention_mode: str
     baseline_boundary_source_total: float
     intervention_boundary_source_total: float
+    intervention_same_state_baseline_source_total: float
     boundary_source_budget_relative_error: float
     baseline_source_cosine: float
     intervention_source_cosine: float
@@ -138,13 +139,16 @@ def run_boundary_redistribution_trial_case(
         previous = horizon
         ob = baseline.candidate_compartments()
         oi = intervention.candidate_compartments()
-        sb = baseline.candidate_assembly_sources()["boundary"]
-        si = intervention.candidate_assembly_sources()["boundary"]
-        total_b = float(np.sum(sb))
-        total_i = float(np.sum(si))
+        baseline_sources = baseline.candidate_assembly_sources()
+        intervention_sources = intervention.candidate_assembly_sources()
+        total_b = float(np.sum(baseline_sources["boundary"]))
+        total_i = float(np.sum(intervention_sources["boundary"]))
+        intervention_reference = float(
+            np.sum(intervention_sources["boundary_baseline"])
+        )
         budget_error = (
-            abs(total_i - total_b) / total_b
-            if total_b > 1e-15
+            abs(total_i - intervention_reference) / intervention_reference
+            if intervention_reference > 1e-15
             else (0.0 if total_i <= 1e-15 else float("inf"))
         )
         gb = diagnose_source_geometry(baseline)
@@ -162,6 +166,7 @@ def run_boundary_redistribution_trial_case(
                 intervention_mode=EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE,
                 baseline_boundary_source_total=total_b,
                 intervention_boundary_source_total=total_i,
+                intervention_same_state_baseline_source_total=intervention_reference,
                 boundary_source_budget_relative_error=float(budget_error),
                 baseline_source_cosine=float(gb.cosine_overlap),
                 intervention_source_cosine=float(gi.cosine_overlap),
