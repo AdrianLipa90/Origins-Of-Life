@@ -7,7 +7,9 @@ import numpy as np
 from .boundary_morphogenesis import (
     COLOCATED_BASELINE,
     EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE,
+    EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE,
     exterior_information_interface_gate,
+    redistribute_boundary_source_to_information_exterior,
     validate_boundary_morphogenesis_mode,
 )
 from .compartments import closed_boundary_compartment_observation
@@ -208,6 +210,11 @@ class AmmoniaCandidateSimulator:
         )
         if self.boundary_morphogenesis == EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE:
             boundary = boundary * exterior_information_interface_gate(self.I)
+        elif self.boundary_morphogenesis == EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE:
+            boundary = redistribute_boundary_source_to_information_exterior(
+                boundary,
+                self.I,
+            )
         return {
             "information": information,
             "boundary": boundary,
