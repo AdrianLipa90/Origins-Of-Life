@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import math
 
 import numpy as np
-from .compartments import bounded_compartment_observation
+from .compartments import closed_boundary_compartment_observation
 from .profiles import HYDROCARBON_CANDIDATE, WorldEnvironment
 
 
@@ -312,8 +312,12 @@ class HydrocarbonCandidateSimulator:
     def candidate_compartments(self) -> dict[str, object]:
         self._require_initialized()
         p = self.parameters
-        mask = (self.B >= p.boundary_threshold) & (self.I >= p.information_threshold)
-        return bounded_compartment_observation(mask)
+        return closed_boundary_compartment_observation(
+            self.I,
+            self.B,
+            p.information_threshold,
+            p.boundary_threshold,
+        )
 
     def life_invariant_status(self) -> dict[str, dict[str, object]]:
         self._require_initialized()
@@ -321,12 +325,13 @@ class HydrocarbonCandidateSimulator:
         return {
             "BOUNDED_SYSTEM": {
                 "operationalized": True,
-                "observable": "threshold-positive localized region with nonzero internal/external interface",
+                "observable": "information-rich interior enclosed by a closed periodic boundary shell",
                 "physical_binding": PHYSICAL_BINDING,
                 "detected_count": compartments["count"],
-                "raw_component_count": compartments["raw_component_count"],
+                "raw_information_component_count": compartments["raw_information_component_count"],
                 "global_saturation": compartments["global_saturation"],
-                "interface_edge_count": compartments["interface_edge_count"],
+                "max_shell_coverage": compartments["max_shell_coverage"],
+                "shell_pixels": compartments["shell_pixels"],
             },
             "ENERGY_THROUGHPUT": {
                 "operationalized": True,
