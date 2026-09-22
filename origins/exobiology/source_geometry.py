@@ -49,36 +49,16 @@ def _pearson(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def source_fields(simulator) -> tuple[np.ndarray, np.ndarray]:
-    """Return instantaneous assembly-source geometry before substrate clipping."""
+    """Return the runtime's native instantaneous assembly-source geometry."""
     simulator._require_initialized()
-    p = simulator.parameters
-
-    if isinstance(simulator, AmmoniaCandidateSimulator):
-        source_information = (
-            p.information_assembly_rate
-            * simulator.P
-            * simulator.E
-            * (1.0 + p.selection_strength * simulator.Q)
-        )
-        source_boundary = p.boundary_assembly_rate * simulator.P * simulator.E
-        return source_information, source_boundary
-
-    if isinstance(simulator, HydrocarbonCandidateSimulator):
-        source_information = (
-            p.information_assembly_rate
-            * simulator.A
-            * simulator.E
-            * (1.0 + p.selection_strength * simulator.Q)
-        )
-        source_boundary = (
-            p.boundary_assembly_rate
-            * simulator.A
-            * simulator.E
-            * simulator.interface_template
-        )
-        return source_information, source_boundary
-
-    raise TypeError(f"unsupported exotic runtime: {type(simulator)!r}")
+    if not hasattr(simulator, "candidate_assembly_sources"):
+        raise TypeError(f"unsupported exotic runtime: {type(simulator)!r}")
+    sources = simulator.candidate_assembly_sources()
+    information = np.asarray(sources["information"], dtype=float)
+    boundary = np.asarray(sources["boundary"], dtype=float)
+    if information.shape != boundary.shape or information.ndim != 2:
+        raise ValueError("candidate assembly source fields must be same-shape 2D arrays")
+    return information, boundary
 
 
 def diagnose_source_geometry(simulator) -> SourceGeometryDiagnostic:
