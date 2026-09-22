@@ -9,6 +9,10 @@ from origins.exobiology.compartments import periodic_component_topology
 
 from origins.exobiology.hydrocarbon_dropout import (
     SCHEMA,
+    DROPOUT_CONTRACTIBLE_INTERIOR_LOSS,
+    DROPOUT_CONTRACTIBLE_SHELL_GAP,
+    DROPOUT_OTHER,
+    DROPOUT_PERSISTS,
     dropout_manifest,
     run_hydrocarbon_closure_dropout_case,
 )
@@ -40,6 +44,13 @@ def test_dropout_result_has_consistent_event_snapshots() -> None:
     assert 0.0 <= row.final_snapshot["boundary_threshold_fraction"] <= 1.0
     assert 0.0 <= row.final_snapshot["largest_information_component_fraction"] <= 1.0
     assert row.final_snapshot["information_noncontractible_component_count"] >= 0
+    assert row.final_snapshot["contractible_information_component_count"] >= 0
+    assert row.dropout_mechanism in {
+        DROPOUT_PERSISTS,
+        DROPOUT_CONTRACTIBLE_INTERIOR_LOSS,
+        DROPOUT_CONTRACTIBLE_SHELL_GAP,
+        DROPOUT_OTHER,
+    }
     if row.first_closed_step is None:
         assert row.first_closed_snapshot is None
         assert row.last_closed_step is None
@@ -84,3 +95,14 @@ def test_periodic_topology_detects_noncontractible_y_winding() -> None:
     assert topology["any_noncontractible"] is True
     assert topology["wraps_x_component_count"] == 0
     assert topology["wraps_y_component_count"] == 1
+
+
+
+def test_dropout_manifest_declares_mechanism_taxonomy() -> None:
+    manifest = dropout_manifest()
+    assert set(manifest["dropout_mechanisms"]) == {
+        DROPOUT_PERSISTS,
+        DROPOUT_CONTRACTIBLE_INTERIOR_LOSS,
+        DROPOUT_CONTRACTIBLE_SHELL_GAP,
+        DROPOUT_OTHER,
+    }
