@@ -1,0 +1,36 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_BASE_HOLDOUT_RESULTS_V0_4",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-base-holdout-v04",
+  "execution_head_sha": "8fea1612658fdbb9fbbe8975d0ad53016d8bcf5c",
+  "artifact": {
+    "id": 10720412781,
+    "name": "first-rna-base-holdout-v04",
+    "sha256": "1862060a2e8a07912f1a40e676a884d94c25e79ab605189318a9274417cb755e"
+  },
+  "canon_test_gate": {
+    "status": "PASS",
+    "pytest": "106 passed"
+  },
+  "status": "FAIL_BASE_SPECIFIC_HOLDOUT",
+  "held_out_base": "C",
+  "empirical_tail_window_nt": [
+    20,
+    25
+  ],
+  "predicted_tail_length_nt": 80,
+  "mass_fraction_ge_10": 0.013685236026598374,
+  "mass_fraction_ge_30": 0.013307401446234875,
+  "mass_fraction_ge_40": 0.012972283703960643,
+  "max_relative_conservation_error": 2.0008883439005247e-15,
+  "conservation_pass": true,
+  "parameters_retuned": false,
+  "base_identity_present_in_model": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "interpretation": "The v0.3 base-blind reactive-state architecture fails the held-out C polymerization behavior despite exact conservation; explicit base-resolved chemistry is required.",
+  "next_gate": "EXPLICIT_BASE_RESOLVED_REACTIVE_CHEMISTRY",
+  "forbidden_repair": "Do not rescue this result by retuning the global v0.3 A/U-calibrated rate constants."
+}
