@@ -39,15 +39,18 @@ non-lipid, conserves its modeled material sector, and operationalizes the five
 relational life invariants. Its molecular/physical binding remains `OPEN` and
 its default coefficients are unvalidated dimensionless candidate parameters.
 
-`HYDROCARBON_CANDIDATE` still has no dedicated runtime and fails closed rather
-than falling back silently to the terrestrial model.
+`HYDROCARBON_CANDIDATE` now has a separate
+`HYDROCARBON_CANDIDATE_V0_1` computational candidate runtime with an explicit
+interfacial/aggregate reservoir. It makes no specific azotosome claim and keeps
+all molecular binding OPEN.
 
 The common candidate-life contract is relational rather than molecular:
 bounded system, energy throughput, persistent information state, heritable
 state transformation, and selection/differential persistence.
 
 See `docs/EXOTIC_BIOLOGY_FRAMEWORK_V0_1.md` and
-`docs/AMMONIA_CANDIDATE_RUNTIME_V0_1.md`.
+`docs/AMMONIA_CANDIDATE_RUNTIME_V0_1.md` and
+`docs/HYDROCARBON_CANDIDATE_RUNTIME_V0_1.md`.
 
 
 ## Canonical public surface
