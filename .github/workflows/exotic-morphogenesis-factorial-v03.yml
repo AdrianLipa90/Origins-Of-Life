@@ -1,0 +1,80 @@
+name: Exotic Morphogenesis Factorial v0.3
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_information_morphogenesis_v01.py'
+      - 'tests/test_exotic_morphogenesis_factorial_v03.py'
+      - 'scripts/run_exotic_morphogenesis_factorial.py'
+      - '.github/workflows/exotic-morphogenesis-factorial-v03.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_morphogenesis_factorial.py'
+      - '.github/workflows/exotic-morphogenesis-factorial-v03.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  factorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run 2x2 morphogenesis factorial
+        run: |
+          python scripts/run_exotic_morphogenesis_factorial.py \
+            --outdir exotic_morphogenesis_factorial_artifact \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47 \
+            --ammonia-horizon 3000 \
+            --hydrocarbon-horizon 10000
+
+      - name: Validate factorial artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_morphogenesis_factorial_artifact/exotic_morphogenesis_factorial_v03.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_EXOTIC_MORPHOGENESIS_FACTORIAL_V0_3"
+          assert m["design"] == "2x2_MATCHED_SEED_FACTORIAL"
+          assert m["same_parameters_required"] is True
+          assert m["same_thresholds_required"] is True
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 24
+
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["ranking_allowed"] is False
+              assert row["material_residual_abs"] < 1e-8
+              assert row["information_source_budget_relative_error"] < 1e-9
+              # At the chosen horizons an information interface exists in all
+              # exterior-redistributed cases, so boundary budget must also close.
+              assert row["boundary_source_budget_relative_error"] < 1e-9
+          PY
+
+      - name: Upload factorial artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-morphogenesis-factorial-v03
+          path: exotic_morphogenesis_factorial_artifact/
+          if-no-files-found: error
