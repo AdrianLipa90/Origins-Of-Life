@@ -5,7 +5,9 @@ on:
     paths:
       - 'origins/exobiology/**'
       - 'tests/test_exotic_relational_benchmark_v01.py'
+      - 'tests/test_exotic_horizon_scan_v01.py'
       - 'scripts/run_exotic_relational_benchmark.py'
+      - 'scripts/run_exotic_horizon_scan.py'
       - '.github/workflows/exotic-relational-benchmark-v01.yml'
   push:
     branches:
@@ -13,6 +15,7 @@ on:
     paths:
       - 'origins/exobiology/**'
       - 'scripts/run_exotic_relational_benchmark.py'
+      - 'scripts/run_exotic_horizon_scan.py'
       - '.github/workflows/exotic-relational-benchmark-v01.yml'
 
 permissions:
@@ -66,4 +69,37 @@ jobs:
         with:
           name: exotic-relational-benchmark-v01
           path: exotic_benchmark_artifact/
+          if-no-files-found: error
+
+      - name: Run preregistered exotic horizon scan
+        run: |
+          python scripts/run_exotic_horizon_scan.py \
+            --outdir exotic_horizon_artifact \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47 \
+            --horizons 300 1000 3000
+
+      - name: Validate horizon artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_horizon_artifact/exotic_horizon_scan_v01.json")
+          data = json.loads(p.read_text())
+          assert data["schema"] == "ORIGINS_EXOTIC_HORIZON_SCAN_V0_1"
+          assert data["manifest"]["varied_dimension"] == "horizon_steps_only"
+          assert data["manifest"]["ranking_allowed"] is False
+          assert data["configuration"]["horizons"] == [300, 1000, 3000]
+          assert data["row_count"] == 18
+          assert all(row["parameters_frozen"] for row in data["rows"])
+          assert all(row["thresholds_frozen"] for row in data["rows"])
+          PY
+
+      - name: Upload horizon artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-horizon-scan-v01
+          path: exotic_horizon_artifact/
           if-no-files-found: error
