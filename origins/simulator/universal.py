@@ -28,6 +28,11 @@ import numpy as np
 import pandas as pd
 
 from ..scenarios import ScenarioConfig, TimeDependence
+from ..exobiology import (
+    RuntimeStatus,
+    WorldEnvironment,
+    get_biochemistry_profile,
+)
 from ..chemistry.fields import (
     diffuse_field,
     solar_envelope,
@@ -59,9 +64,10 @@ class UniversalOriginSimulator:
     """
     Universal 2-D origin-of-life simulator.
 
-    Works for all 5 scenarios by adapting kinetic parameters from the
-    ScenarioConfig.  Incorporates topological modulation, Zeta-Riemann
-    constraints, vectorised RNA population dynamics, and protocell detection.
+    The implemented biology is a water/RNA-like reference runtime. Exotic
+    scenarios may use it only as a terracentric control until a dedicated
+    BiochemistryProfile runtime exists. World environment and biology hypothesis
+    are tracked separately and reported explicitly.
 
     Parameters
     ----------
@@ -83,6 +89,9 @@ class UniversalOriginSimulator:
         preseed_rna: bool = True,
     ):
         self.config = config
+        self.environment = WorldEnvironment.from_scenario(config)
+        self.biochemistry_profile = get_biochemistry_profile(config.biochemistry_profile)
+        self.biochemistry_profile.assert_environment_compatible(self.environment)
         self.Nx, self.Ny = Nx, Ny
         self.dt_h  = dt_h
         self.t_h   = 0.0
@@ -96,9 +105,9 @@ class UniversalOriginSimulator:
         self.O:   Optional[np.ndarray] = None  # organic precursors
         self.N:   Optional[np.ndarray] = None  # activated nucleotides / bulk monomers
         self.N_surface: Optional[np.ndarray] = None  # clay-bound monomer reservoir
-        self.R:   Optional[np.ndarray] = None  # genetic polymer (RNA-like)
-        self.M:   Optional[np.ndarray] = None  # membrane
-        self.L:   Optional[np.ndarray] = None  # lipids / amphiphiles
+        self.R:   Optional[np.ndarray] = None  # reference information-polymer proxy
+        self.M:   Optional[np.ndarray] = None  # reference compartment proxy
+        self.L:   Optional[np.ndarray] = None  # reference amphiphile proxy
         self.Cat: Optional[np.ndarray] = None  # catalyst distribution
 
         # Environmental fields
@@ -278,7 +287,11 @@ class UniversalOriginSimulator:
         self.R = np.minimum(self.R + polymer_flux, 1.0)
 
     def step_replication_and_selection(self) -> None:
-        """STEP 4a – Vectorised RNA replication + fragmentation."""
+        """STEP 4a – Water/RNA-reference replication + fragmentation.
+
+        For candidate exotic profiles this is a terracentric control operator,
+        not a claim that the same information carrier exists in that solvent.
+        """
         rng = self._rng
 
         # Population events do not create concentration-field material.
@@ -319,7 +332,11 @@ class UniversalOriginSimulator:
             np.clip(field, 0.0, 1.0, out=field)
 
     def step_membrane_formation(self) -> None:
-        """STEP 6 – Lipid vesicle / membrane formation."""
+        """STEP 6 – Reference amphiphile-boundary formation.
+
+        Candidate exotic profiles still use this only as a terracentric control
+        until a solvent-specific compartment operator is implemented.
+        """
         T = self.config.temp_C
         if T < -100:
             # Raised from 0.1: amphiphile vesicle formation via mist-droplet mechanism
@@ -355,6 +372,26 @@ class UniversalOriginSimulator:
     def protocell_coverage_fraction(self) -> float:
         """Fraction of grid area occupied by threshold-positive protocell regions."""
         return float(self.protocell_area_pixels) / float(max(1, self.Nx * self.Ny))
+
+    def biology_claim_status(self) -> dict[str, object]:
+        """Return explicit claim scope for the selected biology hypothesis."""
+        status = self.biochemistry_profile.claim_status()
+        status.update(
+            {
+                "world_solvent": self.environment.solvent,
+                "terracentric_control_only": (
+                    self.biochemistry_profile.runtime_status
+                    == RuntimeStatus.TERRACENTRIC_CONTROL_ONLY
+                ),
+                "interpretation_allowed": (
+                    "REFERENCE_MODEL_OUTPUT"
+                    if self.biochemistry_profile.runtime_status
+                    == RuntimeStatus.REFERENCE_IMPLEMENTED
+                    else "CONTROL_ONLY_NOT_EXOTIC_BIOLOGY"
+                ),
+            }
+        )
+        return status
 
     def _validate_finite_fields(self) -> None:
         """Fail closed on non-finite or materially negative state."""
@@ -438,7 +475,9 @@ class UniversalOriginSimulator:
             print(f"SCENARIO {self.config.code}: {self.config.name}")
             print(f"  Location : {self.config.location}")
             print(f"  Temp     : {self.config.temp_C} °C")
-            print(f"  Solvent  : {self.config.solvent.value}")
+            print(f"  Solvent  : {self.environment.solvent}")
+            print(f"  Biology  : {self.biochemistry_profile.code}")
+            print(f"  Runtime  : {self.biochemistry_profile.runtime_status.value}")
             print(f"  Grid     : {self.Nx}×{self.Ny}  dt={self.dt_h} h  total={hours} h ({n_steps:,} steps)")
             print(f"{'='*70}")
 
@@ -512,25 +551,45 @@ class UniversalOriginSimulator:
         fig.savefig(os.path.join(self.outdir, f"{prefix}_heatmaps.png"), dpi=120)
         plt.close(fig)
 
-    def _save_summary(self) -> None:
-        summary = {
-            'Scenario':        self.config.code,
-            'Name':            self.config.name,
-            'Location':        self.config.location,
-            'Temp_C':          self.config.temp_C,
-            'Solvent':         self.config.solvent.value,
-            'Energy_Source':   self.config.energy_source,
-            'Catalyst':        self.config.catalyst,
-            'Final_Polymers':  self.rna_population.size,
-            'Final_ProtoC':    self.protocell_count,
+    def summary_record(self) -> dict[str, object]:
+        """Build a result record without over-claiming exotic biology."""
+        claim = self.biology_claim_status()
+        reference_runtime = (
+            self.biochemistry_profile.runtime_status
+            == RuntimeStatus.REFERENCE_IMPLEMENTED
+        )
+        expected = self.config.expected_protocells if reference_runtime else None
+        success_rate = (
+            round(
+                100.0 * self.protocell_count / max(1, self.config.expected_protocells),
+                1,
+            )
+            if reference_runtime
+            else None
+        )
+        return {
+            'Scenario': self.config.code,
+            'Name': self.config.name,
+            'Location': self.config.location,
+            'Temp_C': self.config.temp_C,
+            'Solvent': self.environment.solvent,
+            'Biochemistry_Profile': self.biochemistry_profile.code,
+            'Biochemistry_Epistemic_Status': self.biochemistry_profile.epistemic_status.value,
+            'Biology_Runtime_Status': self.biochemistry_profile.runtime_status.value,
+            'Biology_Interpretation': claim['interpretation_allowed'],
+            'Exotic_Biology_Simulated': claim['exotic_biology_simulated'],
+            'Energy_Source': self.config.energy_source,
+            'Catalyst': self.config.catalyst,
+            'Final_Polymers': self.rna_population.size,
+            'Final_ProtoC': self.protocell_count,
             'Final_ProtoC_Area_Pixels': self.protocell_area_pixels,
             'Initial_Condition': 'PRESEEDED_RNA' if self._preseed_rna else 'POLYMER_FREE',
-            'Expected_ProtoC': self.config.expected_protocells,
-            'Success_Rate_pct': round(
-                100.0 * self.protocell_count / max(1, self.config.expected_protocells), 1
-            ),
-            'Timescale':       self.config.timescale_description,
+            'Expected_ProtoC': expected,
+            'Success_Rate_pct': success_rate,
+            'Timescale': self.config.timescale_description,
         }
-        pd.DataFrame([summary]).to_csv(
+
+    def _save_summary(self) -> None:
+        pd.DataFrame([self.summary_record()]).to_csv(
             os.path.join(self.outdir, 'summary.csv'), index=False
         )
