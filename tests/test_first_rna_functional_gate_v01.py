@@ -4,6 +4,7 @@ from origins.biology.first_rna import (
     EmergenceState,
     L_QT45_REFERENCE,
     OligomerPool,
+    k_ligation_effective,
     simulate_first_rna,
     step_oligomer_pool,
     step_replication,
@@ -97,3 +98,33 @@ def test_ligation_and_hydrolysis_compete_without_negative_population():
     assert state.oligomer_pool.monomer_pool >= 0.0
     # Only the explicit 5 monomer-units/hour external source may change total.
     assert state.oligomer_pool.total_monomer_units() == before + 2.5
+
+
+def test_geometry_off_is_a_true_neutral_ligation_control():
+    baseline = k_ligation_effective(
+        temp_C=65.0,
+        k_catalysis=7.5,
+        bloch_coherence=1.0,
+        berry_accumulated=10.0,
+        gc_mean=0.5,
+        use_geometry_candidate=False,
+    )
+    changed_diagnostics = k_ligation_effective(
+        temp_C=65.0,
+        k_catalysis=7.5,
+        bloch_coherence=0.1,
+        berry_accumulated=100.0,
+        gc_mean=0.5,
+        use_geometry_candidate=False,
+    )
+    legacy = k_ligation_effective(
+        temp_C=65.0,
+        k_catalysis=7.5,
+        bloch_coherence=1.0,
+        berry_accumulated=0.0,
+        gc_mean=0.5,
+        use_geometry_candidate=True,
+    )
+
+    assert changed_diagnostics == baseline
+    assert legacy == 3.0 * baseline
