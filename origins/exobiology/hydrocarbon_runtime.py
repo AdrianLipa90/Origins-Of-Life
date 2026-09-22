@@ -268,6 +268,7 @@ class HydrocarbonCandidateSimulator:
             information = redistribute_information_source_to_local_peaks(
                 information_baseline
             )
+        information_pre_stability = information.copy()
         if self.island_preservation == STATE_PEAK_ISLAND_PRESERVATION_CANDIDATE:
             information = redistribute_information_source_to_state_peaks(
                 information,
@@ -287,6 +288,7 @@ class HydrocarbonCandidateSimulator:
                 boundary_baseline,
                 self.I,
             )
+        boundary_pre_stability = boundary.copy()
         if self.shell_maintenance == LOW_BOUNDARY_EXTERIOR_MAINTENANCE_CANDIDATE:
             boundary = redistribute_boundary_source_to_shell_deficits(
                 boundary,
@@ -296,8 +298,10 @@ class HydrocarbonCandidateSimulator:
         return {
             "information": information,
             "information_baseline": information_baseline,
+            "information_pre_stability": information_pre_stability,
             "boundary": boundary,
             "boundary_baseline": boundary_baseline,
+            "boundary_pre_stability": boundary_pre_stability,
         }
 
     def step_information_and_selection(self) -> None:
