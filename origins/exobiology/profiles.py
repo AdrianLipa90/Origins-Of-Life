@@ -123,12 +123,13 @@ AMMONIA_CANDIDATE = BiochemistryProfile(
     information_carrier="HERITABLE_INFORMATION_CARRIER_OPEN",
     compartment_strategy="AMMONIA_COMPATIBLE_BOUNDARY_OPEN",
     building_block_strategy="AMMONIA_SOLVENT_BUILDING_BLOCKS_OPEN",
-    energy_coupling="REDOX_OR_PHOTOCHEMICAL_COUPLING_OPEN",
+    energy_coupling="REDOX_PHOTOCHEMICAL_OR_MAGNETO_INDUCTIVE_COUPLING_OPEN",
     runtime_status=RuntimeStatus.TERRACENTRIC_CONTROL_ONLY,
     dedicated_runtime="AMMONIA_CANDIDATE_V0_1",
     dedicated_runtime_status="COMPUTATIONAL_CANDIDATE_IMPLEMENTED",
     notes=(
         "Dedicated non-RNA/non-lipid candidate runtime exists with OPEN physical chemistry.",
+        "Optional magneto-inductive environmental driver is implemented as a candidate coupling for time-varying conductive-ocean environments.",
         "Current universal simulator output remains a terracentric control only.",
     ),
 )
