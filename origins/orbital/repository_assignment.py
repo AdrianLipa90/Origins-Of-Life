@@ -45,6 +45,36 @@ def assign_orbital_state_to_entity(record: EntityRecord, delta_t: float = 1.0) -
     )
 
 
+
+def bind_live_topology_to_coordinate(
+    coordinate: OrbitalCoordinate,
+    topology,
+    *,
+    delta_t: float,
+) -> OrbitalCoordinate:
+    """Bind live candidate-geometry coherence before downstream calculations.
+
+    The operation is deterministic and keeps coherence/defect/tau_local
+    internally consistent.  It does not promote the geometry to a physical
+    mechanism.
+    """
+    if topology is None or not hasattr(topology, "bloch_coherence"):
+        return coordinate
+    coherence = float(topology.bloch_coherence())
+    if not 0.0 <= coherence <= 1.0:
+        raise ValueError("live topology coherence must lie in [0, 1]")
+    coordinate.coherence = coherence
+    coordinate.defect = 1.0 - coherence
+    coordinate.tau_local = compute_local_subjective_time(
+        delta_t,
+        coordinate.radius,
+        coordinate.semantic_mass,
+        coordinate.coherence,
+        coordinate.defect,
+    )
+    return coordinate
+
+
 def build_repository_system_state(configs: Iterable = ALL_SCENARIOS) -> OrbitalSystemState:
     state = OrbitalSystemState(metadata={"hierarchy": ["relation", "identity", "memory", "process", "artifact"]})
     for cfg in configs:
