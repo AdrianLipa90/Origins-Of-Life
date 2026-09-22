@@ -68,6 +68,8 @@ class BiochemistryProfile:
     building_block_strategy: str
     energy_coupling: str
     runtime_status: RuntimeStatus
+    dedicated_runtime: str | None = None
+    dedicated_runtime_status: str = "NONE"
     invariant_requirements: tuple[str, ...] = LIFE_RELATIONAL_INVARIANTS
     notes: tuple[str, ...] = ()
 
@@ -88,6 +90,8 @@ class BiochemistryProfile:
             "epistemic_status": self.epistemic_status.value,
             "runtime_status": self.runtime_status.value,
             "runtime_implemented": self.runtime_implemented,
+            "dedicated_runtime": self.dedicated_runtime,
+            "dedicated_runtime_status": self.dedicated_runtime_status,
             "exotic_biology_simulated": (
                 self.epistemic_status == EpistemicStatus.CANDIDATE
                 and self.runtime_implemented
@@ -121,9 +125,11 @@ AMMONIA_CANDIDATE = BiochemistryProfile(
     building_block_strategy="AMMONIA_SOLVENT_BUILDING_BLOCKS_OPEN",
     energy_coupling="REDOX_OR_PHOTOCHEMICAL_COUPLING_OPEN",
     runtime_status=RuntimeStatus.TERRACENTRIC_CONTROL_ONLY,
+    dedicated_runtime="AMMONIA_CANDIDATE_V0_1",
+    dedicated_runtime_status="COMPUTATIONAL_CANDIDATE_IMPLEMENTED",
     notes=(
-        "No dedicated ammonia-biochemistry runtime is implemented yet.",
-        "Current universal simulator output is a terracentric control only.",
+        "Dedicated non-RNA/non-lipid candidate runtime exists with OPEN physical chemistry.",
+        "Current universal simulator output remains a terracentric control only.",
     ),
 )
 
@@ -137,6 +143,8 @@ HYDROCARBON_CANDIDATE = BiochemistryProfile(
     building_block_strategy="HYDROCARBON_SOLVENT_BUILDING_BLOCKS_OPEN",
     energy_coupling="PHOTOCHEMICAL_OR_REDOX_COUPLING_OPEN",
     runtime_status=RuntimeStatus.TERRACENTRIC_CONTROL_ONLY,
+    dedicated_runtime=None,
+    dedicated_runtime_status="NONE",
     notes=(
         "No dedicated hydrocarbon-biochemistry runtime is implemented yet.",
         "Current universal simulator output is a terracentric control only.",
