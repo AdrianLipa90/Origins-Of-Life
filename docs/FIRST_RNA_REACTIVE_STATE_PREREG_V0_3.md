@@ -80,7 +80,9 @@ experimental yields.
 ## Frozen coarse-grained profiles
 
 These are calibration fixtures. They are not asserted as measured rate
-constants.
+constants. The wet-profile extension rate is a coarse calibration choice made
+against Anchor A before the first v0.3 CI execution; it must not later be cited
+as an independently predicted kinetic constant.
 
 All rates are per hour in the model's normalized concentration coordinates.
 
@@ -102,7 +104,7 @@ Wet/dry cyclic profile:
 duration = 240 h
 cycle = 24 h
 dry fraction = 0.5
-k_extension_wet = 5e-7
+k_extension_wet = 9e-7
 dry extension multiplier = 10
 dry hydrolysis multiplier = 0.1
 ```
