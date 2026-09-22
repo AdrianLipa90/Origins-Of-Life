@@ -237,22 +237,24 @@ class HydrocarbonCandidateSimulator:
             * self.E
             * selection
         )
-        boundary = (
+        boundary_baseline = (
             p.boundary_assembly_rate
             * self.A
             * self.E
             * self.interface_template
         )
+        boundary = boundary_baseline
         if self.boundary_morphogenesis == EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE:
-            boundary = boundary * exterior_information_interface_gate(self.I)
+            boundary = boundary_baseline * exterior_information_interface_gate(self.I)
         elif self.boundary_morphogenesis == EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE:
             boundary = redistribute_boundary_source_to_information_exterior(
-                boundary,
+                boundary_baseline,
                 self.I,
             )
         return {
             "information": information,
             "boundary": boundary,
+            "boundary_baseline": boundary_baseline,
         }
 
     def step_information_and_selection(self) -> None:
