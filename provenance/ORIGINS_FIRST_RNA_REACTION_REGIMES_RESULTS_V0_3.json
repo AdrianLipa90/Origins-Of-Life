@@ -1,0 +1,29 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_REACTION_REGIMES_RESULTS_V0_3",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-reaction-regimes-v03",
+  "execution_head_sha": "0e1f2ff4911e21d0090d03ea5d5458b66c51509b",
+  "status": "PASS_REACTION_REGIME_REPRESENTATION",
+  "focused_tests": "8 passed",
+  "canon_tests": "106 passed",
+  "artifact": {
+    "id": 10703094926,
+    "sha256": "ec1309d1339fd410bb7e2c871fed2f3dbc42126d4b9fc326c24e74e2e139f4dc"
+  },
+  "bindings": {
+    "caimi_2025": "CAIMI_2025_AUGC_PH11",
+    "song_2024": "SONG_2024_UMP_HOT_ACID",
+    "legacy_v02": "UNBOUND"
+  },
+  "invariants": {
+    "mass_fraction_scale_invariant": true,
+    "qt45_separate_functional_anchor": true,
+    "kinetic_parameters_fitted": false,
+    "topology_used": false,
+    "zeta_used": false,
+    "replication_used": false
+  },
+  "corrected_missing_variable": "REACTION_MICROENVIRONMENT_OR_REACTIVE_STATE",
+  "next_gate": "CONSERVATIVE_POPULATION_BALANCE_KERNEL_CALIBRATE_ONE_REGIME_VALIDATE_WITHHELD_TAIL"
+}
