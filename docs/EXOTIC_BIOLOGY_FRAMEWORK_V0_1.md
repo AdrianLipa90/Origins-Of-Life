@@ -46,9 +46,15 @@ This is the existing water/RNA-like/amphiphile computational reference.
 ### AMMONIA_CANDIDATE
 
 Epistemic status: `CANDIDATE`  
-Runtime status: `TERRACENTRIC_CONTROL_ONLY`
+Universal-runtime status: `TERRACENTRIC_CONTROL_ONLY`  
+Dedicated candidate runtime: `AMMONIA_CANDIDATE_V0_1`  
+Dedicated runtime status: `COMPUTATIONAL_CANDIDATE_IMPLEMENTED`
 
-Open components include:
+The dedicated runtime is non-RNA and non-lipid and implements the five
+relational invariants with OPEN molecular binding and unvalidated dimensionless
+candidate parameters.
+
+Open physical components include:
 - information carrier;
 - solvent-compatible compartment boundary;
 - building-block chemistry;
@@ -56,7 +62,9 @@ Open components include:
 - solvent-specific transport and degradation laws.
 
 The current universal simulator may be run in the ammonia world only as a
-terracentric control.  Its RNA/lipid outputs are not ammonia-life predictions.
+terracentric control. Its RNA/lipid outputs are not ammonia-life predictions.
+Use the dedicated candidate runtime for substrate-neutral NH3 experiments; its
+outputs remain computational candidates, not evidence that ammonia life exists.
 
 ### HYDROCARBON_CANDIDATE
 
@@ -122,3 +130,10 @@ v0.1 does not establish that:
 
 The purpose of v0.1 is architectural and epistemic: make future exotic biology
 falsifiable without smuggling terrestrial biology into the result.
+
+
+## Dedicated candidate runtime status
+
+As of v0.1, `AMMONIA_CANDIDATE_V0_1` is the first dedicated exotic runtime.
+`HYDROCARBON_CANDIDATE` intentionally remains without a dedicated runtime and
+fails closed in the exotic-runtime factory.
