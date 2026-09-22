@@ -1,0 +1,37 @@
+{
+  "schema": "ORIGINS_AMMONIA_CANDIDATE_RUNTIME_V0_1_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "runtime": {
+    "code": "AMMONIA_CANDIDATE_V0_1",
+    "profile": "AMMONIA_CANDIDATE",
+    "molecular_binding": "OPEN",
+    "parameter_status": "UNVALIDATED_DIMENSIONLESS_CANDIDATE",
+    "imports_rna_runtime": false,
+    "imports_lipid_membrane_runtime": false,
+    "material_sector": "P + I + B conserved",
+    "energy_sector": "externally open throughput"
+  },
+  "relational_invariants": [
+    "BOUNDED_SYSTEM",
+    "ENERGY_THROUGHPUT",
+    "PERSISTENT_INFORMATION_STATE",
+    "HERITABLE_STATE_TRANSFORMATION",
+    "SELECTION_OR_DIFFERENTIAL_PERSISTENCE"
+  ],
+  "validation_pending_final_head": true,
+  "non_claims": [
+    "ammonia-based life is not established",
+    "specific ammonia information-carrier chemistry is not established",
+    "specific ammonia compartment chemistry is not established",
+    "default candidate coefficients are not empirical constants"
+  ]
+}
