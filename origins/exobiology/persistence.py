@@ -31,7 +31,7 @@ class CompartmentPersistenceResult:
     final_global_saturation: bool
     max_localized_component_count: int
     max_localized_area_pixels: int
-    max_interface_edge_count: int
+    max_shell_pixels: int
     persistence_status: str
     physical_binding: str
     ranking_allowed: bool = False
@@ -70,7 +70,7 @@ def run_compartment_persistence_case(
     current_run = 0
     max_count = 0
     max_area = 0
-    max_interface_edges = 0
+    max_shell_pixels = 0
     final_observation: dict[str, object] | None = None
 
     for step in range(1, int(horizon_steps) + 1):
@@ -79,7 +79,7 @@ def run_compartment_persistence_case(
         final_observation = observation
         status = str(observation["bounded_system_status"])
 
-        if status == "LOCALIZED_CANDIDATE":
+        if status == "CLOSED_BOUNDARY_CANDIDATE":
             localized_steps += 1
             current_run += 1
             longest_run = max(longest_run, current_run)
@@ -87,21 +87,21 @@ def run_compartment_persistence_case(
             last_localized = step
             max_count = max(max_count, int(observation["count"]))
             max_area = max(max_area, int(observation["area_pixels"]))
-            max_interface_edges = max(
-                max_interface_edges,
-                int(observation["interface_edge_count"]),
+            max_shell_pixels = max(
+                max_shell_pixels,
+                int(observation["shell_pixels"]),
             )
         else:
             current_run = 0
 
-        if status == "GLOBAL_SATURATION":
+        if status == "GLOBAL_SATURATION_REJECTED":
             saturation_steps += 1
             if first_saturation is None:
                 first_saturation = step
 
     assert final_observation is not None
     localized_at_horizon = (
-        str(final_observation["bounded_system_status"]) == "LOCALIZED_CANDIDATE"
+        str(final_observation["bounded_system_status"]) == "CLOSED_BOUNDARY_CANDIDATE"
     )
     final_global_saturation = bool(final_observation["global_saturation"])
 
@@ -130,7 +130,7 @@ def run_compartment_persistence_case(
         final_global_saturation=final_global_saturation,
         max_localized_component_count=int(max_count),
         max_localized_area_pixels=int(max_area),
-        max_interface_edge_count=int(max_interface_edges),
+        max_shell_pixels=int(max_shell_pixels),
         persistence_status=persistence_status,
         physical_binding=str(claim["physical_binding"]),
         ranking_allowed=False,
