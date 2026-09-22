@@ -5,7 +5,10 @@ from copy import deepcopy
 import numpy as np
 import pytest
 
-from origins.exobiology.compartments import bounded_compartment_observation
+from origins.exobiology.compartments import (
+    bounded_compartment_observation,
+    closed_boundary_compartment_observation,
+)
 from origins.exobiology.factory import create_exotic_candidate_simulator
 from origins.exobiology.persistence import (
     PERSISTENCE_SCHEMA,
@@ -127,3 +130,51 @@ def test_candidate_compartment_observation_has_stable_shared_contract(scenario) 
     assert 0.0 <= float(observation["occupancy_fraction"]) <= 1.0
     assert int(observation["count"]) >= 0
     assert int(observation["raw_component_count"]) >= int(observation["count"])
+
+
+
+def test_noncontractible_information_stripe_is_rejected_even_with_complete_shell() -> None:
+    info = np.zeros((7, 7), dtype=float)
+    boundary = np.zeros((7, 7), dtype=float)
+
+    # Information-rich stripe wraps around axis 0 on the torus.
+    info[:, 3] = 1.0
+    # Perfect two-sided shell around the stripe.
+    boundary[:, 2] = 1.0
+    boundary[:, 4] = 1.0
+
+    observation = closed_boundary_compartment_observation(
+        info,
+        boundary,
+        information_threshold=0.5,
+        boundary_threshold=0.5,
+    )
+    assert observation["raw_information_component_count"] == 1
+    assert observation["noncontractible_information_component_count"] == 1
+    assert observation["contractible_information_component_count"] == 0
+    assert observation["rejected_noncontractible_component_count"] == 1
+    assert observation["count"] == 0
+    assert observation["bounded_system_status"] == "NONCONTRACTIBLE_INTERIOR_ONLY"
+
+
+def test_contractible_information_patch_with_complete_shell_is_accepted() -> None:
+    info = np.zeros((7, 7), dtype=float)
+    boundary = np.zeros((7, 7), dtype=float)
+
+    info[3, 3] = 1.0
+    boundary[2, 3] = 1.0
+    boundary[4, 3] = 1.0
+    boundary[3, 2] = 1.0
+    boundary[3, 4] = 1.0
+
+    observation = closed_boundary_compartment_observation(
+        info,
+        boundary,
+        information_threshold=0.5,
+        boundary_threshold=0.5,
+    )
+    assert observation["raw_information_component_count"] == 1
+    assert observation["noncontractible_information_component_count"] == 0
+    assert observation["contractible_information_component_count"] == 1
+    assert observation["count"] == 1
+    assert observation["bounded_system_status"] == "CLOSED_BOUNDARY_CANDIDATE"
