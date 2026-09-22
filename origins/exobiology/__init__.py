@@ -41,3 +41,15 @@ __all__ += [
     "available_exotic_candidate_runtimes",
     "create_exotic_candidate_simulator",
 ]
+
+from .hydrocarbon_runtime import (
+    HydrocarbonCandidateParameters,
+    HydrocarbonCandidateSimulator,
+    RUNTIME_CODE as HYDROCARBON_RUNTIME_CODE,
+)
+
+__all__ += [
+    "HydrocarbonCandidateParameters",
+    "HydrocarbonCandidateSimulator",
+    "HYDROCARBON_RUNTIME_CODE",
+]
