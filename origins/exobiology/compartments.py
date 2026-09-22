@@ -151,6 +151,7 @@ def closed_boundary_compartment_observation(
     accepted_labels: list[int] = []
     accepted_area = 0
     accepted_shell_pixels = 0
+    accepted_interface_edges = 0
     shell_coverages: list[float] = []
     rejected_global_saturation = False
 
@@ -161,6 +162,7 @@ def closed_boundary_compartment_observation(
             continue
 
         shell: set[tuple[int, int]] = set()
+        interface_edges = 0
         for x, y in component:
             for xx, yy in (
                 ((x - 1) % nx, y),
@@ -170,6 +172,7 @@ def closed_boundary_compartment_observation(
             ):
                 if (xx, yy) not in comp_set:
                     shell.add((xx, yy))
+                    interface_edges += 1
 
         if not shell:
             continue
@@ -181,6 +184,7 @@ def closed_boundary_compartment_observation(
             accepted_labels.append(label_id)
             accepted_area += len(component)
             accepted_shell_pixels += len(shell)
+            accepted_interface_edges += interface_edges
 
     accepted_label_set = set(accepted_labels)
     accepted_mask = np.isin(labels, list(accepted_label_set)) if accepted_label_set else np.zeros_like(info_mask)
@@ -195,11 +199,18 @@ def closed_boundary_compartment_observation(
     else:
         status = "NONE"
 
+    occupancy_fraction = float(accepted_area / total_pixels)
+
     return {
         "count": int(accepted_component_count),
         "raw_information_component_count": int(len(components)),
+        # Backward-compatible shared-observation alias.  It refers to the
+        # information-rich interior components before the closed-shell gate.
+        "raw_component_count": int(len(components)),
         "area_pixels": int(accepted_area),
+        "occupancy_fraction": occupancy_fraction,
         "shell_pixels": int(accepted_shell_pixels),
+        "interface_edge_count": int(accepted_interface_edges),
         "max_shell_coverage": float(max(shell_coverages) if shell_coverages else 0.0),
         "global_saturation": bool(rejected_global_saturation),
         "bounded_system_status": status,
