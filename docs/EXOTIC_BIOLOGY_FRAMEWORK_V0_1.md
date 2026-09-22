@@ -69,9 +69,14 @@ outputs remain computational candidates, not evidence that ammonia life exists.
 ### HYDROCARBON_CANDIDATE
 
 Epistemic status: `CANDIDATE`  
-Runtime status: `TERRACENTRIC_CONTROL_ONLY`
+Universal-runtime status: `TERRACENTRIC_CONTROL_ONLY`  
+Dedicated candidate runtime: `HYDROCARBON_CANDIDATE_V0_1`  
+Dedicated runtime status: `COMPUTATIONAL_CANDIDATE_IMPLEMENTED`
 
-Open components include:
+The dedicated runtime is non-RNA and non-lipid and adds an explicit
+interfacial/aggregate material reservoir. Molecular binding remains OPEN.
+
+Open physical components include:
 - non-polar-compatible information-bearing state;
 - persistent hydrocarbon-compatible boundary;
 - building-block chemistry;
@@ -79,7 +84,9 @@ Open components include:
 - solvent-specific transport and reaction laws.
 
 The current universal simulator may be run in the methane/ethane world only as
-a terracentric control.  Its RNA/lipid outputs are not Titan-life predictions.
+a terracentric control. Its RNA/lipid outputs are not Titan-life predictions.
+Use the dedicated candidate runtime for substrate-neutral hydrocarbon
+experiments; its outputs remain computational candidates.
 
 ## Scenario binding
 
@@ -135,5 +142,5 @@ falsifiable without smuggling terrestrial biology into the result.
 ## Dedicated candidate runtime status
 
 As of v0.1, `AMMONIA_CANDIDATE_V0_1` is the first dedicated exotic runtime.
-`HYDROCARBON_CANDIDATE` intentionally remains without a dedicated runtime and
-fails closed in the exotic-runtime factory.
+`HYDROCARBON_CANDIDATE_V0_1` is now a distinct dedicated candidate runtime
+with an explicit interface reservoir and no specific azotosome claim.
