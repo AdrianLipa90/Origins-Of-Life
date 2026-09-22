@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Iterable
 
+from .boundary_morphogenesis import COLOCATED_BASELINE
 from .factory import create_exotic_candidate_simulator
 
 
@@ -20,6 +21,7 @@ class CompartmentPersistenceResult:
     runtime: str
     seed: int
     horizon_steps: int
+    boundary_morphogenesis: str
     first_localized_step: int | None
     last_localized_step: int | None
     localized_step_count: int
@@ -47,6 +49,7 @@ def run_compartment_persistence_case(
     horizon_steps: int = 3000,
     Nx: int = 24,
     Ny: int = 24,
+    boundary_morphogenesis: str = COLOCATED_BASELINE,
 ) -> CompartmentPersistenceResult:
     """Track localization persistence without changing thresholds or parameters."""
     if int(horizon_steps) <= 0:
@@ -57,6 +60,7 @@ def run_compartment_persistence_case(
         Nx=Nx,
         Ny=Ny,
         seed=int(seed),
+        boundary_morphogenesis=boundary_morphogenesis,
     )
     simulator.initialize()
 
@@ -119,6 +123,7 @@ def run_compartment_persistence_case(
         runtime=str(claim["runtime"]),
         seed=int(seed),
         horizon_steps=int(horizon_steps),
+        boundary_morphogenesis=str(claim["boundary_morphogenesis"]),
         first_localized_step=first_localized,
         last_localized_step=last_localized,
         localized_step_count=int(localized_steps),
@@ -144,6 +149,7 @@ def run_matched_compartment_persistence(
     horizon_steps: int = 3000,
     Nx: int = 24,
     Ny: int = 24,
+    boundary_morphogenesis: str = COLOCATED_BASELINE,
 ) -> list[CompartmentPersistenceResult]:
     scenario_list = list(scenarios)
     seed_list = tuple(int(seed) for seed in seeds)
@@ -159,6 +165,7 @@ def run_matched_compartment_persistence(
             horizon_steps=horizon_steps,
             Nx=Nx,
             Ny=Ny,
+            boundary_morphogenesis=boundary_morphogenesis,
         )
         for scenario in scenario_list
         for seed in seed_list
