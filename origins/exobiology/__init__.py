@@ -53,3 +53,23 @@ __all__ += [
     "HydrocarbonCandidateSimulator",
     "HYDROCARBON_RUNTIME_CODE",
 ]
+
+from .benchmark import (
+    ABLATIONS as EXOTIC_BENCHMARK_ABLATIONS,
+    BENCHMARK_SCHEMA as EXOTIC_BENCHMARK_SCHEMA,
+    COMPARISON_SCOPE as EXOTIC_BENCHMARK_COMPARISON_SCOPE,
+    ExoticRelationalBenchmarkResult,
+    benchmark_manifest as exotic_benchmark_manifest,
+    run_exotic_relational_case,
+    run_matched_exotic_relational_benchmark,
+)
+
+__all__ += [
+    "EXOTIC_BENCHMARK_ABLATIONS",
+    "EXOTIC_BENCHMARK_SCHEMA",
+    "EXOTIC_BENCHMARK_COMPARISON_SCOPE",
+    "ExoticRelationalBenchmarkResult",
+    "exotic_benchmark_manifest",
+    "run_exotic_relational_case",
+    "run_matched_exotic_relational_benchmark",
+]
