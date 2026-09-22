@@ -1,0 +1,82 @@
+name: Hydrocarbon Merger Neck v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_hydrocarbon_merger_neck_v01.py'
+      - 'scripts/run_hydrocarbon_merger_neck.py'
+      - '.github/workflows/hydrocarbon-merger-neck-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_merger_neck.py'
+      - '.github/workflows/hydrocarbon-merger-neck-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  merger-neck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run hydrocarbon merger-neck diagnostic
+        run: |
+          python scripts/run_hydrocarbon_merger_neck.py \
+            --outdir hydrocarbon_merger_neck_artifact \
+            --horizon 10000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate merger-neck artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("hydrocarbon_merger_neck_artifact/hydrocarbon_merger_neck_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_HYDROCARBON_MERGER_NECK_V0_1"
+          assert m["diagnostic_only"] is True
+          assert m["model_mutation_allowed"] is False
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 3
+
+          valid_events = {
+              "SINGLE_PIXEL_NECK",
+              "MULTI_PIXEL_NECK",
+              "NO_MERGER_WITHIN_HORIZON",
+              "MERGER_WITHOUT_RESOLVED_NECK",
+          }
+          for row in data["rows"]:
+              assert row["event"] in valid_events
+              assert row["physical_binding"] == "OPEN"
+              assert row["ranking_allowed"] is False
+              if row["event"] in {"SINGLE_PIXEL_NECK", "MULTI_PIXEL_NECK"}:
+                  assert row["minimum_new_active_bridge_pixels"] >= 1
+                  assert row["current_descendant_noncontractible"] is True
+          PY
+
+      - name: Upload merger-neck artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydrocarbon-merger-neck-v01
+          path: hydrocarbon_merger_neck_artifact/
+          if-no-files-found: error
