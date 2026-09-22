@@ -29,6 +29,10 @@ jobs:
           python scripts/audit_abiogenesis_surface.py
           python scripts/check_public_semantics.py
 
-      - name: Run canonical smoke tests
+      - name: Compile active runtime
         run: |
-          pytest -q tests/test_abiogenesis_canon.py tests/test_abiogenesis_workflows.py
+          python -m compileall -q origins scripts tests
+
+      - name: Run repository-wide active test suite
+        run: |
+          pytest -q tests
