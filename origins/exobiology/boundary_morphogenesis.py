@@ -5,10 +5,12 @@ import numpy as np
 
 COLOCATED_BASELINE = "COLOCATED_BASELINE"
 EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE = "EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE"
+EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE = "EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE"
 
 BOUNDARY_MORPHOGENESIS_MODES = (
     COLOCATED_BASELINE,
     EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE,
+    EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE,
 )
 
 
@@ -59,3 +61,48 @@ def exterior_information_interface_gate(information: np.ndarray) -> np.ndarray:
         where=denominator > 0.0,
     )
     return np.clip(gate, 0.0, 1.0)
+
+
+
+def redistribute_boundary_source_to_information_exterior(
+    baseline_source: np.ndarray,
+    information: np.ndarray,
+) -> np.ndarray:
+    """Redistribute a boundary source onto the exterior information interface.
+
+    Whenever a nonzero exterior gradient exists, the instantaneous total source
+    budget is preserved exactly up to floating-point roundoff:
+
+        sum(S_B^redistributed) = sum(S_B^baseline)
+
+    Only spatial geometry changes. If no information gradient exists, there is
+    no defined exterior interface and the returned source is zero.
+
+    This is a computational intervention, not a molecular law.
+    """
+    source = np.asarray(baseline_source, dtype=float)
+    field = np.asarray(information, dtype=float)
+    if source.shape != field.shape or source.ndim != 2:
+        raise ValueError("baseline source and information must be same-shape 2D arrays")
+    if source.size == 0:
+        raise ValueError("source fields must be non-empty")
+    if not np.isfinite(source).all():
+        raise FloatingPointError("baseline source contains NaN/Inf")
+    if float(np.min(source)) < -1e-12:
+        raise ValueError("baseline source must be non-negative")
+
+    source = np.maximum(source, 0.0)
+    total = float(np.sum(source))
+    if total <= 0.0:
+        return np.zeros_like(source)
+
+    gate = exterior_information_interface_gate(field)
+    weighted = source * gate
+    weighted_total = float(np.sum(weighted))
+    if weighted_total <= 1e-15:
+        return np.zeros_like(source)
+
+    redistributed = weighted * (total / weighted_total)
+    if not np.isfinite(redistributed).all():
+        raise FloatingPointError("redistributed boundary source contains NaN/Inf")
+    return redistributed
