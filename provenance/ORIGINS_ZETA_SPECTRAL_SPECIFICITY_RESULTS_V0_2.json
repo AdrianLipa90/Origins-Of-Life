@@ -1,0 +1,210 @@
+{
+  "schema": "ORIGINS_ZETA_SPECTRAL_SPECIFICITY_RESULTS_V0_2",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/matched-factorial-ablation-v01",
+  "prereg_commit_sha": "7999001817d4fe461fda79e100ed803a4d340bd9",
+  "execution_head_sha": "a8f4501810f0fc038367dd71a549520b8bbaecd6",
+  "canon_test_gate": {
+    "status": "PASS",
+    "pytest": "93 passed"
+  },
+  "status": "SPECIFICITY_GATE_FAIL",
+  "verdict": "FAIL_ZERO_SPECIFICITY",
+  "physical_binding_claim": false,
+  "design": {
+    "scenarios": [
+      "A",
+      "C"
+    ],
+    "seeds": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220
+    ],
+    "hours": 120,
+    "grid": [
+      32,
+      32
+    ],
+    "dt_h": 0.05,
+    "geometry_enabled": true,
+    "include_clay": true,
+    "preseed_rna": true,
+    "modes": [
+      "none",
+      "noise_only",
+      "narrow_zeta",
+      "narrow_reflected",
+      "narrow_shifted",
+      "narrow_equispaced",
+      "histogram_permuted"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 10703013360,
+      "name": "zeta-specificity-v02-A-201,202,203,204,205",
+      "digest": "sha256:d2ddfc8a60bb3f3cc19fff8b4503d1ef9cc4e488fe476ea66fb67122cd70b4b1"
+    },
+    {
+      "id": 10702608192,
+      "name": "zeta-specificity-v02-A-206,207,208,209,210",
+      "digest": "sha256:4beb294c96c70f281119e385263d34a8228fe309470fb8f5f968a1cb8c728c07"
+    },
+    {
+      "id": 10702828073,
+      "name": "zeta-specificity-v02-A-211,212,213,214,215",
+      "digest": "sha256:02968dc49b70e7505e03c238e00b1f6263fea52b883bb65ee1379766d0476c3a"
+    },
+    {
+      "id": 10703002487,
+      "name": "zeta-specificity-v02-A-216,217,218,219,220",
+      "digest": "sha256:e50a42348dd8b2fdd6c07a87b5fb4819938570ef7920429477bbc99b71ebe5f4"
+    },
+    {
+      "id": 10701224349,
+      "name": "zeta-specificity-v02-C-201,202,203,204,205",
+      "digest": "sha256:94fdb71b70cc3157c64370d730161a14da3f8194f361eea0181c328fa5d7c0f2"
+    },
+    {
+      "id": 10702308658,
+      "name": "zeta-specificity-v02-C-206,207,208,209,210",
+      "digest": "sha256:d32f0d60d547ff245b2a51effea88558b36465898738a571a769b36113b9290b"
+    },
+    {
+      "id": 10702998461,
+      "name": "zeta-specificity-v02-C-211,212,213,214,215",
+      "digest": "sha256:e6489a684adb05c9250f8b1705952229fae1e40a28557c557f0806ed47c07926"
+    },
+    {
+      "id": 10702638432,
+      "name": "zeta-specificity-v02-C-216,217,218,219,220",
+      "digest": "sha256:520b3e4a654d7f7074050885dd645dc6a029d488bb3b89579eb4031945fb79cf"
+    }
+  ],
+  "histogram_placebo": {
+    "sorted_non_dc_mask_sha256": "ab1063745ca4a2db036a3ab3aab166a6bdb36031b72bf6b74fd90e79387d853b",
+    "non_dc_mean": 0.9846603450798519,
+    "correlation_with_narrow_zeta": -0.020358,
+    "exact_histogram_match": true
+  },
+  "primary_results": [
+    {
+      "scenario": "A",
+      "placebo": "narrow_reflected",
+      "mean_delta": -0.5,
+      "median_delta": -1,
+      "median_abs_delta": 3,
+      "pos": 7,
+      "neg": 11,
+      "zero": 2,
+      "p_raw": 0.5690841674804688,
+      "p_holm": 1
+    },
+    {
+      "scenario": "A",
+      "placebo": "narrow_shifted",
+      "mean_delta": 0,
+      "median_delta": -1,
+      "median_abs_delta": 2,
+      "pos": 7,
+      "neg": 11,
+      "zero": 2,
+      "p_raw": 1,
+      "p_holm": 1
+    },
+    {
+      "scenario": "A",
+      "placebo": "narrow_equispaced",
+      "mean_delta": -0.05,
+      "median_delta": 0,
+      "median_abs_delta": 1,
+      "pos": 8,
+      "neg": 8,
+      "zero": 4,
+      "p_raw": 1,
+      "p_holm": 1
+    },
+    {
+      "scenario": "A",
+      "placebo": "histogram_permuted",
+      "mean_delta": -0.5,
+      "median_delta": -1,
+      "median_abs_delta": 1.5,
+      "pos": 7,
+      "neg": 11,
+      "zero": 2,
+      "p_raw": 0.4076385498046875,
+      "p_holm": 1
+    },
+    {
+      "scenario": "C",
+      "placebo": "narrow_reflected",
+      "mean_delta": 0.25,
+      "median_delta": 0,
+      "median_abs_delta": 0,
+      "pos": 5,
+      "neg": 0,
+      "zero": 15,
+      "p_raw": 0.0625,
+      "p_holm": 0.5
+    },
+    {
+      "scenario": "C",
+      "placebo": "narrow_shifted",
+      "mean_delta": 0.25,
+      "median_delta": 0,
+      "median_abs_delta": 0,
+      "pos": 6,
+      "neg": 1,
+      "zero": 13,
+      "p_raw": 0.125,
+      "p_holm": 0.875
+    },
+    {
+      "scenario": "C",
+      "placebo": "narrow_equispaced",
+      "mean_delta": 0.1,
+      "median_delta": 0,
+      "median_abs_delta": 0,
+      "pos": 3,
+      "neg": 1,
+      "zero": 16,
+      "p_raw": 0.625,
+      "p_holm": 1
+    },
+    {
+      "scenario": "C",
+      "placebo": "histogram_permuted",
+      "mean_delta": 0.15,
+      "median_delta": 0,
+      "median_abs_delta": 0,
+      "pos": 5,
+      "neg": 2,
+      "zero": 13,
+      "p_raw": 0.453125,
+      "p_holm": 1
+    }
+  ],
+  "placebo_families_passing": 0,
+  "conclusion": "The tested biological endpoints do not depend reproducibly on the specific placement of the mapped first-six zeta ordinates in the current simulator.",
+  "next_gate": "Return to polymer-free / first-RNA candidate chain; keep zeta layer quarantined as experimental/legacy."
+}
