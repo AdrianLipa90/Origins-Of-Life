@@ -249,6 +249,10 @@ def closed_boundary_compartment_observation(
     shell_coverages: list[float] = []
     rejected_global_saturation = False
     rejected_noncontractible = 0
+    best_contractible_shell_coverage = 0.0
+    best_contractible_area_pixels = 0
+    best_contractible_shell_pixels = 0
+    best_contractible_missing_shell_pixels = 0
 
     for label_id, component in enumerate(components, start=1):
         comp_set = set(component)
@@ -280,6 +284,19 @@ def closed_boundary_compartment_observation(
         covered = sum(1 for x, y in shell if boundary_mask[x, y])
         coverage = float(covered / len(shell))
         shell_coverages.append(coverage)
+
+        if (
+            coverage > best_contractible_shell_coverage
+            or (
+                coverage == best_contractible_shell_coverage
+                and len(component) > best_contractible_area_pixels
+            )
+        ):
+            best_contractible_shell_coverage = coverage
+            best_contractible_area_pixels = len(component)
+            best_contractible_shell_pixels = len(shell)
+            best_contractible_missing_shell_pixels = len(shell) - covered
+
         if covered == len(shell):
             accepted_labels.append(label_id)
             accepted_area += len(component)
@@ -321,6 +338,12 @@ def closed_boundary_compartment_observation(
         "shell_pixels": int(accepted_shell_pixels),
         "interface_edge_count": int(accepted_interface_edges),
         "max_shell_coverage": float(max(shell_coverages) if shell_coverages else 0.0),
+        "best_contractible_shell_coverage": float(best_contractible_shell_coverage),
+        "best_contractible_area_pixels": int(best_contractible_area_pixels),
+        "best_contractible_shell_pixels": int(best_contractible_shell_pixels),
+        "best_contractible_missing_shell_pixels": int(
+            best_contractible_missing_shell_pixels
+        ),
         "global_saturation": bool(rejected_global_saturation),
         "bounded_system_status": status,
         "labels": labels,
