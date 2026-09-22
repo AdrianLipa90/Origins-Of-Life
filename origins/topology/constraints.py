@@ -77,6 +77,87 @@ class ZetaRiemannModulator:
         mask[0, 0] = 1.0
         return mask
 
+    def spectral_specificity_diagnostics(
+        self,
+        shape: tuple[int, int],
+    ) -> dict[str, float | int | bool | list[float]]:
+        """Quantify whether the configured mask is zero-specific or collapsed.
+
+        The control places all notches at the mean mapped target while keeping
+        their count and lambda_soft unchanged. Correlation near one means the
+        detailed spacing of the selected zeta ordinates contributes negligibly
+        to the implemented mask at the requested grid.
+        """
+        Nx, Ny = shape
+        if Nx <= 0 or Ny <= 0:
+            raise ValueError("shape dimensions must be positive")
+
+        targets = np.array(
+            [self._normalized_target(abs(z.imag)) for z in self.zeros],
+            dtype=float,
+        )
+        if targets.size == 0:
+            raise ValueError("at least one spectral target is required")
+
+        kx = np.fft.fftfreq(Nx)
+        ky = np.fft.fftfreq(Ny)
+        KX, KY = np.meshgrid(kx, ky, indexing="ij")
+        k_mag = np.sqrt(KX**2 + KY**2)
+
+        mask = self.spectral_mask(shape)
+        collapsed = np.ones(shape, dtype=float)
+        mean_target = float(np.mean(targets))
+        for _ in targets:
+            collapsed *= 1.0 - np.exp(
+                -((k_mag - mean_target) ** 2) * self.lambda_soft
+            )
+        collapsed = np.clip(collapsed, 0.0, 1.0)
+        collapsed[0, 0] = 1.0
+
+        non_dc = np.ones(shape, dtype=bool)
+        non_dc[0, 0] = False
+        a = mask[non_dc].ravel()
+        b = collapsed[non_dc].ravel()
+        if np.std(a) == 0.0 or np.std(b) == 0.0:
+            corr = 1.0 if np.allclose(a, b) else 0.0
+        else:
+            corr = float(np.corrcoef(a, b)[0, 1])
+
+        radial_shells = np.unique(k_mag.ravel())
+        nearest_shells = []
+        for target in targets:
+            nearest_shells.append(
+                float(radial_shells[np.argmin(np.abs(radial_shells - target))])
+            )
+
+        diffs = np.diff(np.sort(targets))
+        min_spacing = float(np.min(diffs)) if diffs.size else 0.0
+        half_power_width = (
+            float(np.sqrt(np.log(2.0) / self.lambda_soft))
+            if self.lambda_soft > 0
+            else float("inf")
+        )
+
+        return {
+            "shape": [int(Nx), int(Ny)],
+            "target_count": int(targets.size),
+            "targets": [float(x) for x in targets],
+            "target_min": float(np.min(targets)),
+            "target_max": float(np.max(targets)),
+            "target_span": float(np.ptp(targets)),
+            "minimum_target_spacing": min_spacing,
+            "distinct_nearest_radial_shells": int(
+                len({round(x, 15) for x in nearest_shells})
+            ),
+            "single_notch_half_power_width": half_power_width,
+            "non_dc_mask_mean": float(np.mean(a)),
+            "non_dc_mask_median": float(np.median(a)),
+            "non_dc_fraction_below_1e3": float(np.mean(a < 1e-3)),
+            "collapsed_mean_target_control_correlation": corr,
+            "collapsed_mean_target_control_mae": float(np.mean(np.abs(a - b))),
+            "zero_specificity_resolved": bool(corr < 0.99),
+        }
+
     # ------------------------------------------------------------------
 
     @staticmethod
