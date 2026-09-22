@@ -180,6 +180,7 @@ def periodic_component_topology(mask: np.ndarray) -> dict[str, object]:
             area = len(cells)
             records.append(
                 {
+                    "label_id": int(len(records) + 1),
                     "area_pixels": int(area),
                     "area_fraction": float(area / array.size),
                     "wraps_x": bool(wraps_x),
@@ -233,6 +234,11 @@ def closed_boundary_compartment_observation(
     info_mask = info >= float(information_threshold)
     boundary_mask = bound >= float(boundary_threshold)
     labels, components = _periodic_components(info_mask)
+    topology = periodic_component_topology(info_mask)
+    topology_by_label = {
+        int(record["label_id"]): record
+        for record in topology["components"]
+    }
     nx, ny = info.shape
     total_pixels = int(info.size)
 
@@ -242,11 +248,17 @@ def closed_boundary_compartment_observation(
     accepted_interface_edges = 0
     shell_coverages: list[float] = []
     rejected_global_saturation = False
+    rejected_noncontractible = 0
 
     for label_id, component in enumerate(components, start=1):
         comp_set = set(component)
         if len(comp_set) == total_pixels:
             rejected_global_saturation = True
+            continue
+
+        component_topology = topology_by_label[label_id]
+        if bool(component_topology["noncontractible"]):
+            rejected_noncontractible += 1
             continue
 
         shell: set[tuple[int, int]] = set()
@@ -282,6 +294,8 @@ def closed_boundary_compartment_observation(
         status = "CLOSED_BOUNDARY_CANDIDATE"
     elif rejected_global_saturation:
         status = "GLOBAL_SATURATION_REJECTED"
+    elif components and rejected_noncontractible == len(components):
+        status = "NONCONTRACTIBLE_INTERIOR_ONLY"
     elif components:
         status = "INTERIOR_NOT_CLOSED"
     else:
@@ -292,6 +306,13 @@ def closed_boundary_compartment_observation(
     return {
         "count": int(accepted_component_count),
         "raw_information_component_count": int(len(components)),
+        "contractible_information_component_count": int(
+            len(components) - int(topology["noncontractible_component_count"])
+        ),
+        "noncontractible_information_component_count": int(
+            topology["noncontractible_component_count"]
+        ),
+        "rejected_noncontractible_component_count": int(rejected_noncontractible),
         # Backward-compatible shared-observation alias.  It refers to the
         # information-rich interior components before the closed-shell gate.
         "raw_component_count": int(len(components)),
