@@ -27,7 +27,12 @@ class ThresholdReachabilityResult:
     information_threshold_ratio: float
     boundary_threshold_ratio: float
     candidate_compartment_count: int
+    raw_component_count: int
     candidate_compartment_area_pixels: int
+    compartment_occupancy_fraction: float
+    interface_edge_count: int
+    global_saturation: bool
+    bounded_system_status: str
     first_compartment_step: int | None
     reachability_status: str
     baseline_information_mass: float
@@ -121,7 +126,12 @@ def run_threshold_reachability_case(
                 information_threshold_ratio=max_information / information_threshold,
                 boundary_threshold_ratio=max_boundary / boundary_threshold,
                 candidate_compartment_count=int(observation["count"]),
+                raw_component_count=int(observation["raw_component_count"]),
                 candidate_compartment_area_pixels=int(observation["area_pixels"]),
+                compartment_occupancy_fraction=float(observation["occupancy_fraction"]),
+                interface_edge_count=int(observation["interface_edge_count"]),
+                global_saturation=bool(observation["global_saturation"]),
+                bounded_system_status=str(observation["bounded_system_status"]),
                 first_compartment_step=first_compartment_step,
                 reachability_status=(
                     STATUS_REACHED if reached else STATUS_NOT_REACHED
