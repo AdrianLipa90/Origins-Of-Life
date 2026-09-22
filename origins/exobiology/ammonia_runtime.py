@@ -180,6 +180,25 @@ class AmmoniaCandidateSimulator:
         )
         return np.divide(weighted, mass, out=np.zeros_like(weighted), where=mass > 1e-15)
 
+    def candidate_assembly_sources(self) -> dict[str, np.ndarray]:
+        """Return instantaneous information and boundary assembly source rates."""
+        self._require_initialized()
+        p = self.parameters
+        selection = 1.0 + p.selection_strength * self.Q
+        return {
+            "information": (
+                p.information_assembly_rate
+                * self.P
+                * self.E
+                * selection
+            ),
+            "boundary": (
+                p.boundary_assembly_rate
+                * self.P
+                * self.E
+            ),
+        }
+
     def step_information_and_inheritance(self) -> None:
         self._require_initialized()
         p = self.parameters
