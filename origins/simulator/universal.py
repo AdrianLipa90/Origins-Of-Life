@@ -352,6 +352,10 @@ class UniversalOriginSimulator:
             raise RuntimeError("simulator is not initialized")
         return float(np.sum(self.N) + np.sum(self.N_surface) + np.sum(self.R))
 
+    def protocell_coverage_fraction(self) -> float:
+        """Fraction of grid area occupied by threshold-positive protocell regions."""
+        return float(self.protocell_area_pixels) / float(max(1, self.Nx * self.Ny))
+
     def _validate_finite_fields(self) -> None:
         """Fail closed on non-finite or materially negative state."""
         for name in ('E', 'O', 'N', 'N_surface', 'R', 'M', 'L', 'Cat'):
