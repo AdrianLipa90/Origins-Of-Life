@@ -19,6 +19,14 @@ from .information_morphogenesis import (
     redistribute_information_source_to_local_peaks,
     validate_information_morphogenesis_mode,
 )
+from .magneto_induction import (
+    JOVIAN_TIME_VARYING_FIELD_CANDIDATE,
+    MAGNETO_INDUCTION_OFF,
+    MagnetoInductionObservation,
+    MagnetoInductionParameters,
+    magneto_induction_observation,
+    validate_magneto_induction_mode,
+)
 from .profiles import AMMONIA_CANDIDATE, WorldEnvironment
 
 
@@ -114,6 +122,8 @@ class AmmoniaCandidateSimulator:
         seed: int | None = None,
         boundary_morphogenesis: str = COLOCATED_BASELINE,
         information_morphogenesis: str = DISTRIBUTED_INFORMATION_BASELINE,
+        magneto_induction: str = MAGNETO_INDUCTION_OFF,
+        magneto_parameters: MagnetoInductionParameters | None = None,
     ):
         self.environment = WorldEnvironment.from_scenario(scenario)
         AMMONIA_CANDIDATE.assert_environment_compatible(self.environment)
@@ -134,6 +144,11 @@ class AmmoniaCandidateSimulator:
         self.information_morphogenesis = validate_information_morphogenesis_mode(
             information_morphogenesis
         )
+        self.magneto_induction = validate_magneto_induction_mode(
+            magneto_induction
+        )
+        self.magneto_parameters = magneto_parameters or MagnetoInductionParameters()
+        self.magneto_parameters.validate()
         self._rng = np.random.default_rng(scenario.seed if seed is None else seed)
 
         self.P: np.ndarray | None = None
@@ -143,6 +158,8 @@ class AmmoniaCandidateSimulator:
         self.Q: np.ndarray | None = None
         self.time = 0.0
         self.energy_throughput_integral = 0.0
+        self.magnetic_energy_throughput_integral = 0.0
+        self.last_magneto_induction: MagnetoInductionObservation | None = None
         self.material_reference: float | None = None
 
     def initialize(self) -> None:
@@ -154,6 +171,12 @@ class AmmoniaCandidateSimulator:
         self.Q = np.zeros((self.Nx, self.Ny), dtype=float)
         self.time = 0.0
         self.energy_throughput_integral = 0.0
+        self.magnetic_energy_throughput_integral = 0.0
+        self.last_magneto_induction = magneto_induction_observation(
+            self.time,
+            mode=self.magneto_induction,
+            parameters=self.magneto_parameters,
+        )
         self.material_reference = self.material_total()
         self._validate_state()
 
@@ -182,6 +205,20 @@ class AmmoniaCandidateSimulator:
         before = float(np.sum(self.E))
         self.E = _conservative_diffuse(self.E, p.energy_diffusion, p.dt)
         self.E += p.energy_input * p.dt
+
+        magnetic = magneto_induction_observation(
+            self.time,
+            mode=self.magneto_induction,
+            parameters=self.magneto_parameters,
+        )
+        self.last_magneto_induction = magnetic
+        magnetic_increment = magnetic.energy_source_rate_proxy * p.dt
+        if magnetic_increment > 0.0:
+            self.E += magnetic_increment
+            self.magnetic_energy_throughput_integral += (
+                magnetic_increment * self.Nx * self.Ny
+            )
+
         self.E *= math.exp(-p.energy_loss * p.dt)
         np.maximum(self.E, 0.0, out=self.E)
         after = float(np.sum(self.E))
@@ -343,6 +380,10 @@ class AmmoniaCandidateSimulator:
                 "observable": "external E input and loss",
                 "physical_binding": PHYSICAL_BINDING,
                 "throughput_integral": float(self.energy_throughput_integral),
+                "magneto_induction_mode": self.magneto_induction,
+                "magnetic_throughput_integral": float(
+                    self.magnetic_energy_throughput_integral
+                ),
             },
             "PERSISTENT_INFORMATION_STATE": {
                 "operationalized": True,
@@ -375,6 +416,11 @@ class AmmoniaCandidateSimulator:
             "dedicated_non_lipid_runtime": True,
             "boundary_morphogenesis": self.boundary_morphogenesis,
             "information_morphogenesis": self.information_morphogenesis,
+            "magneto_induction": self.magneto_induction,
+            "magneto_induction_physical_binding": "OPEN",
+            "magneto_induction_parameter_status": (
+                "UNVALIDATED_DIMENSIONLESS_CANDIDATE"
+            ),
             "morphogenesis_physical_binding": "OPEN",
             "exotic_biology_established": False,
             "interpretation_allowed": "COMPUTATIONAL_CANDIDATE_ONLY",
