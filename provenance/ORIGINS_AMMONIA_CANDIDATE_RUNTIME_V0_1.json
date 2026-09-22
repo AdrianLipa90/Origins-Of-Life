@@ -27,11 +27,23 @@
     "HERITABLE_STATE_TRANSFORMATION",
     "SELECTION_OR_DIFFERENTIAL_PERSISTENCE"
   ],
-  "validation_pending_final_head": true,
+  "validation_pending_final_head": false,
   "non_claims": [
     "ammonia-based life is not established",
     "specific ammonia information-carrier chemistry is not established",
     "specific ammonia compartment chemistry is not established",
     "default candidate coefficients are not empirical constants"
-  ]
+  ],
+  "validation": {
+    "validated_head_sha": "66b8715aa7278e77e215df2700dce060056d052b",
+    "github_actions_run_id": 35689356777,
+    "workflow": "Abiogenesis Canon",
+    "conclusion": "success",
+    "pytest": {
+      "passed": 90,
+      "failed": 0
+    },
+    "compile_active_runtime": "PASS",
+    "semantic_audits": "PASS"
+  }
 }
