@@ -1,0 +1,45 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_LINKAGE_HOLDOUT_RESULTS_V0_6",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-linkage-holdout-v06",
+  "execution_head_sha": "10d47e19d9c4bb35eb23b32ddc6efb057af8831a",
+  "source": {
+    "doi": "10.1021/ja061782k",
+    "empirical_3p5_fraction": {
+      "A": 0.74,
+      "U": 0.61
+    }
+  },
+  "artifact": {
+    "id": 10720949692,
+    "name": "first-rna-linkage-holdout-v06",
+    "sha256": "2b9e4840257510d4f67b49a7ee46e9f69e3889de4a0c9a16946825e2b7d1681a"
+  },
+  "workflow": {
+    "dedicated_run_id": 35790087310,
+    "dedicated_conclusion": "success",
+    "dedicated_pytest": "4 passed",
+    "canon_run_id": 35790087154,
+    "canon_conclusion": "success",
+    "canon_pytest": "115 passed in 4.04s"
+  },
+  "status": "FAIL_MISSING_LINKAGE_STATE",
+  "validation_type": "PARAMETER_HELD_OUT_STRUCTURAL_CAPABILITY",
+  "analyst_blind": false,
+  "explicit_linkage_state": false,
+  "numerical_comparison_run": false,
+  "model_3p5_fraction": {
+    "A": null,
+    "U": null
+  },
+  "global_rates_retuned": false,
+  "base_extension_multipliers_retuned": false,
+  "linkage_parameter_added": false,
+  "empirical_fraction_copied_into_prediction": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "interpretation": "The frozen v0.5/v0.3 representation cannot predict phosphodiester regioselectivity because it has no explicit 2',5' versus 3',5' linkage state.",
+  "next_gate": "EXPLICIT_LINKAGE_STATE_CALIBRATION_AND_INDEPENDENT_VALIDATION"
+}
