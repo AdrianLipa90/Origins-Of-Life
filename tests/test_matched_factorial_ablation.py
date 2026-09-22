@@ -13,6 +13,7 @@ from origins.analysis.ablation import (
 )
 from origins.scenarios import SCENARIO_A
 from origins.simulator import UniversalOriginSimulator
+from origins.topology.constraints import ZetaRiemannModulator
 
 
 def test_zeta_operator_does_not_advance_core_rng_stream():
@@ -83,3 +84,33 @@ def test_ablation_cli_is_directly_executable():
     )
     assert proc.returncode == 0, proc.stderr
     assert "Matched 2x2 ablation" in proc.stdout
+
+
+def test_zeta_mask_preserves_dc_component():
+    mod = ZetaRiemannModulator(lambda_soft=6.0, sigma_heis=0.001)
+    mask = mod.spectral_mask((32, 32))
+    assert mask[0, 0] == 1.0
+
+
+def test_zeta_application_is_material_neutral():
+    rng_field = __import__("numpy").random.default_rng(7001)
+    field = rng_field.uniform(0.0, 1.0, (32, 32))
+    before = float(field.sum())
+
+    mod = ZetaRiemannModulator(lambda_soft=6.0, sigma_heis=0.001)
+    out = mod.apply(field, __import__("numpy").random.default_rng(8001), 0.9)
+
+    assert out.shape == field.shape
+    assert (out >= 0.0).all()
+    assert (out <= 1.0).all()
+    assert abs(float(out.sum()) - before) < 1e-8
+
+
+def test_zeta_material_neutrality_handles_boundary_fields():
+    import numpy as np
+
+    mod = ZetaRiemannModulator(lambda_soft=6.0, sigma_heis=0.001)
+    for value in (0.0, 1.0):
+        field = np.full((8, 8), value)
+        out = mod.apply(field, np.random.default_rng(9001), 0.9)
+        assert abs(float(out.sum()) - float(field.sum())) < 1e-8
