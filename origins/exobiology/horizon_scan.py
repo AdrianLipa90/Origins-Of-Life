@@ -27,10 +27,10 @@ class ExoticHorizonScanPoint:
     boundary_max: float
     joint_threshold_score_max: float
     candidate_compartment_count: int
-    raw_component_count: int
+    raw_information_component_count: int
     candidate_compartment_area_pixels: int
-    compartment_occupancy_fraction: float
-    interface_edge_count: int
+    candidate_compartment_shell_pixels: int
+    max_shell_coverage: float
     global_saturation: bool
     bounded_system_status: str
     trait_mean: float
@@ -113,10 +113,10 @@ def run_exotic_horizon_scan_case(
                 boundary_max=float(np.max(simulator.B)),
                 joint_threshold_score_max=_joint_threshold_score(simulator),
                 candidate_compartment_count=int(compartments["count"]),
-                raw_component_count=int(compartments["raw_component_count"]),
+                raw_information_component_count=int(compartments["raw_information_component_count"]),
                 candidate_compartment_area_pixels=int(compartments["area_pixels"]),
-                compartment_occupancy_fraction=float(compartments["occupancy_fraction"]),
-                interface_edge_count=int(compartments["interface_edge_count"]),
+                candidate_compartment_shell_pixels=int(compartments["shell_pixels"]),
+                max_shell_coverage=float(compartments["max_shell_coverage"]),
                 global_saturation=bool(compartments["global_saturation"]),
                 bounded_system_status=str(compartments["bounded_system_status"]),
                 trait_mean=float(np.mean(simulator.Q)),
