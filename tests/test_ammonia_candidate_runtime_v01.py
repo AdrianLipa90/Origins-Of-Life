@@ -34,17 +34,21 @@ def test_ammonia_runtime_is_non_rna_and_non_lipid_by_construction() -> None:
     assert "biology.rna" not in source
 
 
-def test_ammonia_factory_returns_dedicated_runtime_and_hydrocarbon_fails_closed() -> None:
+def test_ammonia_factory_returns_dedicated_runtime_without_cross_routing() -> None:
     ammonia = create_exotic_candidate_simulator(
         deepcopy(SCENARIO_C),
         Nx=12,
         Ny=12,
     )
+    hydrocarbon = create_exotic_candidate_simulator(
+        deepcopy(SCENARIO_D),
+        Nx=12,
+        Ny=12,
+    )
     assert isinstance(ammonia, AmmoniaCandidateSimulator)
+    assert hydrocarbon.__class__.__name__ == "HydrocarbonCandidateSimulator"
+    assert ammonia.__class__ is not hydrocarbon.__class__
     assert AMMONIA_RUNTIME_CODE in available_exotic_candidate_runtimes()
-
-    with pytest.raises(NotImplementedError):
-        create_exotic_candidate_simulator(deepcopy(SCENARIO_D), Nx=12, Ny=12)
 
 
 def test_ammonia_candidate_conserves_material_over_many_steps() -> None:
