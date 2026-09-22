@@ -1,0 +1,59 @@
+{
+  "schema": "ORIGINS_CAUSAL_HARDENING_V0_1_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "base_main_sha": "a23bb8c73e3370566f514fecb9fa92b00c5a05ca",
+  "branch": "fix/gremlin-causal-hardening-v01",
+  "pull_request": 18,
+  "validation": {
+    "validated_head_sha": "2b8dcfd34015b820e969d3ce791f12a1e8c80ecd",
+    "workflow": "Abiogenesis Canon",
+    "run_id": 35686152800,
+    "run_number": 40,
+    "conclusion": "success",
+    "compile_active_runtime": "PASS",
+    "canonical_surface_audit": "PASS",
+    "public_semantics_audit": "PASS",
+    "pytest": {
+      "command": "pytest -q tests",
+      "passed": 73,
+      "failed": 0
+    }
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "archive_rewritten": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "invariants": [
+    "oligomer nucleotide-unit conservation",
+    "non-finite state fails loud",
+    "clay adsorption transfers rather than multiplies substrate",
+    "polymerization consumes explicit substrate",
+    "population events do not create R-field material",
+    "protocells counted as connected structures with area tracked separately",
+    "post-operator state is the detected and recorded state",
+    "topo_strength remains identifiable",
+    "pure positive amplitude scaling does not create phase via per-step curvature renormalization",
+    "zeta-zero ordinates index an experimental grid-independent notch regularizer",
+    "expected_protocells is not an orbital semantic input",
+    "live topology state is bound before orbital derivations",
+    "orbital memory persists across repeated bundle builds",
+    "orbital external load is bounded by coverage fraction",
+    "default pre-seeded RNA initial condition is explicit",
+    "polymer-free initial condition is available"
+  ],
+  "epistemic_boundary": {
+    "phenomenological_chemistry": "MODELLED",
+    "geometric_layer": "GEOMETRIC_CANDIDATE_PHYSICAL_BINDING_OPEN",
+    "zeta_layer": "EXPERIMENTAL_SPECTRAL_REGULARIZER",
+    "historical_noema_lineage": "PRESERVED_NOT_RETROACTIVELY_PROMOTED"
+  },
+  "authority": {
+    "mutation": "USER_AUTHORIZED_BRANCH_ONLY",
+    "promotion": "DRAFT_ONLY",
+    "canon_allowed": false
+  }
+}
