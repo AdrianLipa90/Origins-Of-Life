@@ -20,6 +20,16 @@ from .information_morphogenesis import (
     validate_information_morphogenesis_mode,
 )
 from .profiles import HYDROCARBON_CANDIDATE, WorldEnvironment
+from .stability_morphogenesis import (
+    ISLAND_PRESERVATION_OFF,
+    LOW_BOUNDARY_EXTERIOR_MAINTENANCE_CANDIDATE,
+    SHELL_MAINTENANCE_OFF,
+    STATE_PEAK_ISLAND_PRESERVATION_CANDIDATE,
+    redistribute_boundary_source_to_shell_deficits,
+    redistribute_information_source_to_state_peaks,
+    validate_island_preservation_mode,
+    validate_shell_maintenance_mode,
+)
 
 
 RUNTIME_CODE = "HYDROCARBON_CANDIDATE_V0_1"
@@ -116,6 +126,8 @@ class HydrocarbonCandidateSimulator:
         seed: int | None = None,
         boundary_morphogenesis: str = COLOCATED_BASELINE,
         information_morphogenesis: str = DISTRIBUTED_INFORMATION_BASELINE,
+        shell_maintenance: str = SHELL_MAINTENANCE_OFF,
+        island_preservation: str = ISLAND_PRESERVATION_OFF,
     ):
         self.environment = WorldEnvironment.from_scenario(scenario)
         HYDROCARBON_CANDIDATE.assert_environment_compatible(self.environment)
@@ -135,6 +147,10 @@ class HydrocarbonCandidateSimulator:
         )
         self.information_morphogenesis = validate_information_morphogenesis_mode(
             information_morphogenesis
+        )
+        self.shell_maintenance = validate_shell_maintenance_mode(shell_maintenance)
+        self.island_preservation = validate_island_preservation_mode(
+            island_preservation
         )
         self._rng = np.random.default_rng(scenario.seed if seed is None else seed)
 
@@ -252,6 +268,11 @@ class HydrocarbonCandidateSimulator:
             information = redistribute_information_source_to_local_peaks(
                 information_baseline
             )
+        if self.island_preservation == STATE_PEAK_ISLAND_PRESERVATION_CANDIDATE:
+            information = redistribute_information_source_to_state_peaks(
+                information,
+                self.I,
+            )
         boundary_baseline = (
             p.boundary_assembly_rate
             * self.A
@@ -265,6 +286,12 @@ class HydrocarbonCandidateSimulator:
             boundary = redistribute_boundary_source_to_information_exterior(
                 boundary_baseline,
                 self.I,
+            )
+        if self.shell_maintenance == LOW_BOUNDARY_EXTERIOR_MAINTENANCE_CANDIDATE:
+            boundary = redistribute_boundary_source_to_shell_deficits(
+                boundary,
+                self.I,
+                self.B,
             )
         return {
             "information": information,
@@ -418,6 +445,8 @@ class HydrocarbonCandidateSimulator:
             "specific_azotosome_claim": False,
             "boundary_morphogenesis": self.boundary_morphogenesis,
             "information_morphogenesis": self.information_morphogenesis,
+            "shell_maintenance": self.shell_maintenance,
+            "island_preservation": self.island_preservation,
             "morphogenesis_physical_binding": "OPEN",
             "exotic_biology_established": False,
             "interpretation_allowed": "COMPUTATIONAL_CANDIDATE_ONLY",
