@@ -28,6 +28,10 @@ ARM_ORDER = ("chemistry_only", "zeta_only", "geometry_only", "full")
 METRICS = (
     "mean_R",
     "mean_M",
+    "max_R",
+    "max_M",
+    "polymer_threshold_pixels",
+    "membrane_threshold_pixels",
     "n_polymers",
     "n_protocells",
     "protocell_area_pixels",
@@ -78,6 +82,14 @@ def _final_metrics(sim: UniversalOriginSimulator) -> dict[str, float | int]:
     return {
         "mean_R": float(np.mean(sim.R)),
         "mean_M": float(np.mean(sim.M)),
+        "max_R": float(np.max(sim.R)),
+        "max_M": float(np.max(sim.M)),
+        "polymer_threshold_pixels": int(
+            np.count_nonzero(sim.R > sim.protocell_detector.threshold_R)
+        ),
+        "membrane_threshold_pixels": int(
+            np.count_nonzero(sim.M > sim.protocell_detector.threshold_M)
+        ),
         "n_polymers": int(sim.rna_population.size),
         "n_protocells": int(sim.protocell_count),
         "protocell_area_pixels": int(sim.protocell_area_pixels),
