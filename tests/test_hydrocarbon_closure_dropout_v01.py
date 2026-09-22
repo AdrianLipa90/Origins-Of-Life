@@ -45,6 +45,9 @@ def test_dropout_result_has_consistent_event_snapshots() -> None:
     assert 0.0 <= row.final_snapshot["largest_information_component_fraction"] <= 1.0
     assert row.final_snapshot["information_noncontractible_component_count"] >= 0
     assert row.final_snapshot["contractible_information_component_count"] >= 0
+    assert row.final_snapshot["best_contractible_missing_shell_pixels"] >= 0
+    assert row.final_snapshot["best_contractible_shell_pixels"] >= 0
+    assert 0.0 <= row.final_snapshot["best_contractible_shell_coverage"] <= 1.0
     assert row.dropout_mechanism in {
         DROPOUT_PERSISTS,
         DROPOUT_CONTRACTIBLE_INTERIOR_LOSS,
