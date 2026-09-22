@@ -1,0 +1,92 @@
+{
+  "schema": "ORIGINS_EXOTIC_RELATIONAL_BENCHMARK_V0_1_RESULT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "source_head_sha": "9a5b36a1cb24442fb1928ff05f452f5cc1335a02",
+  "workflow_run_id": 35690367950,
+  "artifact": {
+    "id": 10678059098,
+    "name": "exotic-relational-benchmark-v01",
+    "digest": "sha256:1c6e7b3f26ad6f26e7e3b0324d8f35f75e9ca8f673f7de8dc130cd7727b3c17d",
+    "row_count": 30,
+    "configuration": {
+      "grid": [
+        24,
+        24
+      ],
+      "steps": 300,
+      "seeds": [
+        11,
+        23,
+        47
+      ],
+      "ablations": [
+        "BASELINE",
+        "NO_SELECTION",
+        "NO_INHERITANCE",
+        "NO_BOUNDARY_ASSEMBLY",
+        "NO_EXTERNAL_ENERGY_INPUT"
+      ]
+    }
+  },
+  "verdict": {
+    "architecture_gates": "PASS",
+    "material_conservation": "PASS",
+    "matched_ablation_semantics": "PASS",
+    "deterministic_replay": "PASS",
+    "emergent_compartments_at_300_steps": "OBSERVED_ZERO",
+    "promotion_to_empirical_chemistry": "NOT_ALLOWED",
+    "chemistry_ranking": "NOT_ALLOWED",
+    "follow_up": "PREREGISTERED_HORIZON_ONLY_SCAN"
+  },
+  "global": {
+    "max_abs_material_residual": 1.1368683772161603e-13
+  },
+  "profiles": {
+    "AMMONIA_CANDIDATE": {
+      "baseline": {
+        "information_mass_mean": 4.304717315813433,
+        "boundary_mass_mean": 2.398536733623581,
+        "energy_throughput_integral_mean": 46.964834240636385,
+        "candidate_compartment_count_mean": 0,
+        "trait_mean_mean": 0.005484425036323457
+      },
+      "no_external_energy": {
+        "information_mass_mean": 2.9597996866530334,
+        "boundary_mass_mean": 1.650414967101191,
+        "energy_throughput_integral_mean": 0
+      },
+      "energy_ablation_fractional_reduction": {
+        "information_mass": 0.3124287916002819,
+        "boundary_mass": 0.31190757099315614
+      },
+      "baseline_vs_no_selection_information_fractional_delta": 0.0024456328959934883
+    },
+    "HYDROCARBON_CANDIDATE": {
+      "baseline": {
+        "information_mass_mean": 0.033046214882284236,
+        "boundary_mass_mean": 0.014769964272236256,
+        "energy_throughput_integral_mean": 19.807502201668644,
+        "candidate_compartment_count_mean": 0,
+        "trait_mean_mean": 0.005364170744154655
+      },
+      "no_external_energy": {
+        "information_mass_mean": 0.02226080705130379,
+        "boundary_mass_mean": 0.00995175366441064,
+        "energy_throughput_integral_mean": 0
+      },
+      "energy_ablation_fractional_reduction": {
+        "information_mass": 0.32637347028698294,
+        "boundary_mass": 0.32621680858650526
+      },
+      "baseline_vs_no_selection_information_fractional_delta": 0.002266997202101462
+    }
+  },
+  "interpretation_boundary": [
+    "cross-profile magnitude differences are not a chemistry ranking",
+    "candidate compartment count zero is preserved as baseline evidence",
+    "selection strength is not retuned after observing the baseline",
+    "molecular physical binding remains OPEN"
+  ]
+}
