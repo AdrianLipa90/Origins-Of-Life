@@ -237,42 +237,56 @@ def step_oligomer_pool(
     mono = min(mono + k_monomer_input * dt, 2000.0)
     external_input = mono - mono_before_input
 
-    # Ligacja: oligomer(n) + monomer → oligomer(n+1)
-    ligation_flux = np.zeros(N)
-    total_ligation_loss = 0.0
+    # Ligacja: oligomer(n) + monomer → oligomer(n+1).
+    # Compute all requests from one frozen source state, then scale them
+    # globally if they would consume more free monomer than exists.
+    ligation_request = np.zeros(N - 1, dtype=float)
     for n in range(N - 1):
-        flux = k_lig * counts[n] * mono * dt
-        flux = min(flux, counts[n])
-        ligation_flux[n] -= flux
-        if n + 1 < N:
-            ligation_flux[n + 1] += flux
-        total_ligation_loss += flux
+        ligation_request[n] = min(
+            max(0.0, k_lig * counts[n] * mono * dt),
+            counts[n],
+        )
+    requested_monomer = float(np.sum(ligation_request))
+    if requested_monomer > mono and requested_monomer > 0.0:
+        ligation_request *= mono / requested_monomer
 
-    # Hydroliza: k_hyd maleje wykładniczo z długością >= 8 nt
-    # Struktura drugorzędowa RNA (stem-loop) chroni wiązania
-    # k_hyd_eff(L) = k_hyd * exp(-max(0, L-8)/20)  [Szostak 2018]
-    hydro_flux = np.zeros(N)
+    ligation_flux = np.zeros(N, dtype=float)
+    for n, flux in enumerate(ligation_request):
+        ligation_flux[n] -= flux
+        ligation_flux[n + 1] += flux
+    total_ligation_loss = float(np.sum(ligation_request))
+    counts_after_ligation = counts + ligation_flux
+    mono_after_ligation = mono - total_ligation_loss
+
+    if np.any(counts_after_ligation < -1e-10) or mono_after_ligation < -1e-10:
+        raise FloatingPointError("ligation exceeded available substrate")
+
+    # Hydroliza is operator-split after ligation. Its donor population is the
+    # post-ligation snapshot, so the same molecule cannot be independently
+    # consumed by both reactions from the old state in one time step.
+    hydro_source = np.maximum(counts_after_ligation, 0.0)
+    hydro_flux = np.zeros(N, dtype=float)
     mono_return = 0.0
     for n in range(1, N):
         L = n + 1
-        # Ochrona przez strukturę drugorzędową powyżej 8 nt
         struct_protection = math.exp(-max(0.0, L - 8.0) / 20.0)
         k_hyd_eff = k_hyd * struct_protection
-        # Hydroliza proporcjonalna do liczby odsłoniętych wiązań (1 dla krótkich)
         exposed_bonds = max(1, min(L - 1, int(math.sqrt(L))))
-        flux = k_hyd_eff * counts[n] * exposed_bonds * dt
-        flux = min(flux, counts[n])
+        flux = min(
+            max(0.0, k_hyd_eff * hydro_source[n] * exposed_bonds * dt),
+            hydro_source[n],
+        )
         hydro_flux[n] -= flux
         half = n // 2
         if half >= 1:
-            # One cleaved molecule produces two fragments. Each fragment gets
-            # the full event count; multiplying by 0.5 loses nucleotide mass.
+            # One cleaved molecule produces two fragments and conserves
+            # nucleotide-equivalent units.
             hydro_flux[half] += flux
             hydro_flux[max(0, n - half - 1)] += flux
         else:
             mono_return += flux * L
 
-    new_counts = counts + ligation_flux + hydro_flux
+    new_counts = counts_after_ligation + hydro_flux
     if not np.isfinite(new_counts).all():
         raise FloatingPointError("oligomer update produced NaN/Inf")
     if np.any(new_counts < -1e-10):
@@ -282,7 +296,7 @@ def step_oligomer_pool(
     pool.monomer_pool = max(
         0.0,
         _finite_value(
-            mono - total_ligation_loss + mono_return,
+            mono_after_ligation + mono_return,
             name="monomer_pool",
         ),
     )
