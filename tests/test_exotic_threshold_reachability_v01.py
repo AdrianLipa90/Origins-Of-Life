@@ -103,3 +103,41 @@ def test_invalid_horizons_fail_closed() -> None:
             Nx=8,
             Ny=8,
         )
+
+
+@pytest.mark.parametrize("scenario", [SCENARIO_C, SCENARIO_D])
+def test_persistence_counters_are_internally_consistent(scenario) -> None:
+    rows = run_threshold_reachability_case(
+        deepcopy(scenario),
+        seed=37,
+        horizons=(25, 50, 100),
+        Nx=10,
+        Ny=10,
+    )
+    for row in rows:
+        assert row.localized_steps >= 0
+        assert row.max_consecutive_localized_steps >= 0
+        assert row.localized_steps >= row.max_consecutive_localized_steps
+        assert row.global_saturation_steps >= 0
+
+        if row.first_compartment_step is None:
+            assert row.last_compartment_step is None
+            assert row.localized_steps == 0
+            assert row.max_consecutive_localized_steps == 0
+            assert row.lost_to_global_saturation is False
+        else:
+            assert row.last_compartment_step is not None
+            assert row.last_compartment_step >= row.first_compartment_step
+            assert row.localized_steps > 0
+
+        if row.lost_to_global_saturation:
+            assert row.first_compartment_step is not None
+            assert row.first_global_saturation_step is not None
+            assert row.first_global_saturation_step > row.first_compartment_step
+
+
+def test_reachability_manifest_does_not_invent_a_persistence_cutoff() -> None:
+    manifest = diagnostic_manifest()
+    assert manifest["reachability_semantics"] == "EVER_LOCALIZED_BOUNDED_CANDIDATE"
+    assert manifest["final_bounded_state_reported_separately"] is True
+    assert manifest["persistence_threshold"] is None
