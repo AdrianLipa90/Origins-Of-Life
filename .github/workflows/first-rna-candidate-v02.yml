@@ -1,0 +1,39 @@
+name: First RNA Candidate v0.2
+
+on:
+  pull_request:
+    paths:
+      - "docs/FIRST_RNA_CANDIDATE_PREREG_V0_2.md"
+      - "origins/analysis/first_rna_candidate_v02.py"
+      - "scripts/run_first_rna_candidate_v02.py"
+      - "tests/test_first_rna_candidate_v02.py"
+      - ".github/workflows/first-rna-candidate-v02.yml"
+
+jobs:
+  first-rna-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run candidate-length causal gate
+        run: |
+          python scripts/run_first_rna_candidate_v02.py
+
+      - name: Upload candidate gate
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-candidate-v02
+          path: first_rna_candidate_v02/
+          if-no-files-found: error
