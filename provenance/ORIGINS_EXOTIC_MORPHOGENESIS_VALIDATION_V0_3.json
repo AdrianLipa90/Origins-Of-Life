@@ -1,0 +1,94 @@
+{
+  "schema": "ORIGINS_EXOTIC_MORPHOGENESIS_VALIDATION_V0_3_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_head_sha": "82969cc21f852011e828036118cdbaad65aff37b",
+  "validation": {
+    "abiogenesis_canon": {
+      "run_id": 35693351032,
+      "conclusion": "success",
+      "pytest": {
+        "passed": 219,
+        "failed": 0
+      }
+    },
+    "factorial": {
+      "run_id": 35693350968,
+      "artifact_id": 10679298996,
+      "artifact_digest": "sha256:27fbbf0f57e17472a84adae647c53e05a07f317c8a0259f7b57d839883bec865",
+      "conclusion": "success"
+    },
+    "hydrocarbon_long_horizon": {
+      "run_id": 35692925592,
+      "artifact_id": 10679611726,
+      "artifact_digest": "sha256:9d1d0de1503b1a236f588f24aec77b762ca6490b880a12348cb5e8f74a5fb327",
+      "conclusion": "success"
+    }
+  },
+  "factorial_design": {
+    "matched_seeds": [
+      11,
+      23,
+      47
+    ],
+    "information_modes": [
+      "DISTRIBUTED_INFORMATION_BASELINE",
+      "PEAK_REDISTRIBUTED_INFORMATION_CANDIDATE"
+    ],
+    "boundary_modes": [
+      "COLOCATED_BASELINE",
+      "EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE"
+    ],
+    "parameter_tuning_allowed": false,
+    "threshold_tuning_allowed": false,
+    "ranking_allowed": false,
+    "physical_binding": "OPEN"
+  },
+  "results": {
+    "ammonia": {
+      "horizon_steps": 3000,
+      "combined_mode_final_compartment_counts": [
+        6,
+        11,
+        8
+      ],
+      "combined_mode_closed_steps": [
+        1606,
+        1592,
+        1540
+      ],
+      "global_information_saturation": false,
+      "computational_gate": "PASS_CANDIDATE"
+    },
+    "hydrocarbon": {
+      "horizon_steps": 10000,
+      "combined_mode_final_compartment_counts": [
+        0,
+        0,
+        1
+      ],
+      "combined_mode_closed_steps": [
+        4919,
+        5009,
+        5667
+      ],
+      "global_information_saturation": false,
+      "computational_gate": "OPEN_PARTIAL",
+      "next_bottleneck": "BOUNDARY_CLOSURE_PERSISTENCE"
+    }
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "non_claims": [
+    "candidate outputs are not evidence that exotic life exists",
+    "molecular binding remains open",
+    "default coefficients are not empirical constants",
+    "model steps are not calibrated physical time"
+  ]
+}
