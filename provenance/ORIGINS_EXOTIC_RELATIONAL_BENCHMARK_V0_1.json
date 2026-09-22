@@ -1,0 +1,70 @@
+{
+  "schema": "ORIGINS_EXOTIC_RELATIONAL_BENCHMARK_V0_1_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_head_sha": "51d21b90ad8d8bbfa2540507736140b1e4a5ca6d",
+  "validation": {
+    "github_actions_run_id": 35690107084,
+    "workflow": "Abiogenesis Canon",
+    "conclusion": "success",
+    "pytest": {
+      "passed": 113,
+      "failed": 0
+    },
+    "compile_active_runtime": "PASS",
+    "semantic_audits": "PASS",
+    "gremlin": {
+      "authority": "CANDIDATE_ONLY",
+      "route_species": [
+        "OWL",
+        "HOUND",
+        "ANT"
+      ],
+      "phase_state_shape": [
+        7,
+        36
+      ],
+      "terminal_receipt_sha256": "272ea249bd1d2411c54967b849048d8076e306e7807ca09c2d80564f2fc82756",
+      "candidates": [],
+      "no_go_candidate_reported": false
+    }
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "benchmark": {
+    "schema": "ORIGINS_EXOTIC_RELATIONAL_BENCHMARK_V0_1",
+    "comparison_scope": "SHARED_RELATIONAL_OBSERVABLES_ONLY",
+    "ranking_allowed": false,
+    "matched_seed_required": true,
+    "ablations": [
+      "BASELINE",
+      "NO_SELECTION",
+      "NO_INHERITANCE",
+      "NO_BOUNDARY_ASSEMBLY",
+      "NO_EXTERNAL_ENERGY_INPUT"
+    ],
+    "shared_observables": [
+      "material_residual_abs",
+      "energy_throughput_integral",
+      "information_mass",
+      "boundary_mass",
+      "candidate_compartment_count",
+      "candidate_compartment_area_pixels",
+      "trait_mean",
+      "trait_variance"
+    ]
+  },
+  "non_claims": [
+    "candidate chemistries are not ranked",
+    "raw kinetic coefficients are not compared across candidate chemistries",
+    "ammonia-based life is not established",
+    "methane/ethane-based life is not established",
+    "molecular physical binding remains open"
+  ]
+}
