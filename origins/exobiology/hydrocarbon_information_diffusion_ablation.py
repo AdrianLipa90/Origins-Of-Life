@@ -33,6 +33,10 @@ class InformationDiffusionAblationResult:
     longest_closed_run: int
     closed_at_horizon: bool
     final_compartment_count: int
+    final_compartment_mean_area_pixels: float
+    final_compartment_max_area_pixels: int
+    final_compartment_singleton_count: int
+    final_compartment_singleton_fraction: float
     final_contractible_information_components: int
     final_noncontractible_information_components: int
     final_largest_information_component_fraction: float
@@ -47,6 +51,36 @@ class InformationDiffusionAblationResult:
 
     def as_record(self) -> dict[str, object]:
         return asdict(self)
+
+
+def _accepted_component_area_stats(
+    observation: dict[str, object],
+) -> dict[str, object]:
+    labels = np.asarray(observation["labels"], dtype=int)
+    accepted = np.asarray(observation["accepted_mask"], dtype=bool)
+    if labels.shape != accepted.shape:
+        raise ValueError("accepted-mask/label shape mismatch")
+
+    accepted_ids = sorted(
+        int(value)
+        for value in np.unique(labels[accepted])
+        if int(value) > 0
+    )
+    areas = [
+        int(np.count_nonzero((labels == label_id) & accepted))
+        for label_id in accepted_ids
+    ]
+    count = len(areas)
+    singleton_count = sum(area == 1 for area in areas)
+    return {
+        "count": int(count),
+        "mean_area_pixels": float(np.mean(areas)) if areas else 0.0,
+        "max_area_pixels": int(max(areas)) if areas else 0,
+        "singleton_count": int(singleton_count),
+        "singleton_fraction": (
+            float(singleton_count / count) if count else 0.0
+        ),
+    }
 
 
 def run_information_diffusion_condition(
@@ -107,6 +141,9 @@ def run_information_diffusion_condition(
         was_closed = closed
 
     observation = sim.candidate_compartments()
+    area_stats = _accepted_component_area_stats(observation)
+    if int(area_stats["count"]) != int(observation["count"]):
+        raise RuntimeError("accepted compartment-area count drift")
     info_mask = np.asarray(sim.I) >= float(sim.parameters.information_threshold)
     topology = periodic_component_topology(info_mask)
     claim = sim.claim_status()
@@ -126,6 +163,18 @@ def run_information_diffusion_condition(
         longest_closed_run=int(longest_run),
         closed_at_horizon=int(observation["count"]) > 0,
         final_compartment_count=int(observation["count"]),
+        final_compartment_mean_area_pixels=float(
+            area_stats["mean_area_pixels"]
+        ),
+        final_compartment_max_area_pixels=int(
+            area_stats["max_area_pixels"]
+        ),
+        final_compartment_singleton_count=int(
+            area_stats["singleton_count"]
+        ),
+        final_compartment_singleton_fraction=float(
+            area_stats["singleton_fraction"]
+        ),
         final_contractible_information_components=int(
             observation["contractible_information_component_count"]
         ),
