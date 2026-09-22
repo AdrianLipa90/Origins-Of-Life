@@ -205,6 +205,116 @@ def periodic_component_topology(mask: np.ndarray) -> dict[str, object]:
     }
 
 
+def contractible_component_geometries(
+    information: np.ndarray,
+    boundary: np.ndarray,
+    information_threshold: float,
+    boundary_threshold: float,
+) -> list[dict[str, object]]:
+    """Return event-level geometry for each contractible information component.
+
+    The diagnostic is read-only. It reports threshold margins, shell coverage,
+    and the minimum toroidal Manhattan separation from any non-contractible
+    information component. A separation of 2 means one below-threshold lattice
+    site lies between the contractible island and the percolating background.
+    """
+    info = np.asarray(information, dtype=float)
+    bound = np.asarray(boundary, dtype=float)
+    if info.shape != bound.shape or info.ndim != 2 or info.size == 0:
+        raise ValueError("information and boundary must be same-shape non-empty 2D arrays")
+    if not np.isfinite(info).all() or not np.isfinite(bound).all():
+        raise FloatingPointError("component geometry fields contain NaN/Inf")
+    if information_threshold <= 0.0 or boundary_threshold <= 0.0:
+        raise ValueError("component geometry thresholds must be positive")
+
+    info_mask = info >= float(information_threshold)
+    boundary_mask = bound >= float(boundary_threshold)
+    labels, components = _periodic_components(info_mask)
+    topology = periodic_component_topology(info_mask)
+    topology_by_label = {
+        int(record["label_id"]): record
+        for record in topology["components"]
+    }
+    nx, ny = info.shape
+
+    noncontractible_cells: list[tuple[int, int]] = []
+    for label_id, component in enumerate(components, start=1):
+        if bool(topology_by_label[label_id]["noncontractible"]):
+            noncontractible_cells.extend(component)
+
+    def toroidal_distance(a: tuple[int, int], b: tuple[int, int]) -> int:
+        dx = abs(a[0] - b[0])
+        dy = abs(a[1] - b[1])
+        return int(min(dx, nx - dx) + min(dy, ny - dy))
+
+    records: list[dict[str, object]] = []
+    for label_id, component in enumerate(components, start=1):
+        topo = topology_by_label[label_id]
+        if bool(topo["noncontractible"]):
+            continue
+
+        comp_set = set(component)
+        shell: set[tuple[int, int]] = set()
+        for x, y in component:
+            for xx, yy in (
+                ((x - 1) % nx, y),
+                ((x + 1) % nx, y),
+                (x, (y - 1) % ny),
+                (x, (y + 1) % ny),
+            ):
+                if (xx, yy) not in comp_set:
+                    shell.add((xx, yy))
+
+        covered = sum(1 for x, y in shell if boundary_mask[x, y])
+        shell_pixels = len(shell)
+        shell_coverage = float(covered / shell_pixels) if shell_pixels else 0.0
+
+        values = np.asarray([info[x, y] for x, y in component], dtype=float)
+        margins = values - float(information_threshold)
+
+        nearest_noncontractible_distance: int | None = None
+        if noncontractible_cells:
+            nearest_noncontractible_distance = min(
+                toroidal_distance(cell, other)
+                for cell in component
+                for other in noncontractible_cells
+            )
+
+        records.append(
+            {
+                "label_id": int(label_id),
+                "area_pixels": int(len(component)),
+                "shell_pixels": int(shell_pixels),
+                "covered_shell_pixels": int(covered),
+                "missing_shell_pixels": int(shell_pixels - covered),
+                "shell_coverage": float(shell_coverage),
+                "closed_shell": bool(shell_pixels > 0 and covered == shell_pixels),
+                "information_min": float(np.min(values)),
+                "information_mean": float(np.mean(values)),
+                "information_max": float(np.max(values)),
+                "information_margin_min": float(np.min(margins)),
+                "information_margin_mean": float(np.mean(margins)),
+                "information_margin_max": float(np.max(margins)),
+                "nearest_noncontractible_distance": nearest_noncontractible_distance,
+                "nearest_noncontractible_gap_cells": (
+                    None
+                    if nearest_noncontractible_distance is None
+                    else int(max(0, nearest_noncontractible_distance - 1))
+                ),
+            }
+        )
+
+    records.sort(
+        key=lambda record: (
+            bool(record["closed_shell"]),
+            float(record["shell_coverage"]),
+            int(record["area_pixels"]),
+        ),
+        reverse=True,
+    )
+    return records
+
+
 def closed_boundary_compartment_observation(
     information: np.ndarray,
     boundary: np.ndarray,
