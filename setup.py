@@ -6,8 +6,8 @@ setup(
     author="Adrian Lipa",
     author_email="",
     description=(
-        "CIEL-Omega: Universal origin-of-life simulator with "
-        "Kähler-Berry-Euler topology and CIEL/0 cosmological framework"
+        "Computational abiogenesis and protocell-emergence simulator with "
+        "phenomenological chemistry and experimental geometric operators"
     ),
     packages=find_packages(exclude=["tests*", "scripts*"]),
     python_requires=">=3.9",

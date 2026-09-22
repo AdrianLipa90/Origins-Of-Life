@@ -30,26 +30,37 @@ from typing import Optional
 import numpy as np
 
 
-# ── Zeta modulation + Heisenberg soft-clip (per Adrian: "tam gdzie zera tam
-#    zeta, tam gdzie NaN soft clip heisenberga") ────────────────────────────────
+# ── Numerical guards ─────────────────────────────────────────────────────────
+#
+# These are software/numerical safeguards only. They deliberately do not use
+# physical names: an epsilon floor is not a Riemann-zeta operator, and replacing
+# NaN/Inf with random noise hides failures.
 
-_ZETA_EPSILON = 1e-12  # floor dla zerotych kinetyk
+_NUMERICAL_EPSILON = 1e-12
+
+
+def _finite_value(x: float, *, name: str) -> float:
+    """Fail loudly on non-finite numerical state."""
+    value = float(x)
+    if not math.isfinite(value):
+        raise FloatingPointError(f"{name} became non-finite: {value!r}")
+    return value
+
+
+def _epsilon_floor(x: float) -> float:
+    """Finite non-negative kinetic floor used only for numerical stability."""
+    return max(_finite_value(x, name="kinetic_rate"), _NUMERICAL_EPSILON)
+
 
 def _zeta_floor(x: float) -> float:
-    """Nie pozwól stawce spaść do hard zero — zeta regularyzacja."""
-    return max(x, _ZETA_EPSILON)
+    """Backward-compatible alias for the historical numerical floor."""
+    return _epsilon_floor(x)
 
 
 def _heisenberg_clip(x: float, sigma: float = 1e-9) -> float:
-    """Soft-clip NaN/Inf → sygnał szumowy Heisenberga.
-
-    Zamiast NaN w historii: mała ale niezerowa fluktuacja (zasada nieoznaczoności
-    zapobiega egzaktnemu zeru energii kinetycznej).
-    """
-    if math.isnan(x) or math.isinf(x):
-        import random
-        return abs(random.gauss(0, sigma))
-    return x
+    """Backward-compatible fail-loud guard; no random replacement is used."""
+    del sigma
+    return _finite_value(x, name="state")
 
 
 # ── Stałe biofizyczne ─────────────────────────────────────────────────────────
@@ -98,6 +109,11 @@ class OligomerPool:
 
     def n_above_threshold(self, L_min: int) -> float:
         return float(self.counts[L_min-1:].sum())
+
+    def total_monomer_units(self) -> float:
+        """Total nucleotide-equivalent units represented by this pool."""
+        lengths = np.arange(1, self.max_len + 1, dtype=float)
+        return float(self.monomer_pool + np.dot(self.counts, lengths))
 
 
 @dataclass
@@ -160,8 +176,8 @@ def k_ligation_effective(
     gc_factor = math.exp(-((gc_mean - GC_OPT)**2) / 0.05) + 0.3
 
     result = K_LIG_BASE * arrhenius * cat_factor * conc_factor * bloch_factor * berry_factor * gc_factor
-    # Zeta: zerowe stawki zamieniamy na epsilon, nie hard-0
-    return _zeta_floor(_heisenberg_clip(result))
+    # Purely numerical floor; no physical zeta/uncertainty claim is implied.
+    return _epsilon_floor(result)
 
 
 def k_hydrolysis_effective(temp_C: float, pH: float) -> float:
@@ -197,10 +213,17 @@ def step_oligomer_pool(
     counts = pool.counts.copy()
     mono   = pool.monomer_pool
 
+    if not np.isfinite(counts).all() or not math.isfinite(mono):
+        raise FloatingPointError("oligomer pool contains NaN/Inf before update")
+
+    total_before = pool.total_monomer_units()
+
     # Odnowienie puli monomerów: środowisko dostarcza monomery
     # (hydrotermalne wentyle, promieniowanie UV syntetyzuje nukleotydy)
-    k_monomer_input = 5.0  # monomery/h — stały dopływ prebiologiczny
+    k_monomer_input = 5.0  # monomery/h — jawny zewnętrzny dopływ
+    mono_before_input = mono
     mono = min(mono + k_monomer_input * dt, 2000.0)
+    external_input = mono - mono_before_input
 
     # Ligacja: oligomer(n) + monomer → oligomer(n+1)
     ligation_flux = np.zeros(N)
@@ -230,17 +253,37 @@ def step_oligomer_pool(
         hydro_flux[n] -= flux
         half = n // 2
         if half >= 1:
-            hydro_flux[half] += flux * 0.5
-            hydro_flux[max(0, n - half - 1)] += flux * 0.5
+            # One cleaved molecule produces two fragments. Each fragment gets
+            # the full event count; multiplying by 0.5 loses nucleotide mass.
+            hydro_flux[half] += flux
+            hydro_flux[max(0, n - half - 1)] += flux
         else:
             mono_return += flux * L
 
     new_counts = counts + ligation_flux + hydro_flux
-    # Heisenberg soft-clip: NaN/Inf → 0 (krótka ścieżka zaniku, nie katastrofa)
-    new_counts = np.where(np.isfinite(new_counts), new_counts, 0.0)
+    if not np.isfinite(new_counts).all():
+        raise FloatingPointError("oligomer update produced NaN/Inf")
+    if np.any(new_counts < -1e-10):
+        raise FloatingPointError("oligomer update produced a negative population")
     new_counts = np.maximum(new_counts, 0.0)
     pool.counts = new_counts
-    pool.monomer_pool = max(0.0, _heisenberg_clip(mono - total_ligation_loss + mono_return))
+    pool.monomer_pool = max(
+        0.0,
+        _finite_value(
+            mono - total_ligation_loss + mono_return,
+            name="monomer_pool",
+        ),
+    )
+
+    total_after = pool.total_monomer_units()
+    expected_after = total_before + external_input
+    tolerance = 1e-8 * max(1.0, abs(expected_after))
+    if abs(total_after - expected_after) > tolerance:
+        raise FloatingPointError(
+            "oligomer nucleotide-unit conservation failed: "
+            f"before={total_before:.12g}, input={external_input:.12g}, "
+            f"after={total_after:.12g}"
+        )
 
     # GC drift — losowy spacer z słabym powrotem do optimum (chemiczna selekcja:
     # GC-rich RNA bardziej stabilne, przeżywa hydrolizę dłużej)

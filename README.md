@@ -9,6 +9,22 @@ The current runnable surface of the project is centered on:
 - habitat and feasibility sweeps
 - cross-scenario comparison
 
+## Current model boundary
+
+The default `UniversalOriginSimulator` uses a **pre-seeded RNA population** as
+an explicit initial condition. It therefore models chemical-field evolution,
+RNA-like population dynamics and protocell formation after polymers already
+exist; it is not by itself a monomer-to-first-RNA proof.
+
+For a polymer-free spatial start, use `preseed_rna=False`. The separate
+`origins.biology.first_rna` module contains the current monomer/oligomer
+candidate path.
+
+The topology/Bloch/geometric-phase and zeta-indexed layers are experimental
+model operators with open physical binding. They must be evaluated by ablation
+against chemistry-only and matched-control runs.
+
+
 ## Canonical public surface
 
 Use the repository through the repo-facing semantic layer:
@@ -16,7 +32,7 @@ Use the repository through the repo-facing semantic layer:
 - `origins.abiogenesis.api`
 - `scripts/run_abiogenesis.py`
 
-The lower-level orbital machinery remains available as an implementation substrate under:
+The lower-level orbital machinery remains available as an experimental implementation substrate under:
 - `origins.orbital`
 - `origins.simulator.universal_orbital`
 - `origins.analysis.sweep_orbital`

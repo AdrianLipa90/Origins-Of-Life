@@ -11,7 +11,7 @@ from ..simulator.universal import UniversalOriginSimulator
 from .memory import MemoryState
 from .oorp import OORPTrace, run_oorp_pipeline
 from .potentials import PotentialTerms, compute_potential_terms
-from .repository_assignment import assign_orbital_state_to_entity
+from .repository_assignment import assign_orbital_state_to_entity, bind_live_topology_to_coordinate
 from .state import OrbitalCoordinate
 from .winding import WindingComponents, compute_winding_components
 
@@ -39,8 +39,13 @@ class OrbitalRunBundle:
 
 
 class OrbitalRuntimeBridge:
-    def __init__(self, simulator: UniversalOriginSimulator):
+    def __init__(
+        self,
+        simulator: UniversalOriginSimulator,
+        memory_state: MemoryState | None = None,
+    ):
         self.simulator = simulator
+        self.memory_state = memory_state if memory_state is not None else MemoryState()
 
     @classmethod
     def from_config(
@@ -64,7 +69,12 @@ class OrbitalRuntimeBridge:
 
     def _build_coordinate(self, delta_t: float) -> OrbitalCoordinate:
         record = scenario_config_to_entity_record(self.simulator.config, source_path="origins/scenarios.py")
-        return assign_orbital_state_to_entity(record, delta_t=delta_t)
+        coordinate = assign_orbital_state_to_entity(record, delta_t=delta_t)
+        return bind_live_topology_to_coordinate(
+            coordinate,
+            getattr(self.simulator, "topo", None),
+            delta_t=delta_t,
+        )
 
     def _build_potentials(self, coordinate: OrbitalCoordinate) -> PotentialTerms:
         return compute_potential_terms(
@@ -73,7 +83,7 @@ class OrbitalRuntimeBridge:
             relation_depth=coordinate.relation_depth,
             semantic_mass=coordinate.semantic_mass,
             memory_affinity=0.0,
-            external_load=float(self.simulator.protocell_count),
+            external_load=self.simulator.protocell_coverage_fraction(),
         )
 
     def _build_winding(self, coordinate: OrbitalCoordinate, reduction_score: float) -> WindingComponents:
@@ -102,8 +112,12 @@ class OrbitalRuntimeBridge:
 
         entity_record = scenario_config_to_entity_record(self.simulator.config, source_path="origins/scenarios.py")
         coordinate = self._build_coordinate(delta_t=hours)
-        memory_state = MemoryState()
-        oorp_trace = run_oorp_pipeline(coordinate, memory_state, external_load=float(self.simulator.protocell_count))
+        memory_state = self.memory_state
+        oorp_trace = run_oorp_pipeline(
+            coordinate,
+            memory_state,
+            external_load=self.simulator.protocell_coverage_fraction(),
+        )
         potentials = self._build_potentials(coordinate)
         winding = self._build_winding(coordinate, oorp_trace.reduction_score)
 

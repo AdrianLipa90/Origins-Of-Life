@@ -1,9 +1,10 @@
 """
-Topological field generation — Kähler-Berry-Euler formalism.
+Candidate geometric field generation for abiogenesis experiments.
 
-The topology field T(x,y) acts as a spatially-varying modulator on all
-chemical reaction rates, representing the influence of curved space-time
-geometry (Kähler manifold curvature) on prebiotic chemistry.
+The topology field T(x,y) is a synthetic spatial modulator on chemical
+reaction rates. The Bloch/CP1 mapping and geometric-phase readout are
+experimental model components; they are not asserted to be a derived
+space-time or quantum-chemical mechanism.
 
 Three time-evolution modes are supported:
   static  – field is fixed throughout the simulation
@@ -14,8 +15,9 @@ Bloch sphere geometry (2026 extension):
   Each point on the 2-D grid maps to a point on S² via:
     bloch_theta = pi * (field_norm + 1) / 2   ∈ [0, π]
     bloch_phi   = 2*pi * curvature_norm        ∈ [0, 2π]
-  Berry phase accumulated = integral of A·dΩ over the field evolution.
-  This makes the topology field a genuine geometric phase carrier.
+  Geometric-phase candidate = discrete integral of A_phi dphi along the
+  modeled CP1 path. Pure positive amplitude rescaling must not create an
+  azimuthal phase change by normalization artifact.
 """
 
 from __future__ import annotations
@@ -53,7 +55,9 @@ class TopologyField:
         self.Ny = Ny
         self.field: np.ndarray = np.zeros((Nx, Ny))
         self.curvature: np.ndarray = np.zeros((Nx, Ny))
+        self.curvature_raw: np.ndarray = np.zeros((Nx, Ny))
         self._base: np.ndarray = np.zeros((Nx, Ny))
+        self._base_laplacian_scale: float = 1.0
         self.bloch_theta: np.ndarray = np.full((Nx, Ny), math.pi / 2)
         self.bloch_phi: np.ndarray = np.zeros((Nx, Ny))
         self.berry_accumulated: float = 0.0
@@ -100,16 +104,21 @@ class TopologyField:
         if std > 0:
             base = (base - float(np.mean(base))) / (std + 1e-12)
         self._base = base
+        base_lap = laplacian(self._base)
+        self._base_laplacian_scale = max(float(np.std(base_lap)), 1e-12)
         self.field = s * base
         self._update_curvature()
 
     def _update_curvature(self) -> None:
-        """Berry-phase curvature ≈ discrete Laplacian of field; update Bloch coords."""
+        """Update the Laplacian-derived candidate curvature and Bloch coordinates.
+
+        The normalization scale is frozen from the base pattern. Re-normalizing
+        every time step erases topo_strength and can turn pure amplitude
+        modulation into a spurious azimuthal rotation.
+        """
         lap = laplacian(self.field)
-        std = float(np.std(lap))
-        if std > 0:
-            lap = (lap - float(lap.mean())) / (std + 1e-12)
-        self.curvature = lap
+        self.curvature_raw = lap
+        self.curvature = lap / self._base_laplacian_scale
         self._update_bloch()
 
     def _update_bloch(self) -> None:
@@ -122,13 +131,15 @@ class TopologyField:
         Berry connection A = (1-cos θ)/2 · dφ (magnetic monopole gauge).
         Accumulated holonomy ≈ mean(A · Δφ) over all grid points.
 
-        Key: theta uses ABSOLUTE field value (arctangent of amplitude),
-        so amplitude changes (PULSING) generate non-zero berry accumulation.
+        Pure positive amplitude rescaling changes theta but, when field,
+        curvature and gradients scale consistently, does not by itself rotate
+        phi. Therefore amplitude-only pulsing is not forced to accumulate a
+        geometric phase.
         """
-        # Polar angle from absolute amplitude: theta = 2*arctan(|field|/s_ref)
-        # Using atan to map (-∞,+∞) → (0, π), preserving sign information.
-        s_ref = max(float(self.config.topo_strength), 1e-9)
-        self.bloch_theta = 2.0 * np.arctan(np.abs(self.field) / s_ref)  # [0, π)
+        # Polar angle from absolute dimensionless amplitude. A fixed reference
+        # keeps topo_strength identifiable instead of cancelling it out.
+        field_reference = 1.0
+        self.bloch_theta = 2.0 * np.arctan(np.abs(self.field) / field_reference)
 
         # Azimuthal angle: atan2(curvature, field) + spatial gradient phase
         # For DRIFT mode: field shifts spatially → gradient changes sign → phi rotates
@@ -151,8 +162,17 @@ class TopologyField:
         self.bloch_phi = new_phi
 
     def bloch_coherence(self) -> float:
-        """Mean cos²(θ/2) over grid — Fubini-Study overlap with |0⟩ state."""
+        """Mean cos²(theta/2) of the candidate CP1 mapping."""
         return float(np.mean(np.cos(self.bloch_theta / 2.0) ** 2))
+
+    def geometry_status(self) -> dict[str, object]:
+        """Explicit epistemic status of the synthetic geometry layer."""
+        return {
+            "status": "GEOMETRIC_CANDIDATE",
+            "physical_binding": "OPEN",
+            "curvature_operator": "LAPLACIAN_DERIVED_FIXED_REFERENCE",
+            "phase_readout": "DISCRETE_CP1_CONNECTION_CANDIDATE",
+        }
 
     # ------------------------------------------------------------------
     # Time evolution

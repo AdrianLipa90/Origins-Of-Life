@@ -45,6 +45,33 @@ class ProtocellDetector:
         return int(mask.sum())
 
     # ------------------------------------------------------------------
+    # Connected-component count on the declared physical thresholds
+    # ------------------------------------------------------------------
+
+    def detect_components(self, M: np.ndarray, R: np.ndarray) -> dict:
+        """Count connected membrane+polymer regions rather than occupied pixels.
+
+        detect() is retained as a fast area/pixel observable for backward
+        compatibility. This method is the canonical structure-counting
+        observable: one connected region is one protocell candidate.
+        """
+        if M.shape != R.shape:
+            raise ValueError("M and R must have identical shapes")
+        mask = (M > self.threshold_M) & (R > self.threshold_R)
+        labelled, n_structures = label(mask)
+        area_pixels = int(mask.sum())
+        if n_structures == 0:
+            mean_area = 0.0
+        else:
+            sizes = np.bincount(labelled.ravel())[1:]
+            mean_area = float(np.mean(sizes)) if sizes.size else 0.0
+        return {
+            'count': int(n_structures),
+            'area_pixels': area_pixels,
+            'mean_area_pixels': mean_area,
+            'labels': labelled,
+        }
+    # ------------------------------------------------------------------
     # Advanced detection (morphological)
     # ------------------------------------------------------------------
 

@@ -7,23 +7,45 @@ from ..bindings import scenario_config_to_entity_record
 from .memory import MemoryState
 from .oorp import run_oorp_pipeline
 from .potentials import compute_potential_terms
-from .repository_assignment import assign_orbital_state_to_entity
+from .repository_assignment import assign_orbital_state_to_entity, bind_live_topology_to_coordinate
 from .runtime_bridge import OrbitalRunBundle
 from .winding import compute_winding_components
 
 
-def build_orbital_bundle_from_simulator(simulator, delta_t: float, prefix: str = "final") -> OrbitalRunBundle:
+def build_orbital_bundle_from_simulator(
+    simulator,
+    delta_t: float,
+    prefix: str = "final",
+    memory_state: MemoryState | None = None,
+) -> OrbitalRunBundle:
     entity_record = scenario_config_to_entity_record(simulator.config, source_path="origins/scenarios.py")
     coordinate = assign_orbital_state_to_entity(entity_record, delta_t=delta_t)
-    memory_state = MemoryState()
-    oorp_trace = run_oorp_pipeline(coordinate, memory_state, external_load=float(simulator.protocell_count))
+    coordinate = bind_live_topology_to_coordinate(
+        coordinate,
+        getattr(simulator, "topo", None),
+        delta_t=delta_t,
+    )
+
+    # Preserve memory across repeated bundle builds on the same simulator.
+    if memory_state is None:
+        memory_state = getattr(simulator, "_orbital_memory_state", None)
+    if memory_state is None:
+        memory_state = MemoryState()
+        simulator._orbital_memory_state = memory_state
+
+    external_load = (
+        simulator.protocell_coverage_fraction()
+        if hasattr(simulator, "protocell_coverage_fraction")
+        else float(simulator.protocell_count) / float(max(1, simulator.Nx * simulator.Ny))
+    )
+    oorp_trace = run_oorp_pipeline(coordinate, memory_state, external_load=external_load)
     potentials = compute_potential_terms(
         coherence=coordinate.coherence,
         defect=coordinate.defect,
         relation_depth=coordinate.relation_depth,
         semantic_mass=coordinate.semantic_mass,
         memory_affinity=0.0,
-        external_load=float(simulator.protocell_count),
+        external_load=external_load,
     )
     winding = compute_winding_components(
         dphi_ec=[coordinate.phi],
@@ -33,11 +55,9 @@ def build_orbital_bundle_from_simulator(simulator, delta_t: float, prefix: str =
         delta_t=max(1e-9, coordinate.tau_local),
         tau_local_steps=[coordinate.tau_local],
     )
-    # Berry holonomy from topology field (Bloch sphere accumulated phase)
+    # Candidate geometric-phase contribution is added only after all
+    # coherence-dependent quantities have been derived from the same coordinate.
     berry_topo = float(getattr(getattr(simulator, "topo", None), "berry_accumulated", 0.0))
-    if hasattr(getattr(simulator, "topo", None), "bloch_coherence"):
-        coordinate.coherence = simulator.topo.bloch_coherence()
-        coordinate.defect = 1.0 - coordinate.coherence
     coordinate.omega = winding.winding_number + berry_topo
 
     outputs = {
