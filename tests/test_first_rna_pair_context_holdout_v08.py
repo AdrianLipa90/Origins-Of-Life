@@ -18,10 +18,12 @@ def test_rounding_envelope_arithmetic_is_explicit():
     prediction = interval_sum(rounded_percent_envelope(49), shift)
     observed = rounded_percent_envelope(56)
 
-    assert shift == (0.09, 0.10999999999999999)
+    assert math.isclose(shift[0], 0.09)
+    assert math.isclose(shift[1], 0.11)
     assert math.isclose(prediction[0], 0.575)
     assert math.isclose(prediction[1], 0.605)
-    assert observed == (0.555, 0.565)
+    assert math.isclose(observed[0], 0.555)
+    assert math.isclose(observed[1], 0.565)
     assert intervals_overlap(prediction, observed) is False
 
 
