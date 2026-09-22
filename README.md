@@ -51,6 +51,7 @@ state transformation, and selection/differential persistence.
 See `docs/EXOTIC_BIOLOGY_FRAMEWORK_V0_1.md` and
 `docs/AMMONIA_CANDIDATE_RUNTIME_V0_1.md` and
 `docs/HYDROCARBON_CANDIDATE_RUNTIME_V0_1.md`.
+Matched cross-runtime ablations are defined in `docs/EXOTIC_RELATIONAL_BENCHMARK_V0_1.md`; they compare shared relational observables only and explicitly forbid chemistry ranking.
 
 
 ## Canonical public surface
