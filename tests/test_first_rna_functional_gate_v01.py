@@ -46,7 +46,7 @@ def test_legacy_phenomenological_activation_is_explicit():
         state,
         temp_C=65.0,
         dt=1.0,
-        rng=np.random.default_rng(1),
+        rng=np.random.default_rng(3),
         activation_mode="legacy_phenomenological",
     )
 
@@ -77,3 +77,27 @@ def test_length_one_seed_partition_preserves_declared_monomer_units():
     assert pool.counts[0] == 100.0
     assert pool.monomer_pool == 900.0
     assert pool.total_monomer_units() == 1000.0
+
+
+def test_ligation_and_hydrolysis_compete_without_negative_population():
+    pool = OligomerPool.seed(monomer_conc=1000.0, max_len=80)
+    state = EmergenceState(oligomer_pool=pool)
+    before = pool.total_monomer_units()
+
+    step_oligomer_pool = __import__(
+        "origins.biology.first_rna",
+        fromlist=["step_oligomer_pool"],
+    ).step_oligomer_pool
+
+    step_oligomer_pool(
+        state,
+        k_lig=0.02,
+        k_hyd=0.5,
+        dt=0.5,
+        rng=np.random.default_rng(11),
+    )
+
+    assert np.all(state.oligomer_pool.counts >= 0.0)
+    assert state.oligomer_pool.monomer_pool >= 0.0
+    # Only the explicit 5 monomer-units/hour external source may change total.
+    assert state.oligomer_pool.total_monomer_units() == before + 2.5
