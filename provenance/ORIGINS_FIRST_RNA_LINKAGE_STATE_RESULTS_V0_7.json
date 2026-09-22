@@ -1,0 +1,45 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_LINKAGE_STATE_RESULTS_V0_7",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-linkage-state-v07",
+  "execution_head_sha": "b14e709a4dbd258633371571a56f70cb12ed7111",
+  "source": {
+    "doi": "10.1089/ast.2007.0138",
+    "dimer_calibration_3p5_fraction": 0.51,
+    "trimer_observed_3p5_fraction": 0.61
+  },
+  "artifact": {
+    "id": 10722031123,
+    "name": "first-rna-linkage-state-v07",
+    "sha256": "d6028524cb986cbb998dc07ffbf71ac0ad12b010ea2bbdca8a132ae8c3217dda"
+  },
+  "workflow": {
+    "dedicated_run_id": 35790517185,
+    "dedicated_conclusion": "success",
+    "dedicated_pytest": "4 passed in 0.43s",
+    "canon_run_id": 35790517065,
+    "canon_conclusion": "success",
+    "canon_pytest": "119 passed in 3.31s"
+  },
+  "status": "FAIL_LENGTH_INVARIANT_LINKAGE_POINT_ESTIMATE",
+  "validation_type": "CALIBRATION_PLUS_PARAMETER_HELD_OUT_POINT_ESTIMATE",
+  "analyst_blind": false,
+  "explicit_linkage_state": true,
+  "trimer_predicted_3p5_fraction": 0.51,
+  "trimer_observed_3p5_fraction": 0.61,
+  "trimer_delta": -0.10,
+  "dimer_rounding_interval": [0.505, 0.515],
+  "trimer_rounding_interval": [0.605, 0.615],
+  "rounding_intervals_overlap": false,
+  "statistical_significance_claim": false,
+  "global_rates_retuned": false,
+  "base_extension_multipliers_retuned": false,
+  "sequence_pair_term_added": false,
+  "chain_length_linkage_term_added": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "interpretation": "Explicit linkage state repairs the v0.6 representation gap, but a chain-length-invariant linkage fraction is incompatible with the reported rounded dimer and trimer point estimates.",
+  "next_gate": "SEPARATE_CHAIN_LENGTH_CONTEXT_FROM_SEQUENCE_PAIR_CONTEXT"
+}
