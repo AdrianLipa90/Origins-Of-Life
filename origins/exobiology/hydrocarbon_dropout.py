@@ -61,6 +61,18 @@ def _snapshot(simulator, step: int) -> dict[str, object]:
         "candidate_area_pixels": int(observation["area_pixels"]),
         "shell_pixels": int(observation["shell_pixels"]),
         "max_shell_coverage": float(observation["max_shell_coverage"]),
+        "best_contractible_shell_coverage": float(
+            observation["best_contractible_shell_coverage"]
+        ),
+        "best_contractible_area_pixels": int(
+            observation["best_contractible_area_pixels"]
+        ),
+        "best_contractible_shell_pixels": int(
+            observation["best_contractible_shell_pixels"]
+        ),
+        "best_contractible_missing_shell_pixels": int(
+            observation["best_contractible_missing_shell_pixels"]
+        ),
         "global_saturation": bool(observation["global_saturation"]),
         "bounded_system_status": str(observation["bounded_system_status"]),
         "information_threshold_fraction": float(
