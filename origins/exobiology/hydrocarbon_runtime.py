@@ -13,6 +13,12 @@ from .boundary_morphogenesis import (
     validate_boundary_morphogenesis_mode,
 )
 from .compartments import closed_boundary_compartment_observation
+from .information_morphogenesis import (
+    DISTRIBUTED_INFORMATION_BASELINE,
+    PEAK_REDISTRIBUTED_INFORMATION_CANDIDATE,
+    redistribute_information_source_to_local_peaks,
+    validate_information_morphogenesis_mode,
+)
 from .profiles import HYDROCARBON_CANDIDATE, WorldEnvironment
 
 
@@ -109,6 +115,7 @@ class HydrocarbonCandidateSimulator:
         parameters: HydrocarbonCandidateParameters | None = None,
         seed: int | None = None,
         boundary_morphogenesis: str = COLOCATED_BASELINE,
+        information_morphogenesis: str = DISTRIBUTED_INFORMATION_BASELINE,
     ):
         self.environment = WorldEnvironment.from_scenario(scenario)
         HYDROCARBON_CANDIDATE.assert_environment_compatible(self.environment)
@@ -125,6 +132,9 @@ class HydrocarbonCandidateSimulator:
         self.parameters.validate()
         self.boundary_morphogenesis = validate_boundary_morphogenesis_mode(
             boundary_morphogenesis
+        )
+        self.information_morphogenesis = validate_information_morphogenesis_mode(
+            information_morphogenesis
         )
         self._rng = np.random.default_rng(scenario.seed if seed is None else seed)
 
@@ -231,12 +241,17 @@ class HydrocarbonCandidateSimulator:
         self._require_initialized()
         p = self.parameters
         selection = 1.0 + p.selection_strength * self.Q
-        information = (
+        information_baseline = (
             p.information_assembly_rate
             * self.A
             * self.E
             * selection
         )
+        information = information_baseline
+        if self.information_morphogenesis == PEAK_REDISTRIBUTED_INFORMATION_CANDIDATE:
+            information = redistribute_information_source_to_local_peaks(
+                information_baseline
+            )
         boundary_baseline = (
             p.boundary_assembly_rate
             * self.A
@@ -253,6 +268,7 @@ class HydrocarbonCandidateSimulator:
             )
         return {
             "information": information,
+            "information_baseline": information_baseline,
             "boundary": boundary,
             "boundary_baseline": boundary_baseline,
         }
@@ -401,6 +417,7 @@ class HydrocarbonCandidateSimulator:
             "explicit_interface_reservoir": True,
             "specific_azotosome_claim": False,
             "boundary_morphogenesis": self.boundary_morphogenesis,
+            "information_morphogenesis": self.information_morphogenesis,
             "morphogenesis_physical_binding": "OPEN",
             "exotic_biology_established": False,
             "interpretation_allowed": "COMPUTATIONAL_CANDIDATE_ONLY",
