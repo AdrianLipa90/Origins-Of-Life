@@ -40,6 +40,7 @@ from ..topology.fields import TopologyField
 from ..topology.constraints import ZetaRiemannModulator
 from ..constants import (
     K_MEMBRANE,
+    K_LIPID_SYNTH,
     K_PHOTO_BASE,
     CLAY_NUCLEOTIDE_EFFICIENCY,
     CLAY_CONCENTRATION_FACTOR,
@@ -223,6 +224,36 @@ class UniversalOriginSimulator:
         if self._include_clay:
             self._clay_catalysis_explicit()
 
+    def step_lipid_synthesis(self) -> None:
+        """Convert organic precursors O -> amphiphiles L without creating mass.
+
+        K_LIPID_SYNTH has existed in the canonical constants but was not wired
+        into UniversalOriginSimulator. Without this channel the membrane field
+        can only inherit the initial L=0.005..0.01 inventory, making the
+        declared protocell threshold M>0.05 structurally unreachable.
+
+        This operator is an explicit one-for-one precursor transfer. It is
+        intentionally separate from membrane assembly L -> M.
+        """
+        if self.O is None or self.L is None:
+            raise RuntimeError("simulator is not initialized")
+
+        mod = np.maximum(self.topo.membrane_mod(), 0.0)
+        request = K_LIPID_SYNTH * self.O * self.dt_h * mod
+        capacity = np.maximum(0.0, 1.0 - self.L)
+        transfer = np.minimum(np.maximum(request, 0.0), np.minimum(self.O, capacity))
+
+        before = float(np.sum(self.O) + np.sum(self.L))
+        self.O = self.O - transfer
+        self.L = self.L + transfer
+        after = float(np.sum(self.O) + np.sum(self.L))
+
+        tol = 1e-9 * max(1.0, abs(before))
+        if abs(after - before) > tol:
+            raise FloatingPointError(
+                f"lipid synthesis violated O+L conservation: {after-before}"
+            )
+
     def _clay_catalysis_explicit(self) -> None:
         """Move bulk monomers into an explicit clay-bound reservoir.
 
@@ -395,6 +426,7 @@ class UniversalOriginSimulator:
         self.topo.advance(self.t_h)
         self.step_energy_conversion()
         self.step_catalysis()
+        self.step_lipid_synthesis()
         self.step_polymerization()
         self.step_replication_and_selection()
         self.step_degradation()
