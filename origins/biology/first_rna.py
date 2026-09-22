@@ -1,24 +1,26 @@
 """
-First RNA Emergence Model — predykcja i symulacja powstawania pierwszego replikatora.
+First RNA candidate-emergence model.
 
-Oparty na:
-  - Joyce & Orgel (1999): minimalna długość do samoreplikacji ~40 nt
-  - Ferris et al. (1996): montmorylonit katalizuje syntezę oligomerów do 50 nt
-  - Higgs & Lehman (2015): model progowy — RNA world wymaga przekroczenia bariery
-  - Szostak (2012): stochastyczna emergencja pierwszego replikatora
+The active model can simulate monomer/oligomer population kinetics and track
+when polymerase-sized RNA candidates become reachable. Length and bulk GC
+content are not sufficient evidence of polymerase or self-replication
+function, so the default runtime does not promote a long oligomer into a
+functional replicator.
 
-Mechanizm w tym modelu:
-  1. OLIGOMERYZACJA: monomery łączą się stopniowo (Poisson process)
-     k_ligation = f(temperatura, katalizator, topologia Blocha)
-  2. PRÓG KRYTYCZNY: oligomer o długości >= L_min i GC >= gc_min
-     staje się „zalążkiem replikatora" (proto-ribozyme)
-  3. REPLIKACJA SZABLONOWA: pierwszy replikator produkuje kopie
-     z wykładniczym wzrostem (logistic z pojemnością środowiska)
-  4. HOLONOMIA: Berry phase akumulowana w TopologyField moduluje
-     k_ligation — pole topologiczne przyspiesza lub hamuje łączenie
+Empirical anchors:
+  - montmorillonite experiments can generate activated RNA oligomers up to
+    roughly 40--50 nt under specific laboratory chemistry;
+  - Gianni et al., Science (2026), DOI 10.1126/science.adt2760, reported QT45,
+    a 45-nt polymerase ribozyme capable of RNA-templated synthesis and of
+    synthesizing its complementary strand and a copy of itself under specific
+    triplet-substrate/eutectic-ice conditions.
 
-Predykcja: czas T_emergence do pierwszego replikatora jako funkcja
-  warunków środowiskowych (temp, katalizator, topo_strength).
+QT45 is therefore used only as a reference scale. The existence of one
+functional 45-nt sequence does not imply that arbitrary 45-nt oligomers are
+functional.
+
+The historical stochastic "replicator ignition" is retained only behind the
+explicit mode "legacy_phenomenological" for reproducibility.
 """
 
 from __future__ import annotations
@@ -65,9 +67,10 @@ def _heisenberg_clip(x: float, sigma: float = 1e-9) -> float:
 
 # ── Stałe biofizyczne ─────────────────────────────────────────────────────────
 
-L_MIN_RIBOZYME  = 40    # minimalna długość do aktywności katalitycznej [nt]
-L_MIN_REPLICATE = 35    # minimalna długość do replikacji szablonowej [nt]
-GC_MIN_STABLE   = 0.35  # minimalne GC do stabilności struktury drugorzędowej
+L_QT45_REFERENCE = 45   # empirical reference size; not a minimum-function theorem
+L_MIN_RIBOZYME  = 40    # legacy phenomenological threshold only
+L_MIN_REPLICATE = 35    # legacy phenomenological threshold only
+GC_MIN_STABLE   = 0.35  # legacy bulk-GC gate; not a sequence/function assay
 GC_OPT          = 0.50  # optymalne GC (maksymalna fitness)
 K_LIG_BASE      = 3e-4  # bazowa stała ligacji [1/h per monomer]
 K_HYDRO_BASE    = 0.08  # hydroliza oligomeru [1/h]
@@ -93,7 +96,9 @@ class OligomerPool:
     def seed(cls, monomer_conc: float = 1000.0, max_len: int = 80) -> "OligomerPool":
         pool = cls(max_len=max_len)
         pool.counts = np.zeros(max_len, dtype=np.float64)
-        pool.counts[0] = monomer_conc * 0.1  # 10% zaczyna jako dimery
+        # counts[0] represents length-1 material, not dimers. Keep the
+        # historical 10/90 partition while naming it correctly.
+        pool.counts[0] = monomer_conc * 0.1
         pool.monomer_pool = monomer_conc * 0.9
         return pool
 
@@ -121,15 +126,22 @@ class EmergenceState:
     """Stan procesu emergencji pierwszego RNA."""
     t_h: float = 0.0
     oligomer_pool: OligomerPool = field(default_factory=OligomerPool.seed)
-    n_replicators: float = 0.0     # liczba aktywnych replikatorów
-    first_replicator_t: Optional[float] = None   # czas emergencji
-    berry_at_emergence: Optional[float] = None   # holonomia w chwili emergencji
-    n_ribozymes: float = 0.0       # oligomery >= L_MIN_RIBOZYME
+    n_replicators: float = 0.0
+    first_replicator_t: Optional[float] = None
+    berry_at_emergence: Optional[float] = None
+    # Evidence-separated candidate observables.
+    first_polymerase_size_candidate_t: Optional[float] = None
+    berry_at_candidate: Optional[float] = None
+    n_polymerase_size_candidates: float = 0.0
+    functional_replication_status: str = "UNRESOLVED_SEQUENCE_AND_ACTIVITY"
+    replicator_activation_mode: str = "candidate_only"
+    n_ribozymes: float = 0.0       # legacy observable; length alone is not activity
     gc_mean: float = 0.42          # średnie GC w populacji oligomerów
     history: dict = field(default_factory=lambda: {
         'time_h': [], 'mean_length': [], 'n_above_Lmin': [],
         'n_replicators': [], 'berry': [], 'gc_mean': [],
-        'k_lig_eff': [],
+        'k_lig_eff': [], 'n_polymerase_size_candidates': [],
+        'functional_replication_status': [],
     })
 
 
@@ -296,28 +308,61 @@ def step_replication(
     temp_C: float,
     dt: float,
     rng: np.random.Generator,
+    activation_mode: str = "candidate_only",
 ) -> None:
-    """
-    Krok replikacji szablonowej — logistyczny wzrost replikatorów.
+    """Track polymerase-sized candidates and, optionally, legacy activation.
 
-    Pierwszy replikator pojawia się gdy oligomery >= L_MIN_REPLICATE
-    z wystarczającą fitness (GC >= GC_MIN_STABLE).
+    candidate_only is the epistemically safe default. It records when the
+    continuous oligomer population contains at least one expected molecule at
+    or above the 45-nt QT45 reference size, but it does not infer catalytic or
+    template-copying function from length or GC content.
+
+    legacy_phenomenological reproduces the historical stochastic gate based
+    on length and bulk GC. It is retained only for historical comparisons and
+    must not be reported as a sequence-resolved functional-replicator result.
     """
+    if activation_mode not in {"candidate_only", "legacy_phenomenological"}:
+        raise ValueError(
+            "activation_mode must be candidate_only or legacy_phenomenological"
+        )
+
+    state.replicator_activation_mode = activation_mode
     pool = state.oligomer_pool
+
+    n_reference = float(
+        pool.counts[L_QT45_REFERENCE - 1:].sum()
+        if pool.max_len >= L_QT45_REFERENCE
+        else 0.0
+    )
+    state.n_polymerase_size_candidates = n_reference
+    if state.first_polymerase_size_candidate_t is None and n_reference >= 1.0:
+        state.first_polymerase_size_candidate_t = state.t_h
+
+    if activation_mode == "candidate_only":
+        state.functional_replication_status = "UNRESOLVED_SEQUENCE_AND_ACTIVITY"
+        return
+
+    state.functional_replication_status = "LEGACY_PHENOMENOLOGICAL_MODEL"
     n_above = float(pool.counts[L_MIN_REPLICATE - 1:].sum())
 
-    # Warunek emergencji pierwszego replikatora
-    if state.first_replicator_t is None and n_above > 1.0 and state.gc_mean >= GC_MIN_STABLE:
-        # Stochastyczny próg: prawdopodobieństwo zapalenia replikatora
+    if (
+        state.first_replicator_t is None
+        and n_above > 1.0
+        and state.gc_mean >= GC_MIN_STABLE
+    ):
         p_emerge = min(0.95, n_above * 0.01 * dt)
         if rng.random() < p_emerge:
             state.first_replicator_t = state.t_h
             state.n_replicators = 1.0
 
-    # Wzrost istniejących replikatorów (logistyczny)
     if state.n_replicators > 0:
         k_rep = K_TEMPLATE_BASE * math.exp(0.01 * (temp_C - 65.0))
-        dn = k_rep * state.n_replicators * (1.0 - state.n_replicators / CARRYING_CAPACITY) * dt
+        dn = (
+            k_rep
+            * state.n_replicators
+            * (1.0 - state.n_replicators / CARRYING_CAPACITY)
+            * dt
+        )
         state.n_replicators = max(0.0, state.n_replicators + dn)
 
 
@@ -336,6 +381,7 @@ def simulate_first_rna(
     topo_pulsing: bool = True,
     seed: int = 42,
     verbose: bool = True,
+    replicator_mode: str = "candidate_only",
 ) -> EmergenceState:
     """
     Symulacja powstawania pierwszego RNA w środowisku prebiologicznym.
@@ -350,6 +396,10 @@ def simulate_first_rna(
     topo_strength: siła pola topologicznego (Kähler)
     topo_pulsing : czy pole topologiczne pulsuje (True=akumuluje Berry)
     seed         : seed RNG
+    replicator_mode:
+        candidate_only (default) records polymerase-sized candidates without
+        inferring function; legacy_phenomenological restores the historical
+        stochastic length+GC activation model.
 
     Zwraca
     ------
@@ -377,7 +427,8 @@ def simulate_first_rna(
     topo = TopologyField(cfg_topo, Nx=32, Ny=32)
 
     state = EmergenceState(
-        oligomer_pool=OligomerPool.seed(monomer_conc=800.0)
+        oligomer_pool=OligomerPool.seed(monomer_conc=800.0),
+        replicator_activation_mode=replicator_mode,
     )
 
     n_steps = int(hours / dt_h)
@@ -420,9 +471,21 @@ def simulate_first_rna(
             k_hyd_eff = k_hyd
 
         step_oligomer_pool(state, k_lig_eff, k_hyd_eff, dt_h, rng)
-        step_replication(state, temp_C, dt_h, rng)
+        step_replication(
+            state,
+            temp_C,
+            dt_h,
+            rng,
+            activation_mode=replicator_mode,
+        )
 
-        # Zapisz Berry w chwili emergencji
+        if (
+            state.first_polymerase_size_candidate_t is not None
+            and state.berry_at_candidate is None
+        ):
+            state.berry_at_candidate = berry
+
+        # Legacy-only observable.
         if state.first_replicator_t is not None and state.berry_at_emergence is None:
             state.berry_at_emergence = berry
 
@@ -436,24 +499,55 @@ def simulate_first_rna(
             state.history['berry'].append(berry)
             state.history['gc_mean'].append(state.gc_mean)
             state.history['k_lig_eff'].append(k_lig_eff)
+            state.history['n_polymerase_size_candidates'].append(
+                state.n_polymerase_size_candidates
+            )
+            state.history['functional_replication_status'].append(
+                state.functional_replication_status
+            )
 
         if verbose and step % (record_every * 20) == 0:
-            n_ab = state.oligomer_pool.n_above_threshold(L_MIN_REPLICATE)
-            rep_str = f"REPLIKATOR@{state.first_replicator_t:.1f}h" if state.first_replicator_t else "brak"
-            print(f"  t={state.t_h:7.1f}h | "
-                  f"<L>={state.oligomer_pool.mean_length():.1f}nt | "
-                  f"N>={L_MIN_REPLICATE}={n_ab:.0f} | "
-                  f"repl={rep_str} | "
-                  f"berry={berry:.4f} | "
-                  f"k_lig={k_lig_eff:.2e}")
+            n_ref = state.n_polymerase_size_candidates
+            candidate = (
+                f"candidate@{state.first_polymerase_size_candidate_t:.1f}h"
+                if state.first_polymerase_size_candidate_t is not None
+                else "none"
+            )
+            print(
+                f"  t={state.t_h:7.1f}h | "
+                f"<L>={state.oligomer_pool.mean_length():.1f}nt | "
+                f"N>={L_QT45_REFERENCE}={n_ref:.3g} | "
+                f"{candidate} | "
+                f"functional={state.functional_replication_status} | "
+                f"berry={berry:.4f} | "
+                f"k_lig={k_lig_eff:.2e}"
+            )
 
     if verbose:
-        if state.first_replicator_t is not None:
-            print(f"\n✓ PIERWSZY REPLIKATOR: t = {state.first_replicator_t:.1f} h")
-            print(f"  Berry phase w chwili emergencji: {state.berry_at_emergence:.5f} rad")
-            print(f"  Replikatorów końcowo: {state.n_replicators:.1f}")
+        if replicator_mode == "candidate_only":
+            if state.first_polymerase_size_candidate_t is not None:
+                print(
+                    "\nPOLYMERASE-SIZED CANDIDATE REACHED: "
+                    f"t={state.first_polymerase_size_candidate_t:.1f} h"
+                )
+            else:
+                print(
+                    f"\nNo >= {L_QT45_REFERENCE}-nt candidate reached in {hours} h"
+                )
+            print(
+                "Functional replication: UNRESOLVED "
+                "(sequence/folding/activity are not modeled)."
+            )
+        elif state.first_replicator_t is not None:
+            print(
+                "\nLEGACY PHENOMENOLOGICAL REPLICATOR: "
+                f"t={state.first_replicator_t:.1f} h"
+            )
+            print(
+                "This is not a sequence-resolved functional-replicator claim."
+            )
         else:
-            print(f"\n✗ Brak emergencji w {hours}h")
+            print(f"\nNo legacy phenomenological activation in {hours} h")
 
     return state
 
@@ -473,6 +567,7 @@ def scan_emergence_conditions(
     drying_fraction: float = 0.4,
     topo_strength: float = 0.5,
     topo_pulsing: bool = True,
+    replicator_mode: str = "candidate_only",
 ) -> list[dict]:
     """
     Scan parametrów środowiskowych → mapa predykcji czasu emergencji.
@@ -498,14 +593,28 @@ def scan_emergence_conditions(
                 topo_strength=topo_strength,
                 topo_pulsing=topo_pulsing,
                 seed=seed, verbose=False,
+                replicator_mode=replicator_mode,
             )
             results.append({
                 'temp_C': float(temp),
                 'k_catalysis': float(kcat),
+                'T_polymerase_size_candidate_h': (
+                    state.first_polymerase_size_candidate_t
+                ),
+                'polymerase_size_candidates': (
+                    state.n_polymerase_size_candidates
+                ),
+                'functional_replication_status': (
+                    state.functional_replication_status
+                ),
+                # Legacy fields remain explicit for historical comparisons.
                 'T_emergence_h': state.first_replicator_t,
                 'berry_at_emergence': state.berry_at_emergence,
                 'final_replicators': state.n_replicators,
                 'emerged': state.first_replicator_t is not None,
+                'candidate_reached': (
+                    state.first_polymerase_size_candidate_t is not None
+                ),
             })
             done += 1
             if done % 4 == 0:
