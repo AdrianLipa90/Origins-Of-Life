@@ -1,0 +1,106 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_CANDIDATE_RESULTS_V0_2",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-candidate-v02",
+  "preregistration": "docs/FIRST_RNA_CANDIDATE_PREREG_V0_2.md",
+  "execution_head_sha": "826703bba5f4be5f33d8d73aa79c16e207d5d9d4",
+  "integrator_fix_sha": "f3294ea038a416fad4df23961e35b475b39c766d",
+  "regression_test_sha": "826703bba5f4be5f33d8d73aa79c16e207d5d9d4",
+  "canon_test_gate": {
+    "status": "PASS",
+    "pytest": "98 passed"
+  },
+  "artifact": {
+    "id": 10703582912,
+    "name": "first-rna-candidate-v02",
+    "sha256": "d915d6f5433993dc0299d5a00637f01a554a1fd5d2e25413f88eb0f0af365e84"
+  },
+  "status": "CANDIDATE_LENGTH_GATE_FAIL",
+  "verdict": "FAIL_LENGTH_REACHABILITY",
+  "design": {
+    "seeds": [
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319,
+      320
+    ],
+    "hours": 500,
+    "dt_h": 0.5,
+    "temp_C": 65,
+    "pH": 7.5,
+    "k_catalysis": 7.5,
+    "concentration_boost": 1000,
+    "drying_cycle_h": 12,
+    "drying_fraction": 0.3,
+    "initial_nucleotide_units": 800,
+    "external_nucleotide_input_per_h": 5,
+    "geometry_used": false,
+    "zeta_used": false,
+    "functional_replication_enabled": false
+  },
+  "primary": {
+    "candidate_reference_nt": 45,
+    "median_max_length_ge_1_expected": 7,
+    "seeds_reaching_45nt_expected_count_ge_1": 0,
+    "total_seeds": 20
+  },
+  "secondary": {
+    "final_mean_length_nt": {
+      "min": 2.232493806013767,
+      "median": 2.2324938060296273,
+      "max": 2.232493806166691
+    },
+    "final_n_ge_10": {
+      "min": 0.0703103190024996,
+      "median": 0.0703103190167038,
+      "max": 0.0703103191394545
+    },
+    "final_n_ge_35": {
+      "min": 1.5209703502624927e-14,
+      "median": 1.5209935927843655e-14,
+      "max": 1.5211522875110065e-14
+    },
+    "final_n_ge_45": {
+      "min": 5.994529229594326e-18,
+      "median": 6.019616490155557e-18,
+      "max": 6.029420468558049e-18
+    },
+    "final_n_ge_50": {
+      "min": 1.1367030744531069e-18,
+      "median": 1.1627220010769693e-18,
+      "max": 1.1744012388078717e-18
+    }
+  },
+  "material_accounting": {
+    "initial_units": 800,
+    "declared_external_input_units": 2500,
+    "expected_final_units": 3300,
+    "observed_final_min": 3299.999999999996,
+    "observed_final_max": 3300.0000000000027,
+    "status": "PASS"
+  },
+  "functional_replication": {
+    "status": "UNRESOLVED_SEQUENCE_AND_ACTIVITY",
+    "final_replicators": 0,
+    "physical_function_claim": false
+  },
+  "interpretation": "The present legacy monomer/oligomer chemistry does not generate a 45-nt candidate-length tail under the frozen conditions; explicit nucleotide activation chemistry is the next causal gate.",
+  "next_gate": "EXPLICIT_ACTIVATION_STATE_CHEMISTRY"
+}
