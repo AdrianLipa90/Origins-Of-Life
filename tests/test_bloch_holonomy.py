@@ -13,6 +13,8 @@ import unittest
 
 import numpy as np
 
+from copy import deepcopy
+
 from origins.scenarios import SCENARIO_A, SCENARIO_B, SCENARIO_C, SCENARIO_E
 from origins.topology.fields import TopologyField
 from origins.orbital.potentials import compute_potential_terms
@@ -56,29 +58,41 @@ class TestBerryAccumulation(unittest.TestCase):
             tf.advance(i * dt)
         return tf.berry_accumulated
 
-    def test_pulsing_accumulates_nonzero_berry(self):
-        berry = self._advance_n(SCENARIO_A)  # PULSING
-        self.assertNotEqual(berry, 0.0, "Pulsing should generate nonzero Berry phase")
+    def test_positive_amplitude_pulsing_does_not_create_spurious_berry(self):
+        berry = self._advance_n(SCENARIO_A, n=120, dt=0.2)
+        self.assertAlmostEqual(
+            berry, 0.0, places=6,
+            msg="pure positive amplitude scaling must not create azimuthal holonomy"
+        )
 
     def test_static_berry_is_zero(self):
         berry = self._advance_n(SCENARIO_B)  # STATIC
         self.assertAlmostEqual(berry, 0.0, places=10,
                                msg="Static field should have zero Berry accumulation")
 
-    def test_pulsing_enceladus_accumulates(self):
-        berry = self._advance_n(SCENARIO_E)  # PULSING cosine
-        self.assertNotEqual(berry, 0.0)
+    def test_second_positive_amplitude_pulse_is_also_near_zero(self):
+        berry = self._advance_n(SCENARIO_E, n=120, dt=0.2)
+        self.assertAlmostEqual(berry, 0.0, places=6)
 
     def test_berry_initial_zero(self):
         tf = TopologyField(SCENARIO_A, Nx=16, Ny=16)
         self.assertEqual(tf.berry_accumulated, 0.0)
 
-    def test_berry_sign_reflects_winding_direction(self):
-        # Pulsing sin (A) and pulsing cos (E) should differ in accumulated phase
-        berry_A = self._advance_n(SCENARIO_A, n=100)
-        berry_E = self._advance_n(SCENARIO_E, n=100)
-        # They use different patterns — absolute values should differ
-        self.assertNotAlmostEqual(abs(berry_A), abs(berry_E), places=4)
+    def test_topology_strength_remains_identifiable(self):
+        weak = deepcopy(SCENARIO_A)
+        strong = deepcopy(SCENARIO_A)
+        weak.topo_strength = 0.10
+        strong.topo_strength = 0.40
+        tf_weak = TopologyField(weak, Nx=32, Ny=32)
+        tf_strong = TopologyField(strong, Nx=32, Ny=32)
+        self.assertLess(tf_strong.bloch_coherence(), tf_weak.bloch_coherence())
+        self.assertGreater(np.std(tf_strong.curvature), 2.0 * np.std(tf_weak.curvature))
+
+    def test_geometry_status_is_candidate_not_physical_binding(self):
+        tf = TopologyField(SCENARIO_A, Nx=16, Ny=16)
+        status = tf.geometry_status()
+        self.assertEqual(status["status"], "GEOMETRIC_CANDIDATE")
+        self.assertEqual(status["physical_binding"], "OPEN")
 
 
 class TestBlochOrbitalCoordinate(unittest.TestCase):
