@@ -1,0 +1,88 @@
+name: Hydrocarbon Bridge Flux v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_hydrocarbon_bridge_flux_v01.py'
+      - 'scripts/run_hydrocarbon_bridge_flux.py'
+      - '.github/workflows/hydrocarbon-bridge-flux-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_bridge_flux.py'
+      - '.github/workflows/hydrocarbon-bridge-flux-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  bridge-flux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run bridge-pixel flux diagnostic
+        run: |
+          python scripts/run_hydrocarbon_bridge_flux.py \
+            --outdir hydrocarbon_bridge_flux_artifact \
+            --horizon 10000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate bridge-flux artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("hydrocarbon_bridge_flux_artifact/hydrocarbon_bridge_flux_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_HYDROCARBON_BRIDGE_FLUX_V0_1"
+          assert m["diagnostic_only"] is True
+          assert m["model_mutation_allowed"] is False
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 3
+
+          valid = {
+              "BRIDGE_FLUX_RESOLVED",
+              "NO_MERGER_WITHIN_HORIZON",
+              "MERGER_NOT_SINGLE_NEW_PIXEL",
+          }
+          for row in data["rows"]:
+              assert row["event"] in valid
+              assert row["physical_binding"] == "OPEN"
+              if row["event"] == "BRIDGE_FLUX_RESOLVED":
+                  assert row["minimum_new_active_bridge_pixels"] == 1
+                  assert abs(row["closure_error"]) <= 2e-15
+                  reconstructed = (
+                      row["information_start"]
+                      + row["reaction_net_delta"]
+                      + row["diffusion_delta"]
+                  )
+                  assert abs(reconstructed - row["information_final"]) <= 2e-15
+                  assert row["information_start"] < row["information_threshold"]
+                  assert row["information_final"] >= row["information_threshold"]
+          PY
+
+      - name: Upload bridge-flux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydrocarbon-bridge-flux-v01
+          path: hydrocarbon_bridge_flux_artifact/
+          if-no-files-found: error
