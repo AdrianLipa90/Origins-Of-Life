@@ -1,0 +1,82 @@
+name: Exotic Compartment Persistence v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_compartment_persistence_v01.py'
+      - 'scripts/run_exotic_compartment_persistence.py'
+      - '.github/workflows/exotic-compartment-persistence-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_compartment_persistence.py'
+      - '.github/workflows/exotic-compartment-persistence-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  persistence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run compartment persistence diagnostic
+        run: |
+          python scripts/run_exotic_compartment_persistence.py \
+            --outdir exotic_persistence_artifact \
+            --horizon 3000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate persistence artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_persistence_artifact/exotic_compartment_persistence_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_EXOTIC_COMPARTMENT_PERSISTENCE_V0_1"
+          assert m["ranking_allowed"] is False
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert data["row_count"] == 6
+
+          total_pixels = data["configuration"]["Nx"] * data["configuration"]["Ny"]
+          for row in data["rows"]:
+              assert row["ranking_allowed"] is False
+              assert row["physical_binding"] == "OPEN"
+              assert 0.0 <= row["localized_fraction"] <= 1.0
+              assert row["longest_consecutive_localized_steps"] <= row["localized_step_count"]
+              if row["max_localized_area_pixels"] > 0:
+                  assert row["max_localized_area_pixels"] < total_pixels
+              if row["persistence_status"] == "NEVER_LOCALIZED":
+                  assert row["first_localized_step"] is None
+                  assert row["localized_step_count"] == 0
+              if row["persistence_status"] == "LOCALIZED_AT_HORIZON":
+                  assert row["localized_at_horizon"] is True
+              if row["final_global_saturation"]:
+                  assert row["localized_at_horizon"] is False
+          PY
+
+      - name: Upload persistence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-compartment-persistence-v01
+          path: exotic_persistence_artifact/
+          if-no-files-found: error
