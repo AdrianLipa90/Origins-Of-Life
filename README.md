@@ -30,16 +30,24 @@ World environment and biology hypothesis are now separate objects. The active
 water/RNA-like runtime is the `WATER_REFERENCE` baseline. Scenario C is bound
 to `AMMONIA_CANDIDATE` and scenario D to `HYDROCARBON_CANDIDATE`.
 
-Those two candidate profiles are **not yet implemented exotic biologies**.
-Until they receive their own carrier, compartment, transport and inheritance
-operators, the universal simulator labels their output
-`TERRACENTRIC_CONTROL_ONLY` and does not compute a terrestrial success rate.
+The universal simulator remains a terracentric control for both exotic
+profiles and labels those outputs `TERRACENTRIC_CONTROL_ONLY`.
+
+`AMMONIA_CANDIDATE` now also has a separate
+`AMMONIA_CANDIDATE_V0_1` computational candidate runtime. It is non-RNA and
+non-lipid, conserves its modeled material sector, and operationalizes the five
+relational life invariants. Its molecular/physical binding remains `OPEN` and
+its default coefficients are unvalidated dimensionless candidate parameters.
+
+`HYDROCARBON_CANDIDATE` still has no dedicated runtime and fails closed rather
+than falling back silently to the terrestrial model.
 
 The common candidate-life contract is relational rather than molecular:
 bounded system, energy throughput, persistent information state, heritable
 state transformation, and selection/differential persistence.
 
-See `docs/EXOTIC_BIOLOGY_FRAMEWORK_V0_1.md`.
+See `docs/EXOTIC_BIOLOGY_FRAMEWORK_V0_1.md` and
+`docs/AMMONIA_CANDIDATE_RUNTIME_V0_1.md`.
 
 
 ## Canonical public surface
