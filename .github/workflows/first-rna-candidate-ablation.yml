@@ -1,0 +1,44 @@
+name: First RNA Candidate Ablation
+
+on:
+  pull_request:
+    paths:
+      - "origins/biology/first_rna.py"
+      - "origins/analysis/first_rna_candidate.py"
+      - "scripts/run_first_rna_candidate_ablation.py"
+      - "tests/test_first_rna_functional_gate_v01.py"
+      - "tests/test_first_rna_candidate_ablation.py"
+      - ".github/workflows/first-rna-candidate-ablation.yml"
+
+jobs:
+  candidate-ablation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run 10-seed candidate ablation
+        run: |
+          python scripts/run_first_rna_candidate_ablation.py \
+            --seeds 101,102,103,104,105,106,107,108,109,110 \
+            --hours 500 \
+            --dt-h 0.5 \
+            --outdir first_rna_candidate_ablation
+
+      - name: Upload candidate tables
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-candidate-ablation
+          path: first_rna_candidate_ablation/
+          if-no-files-found: error
