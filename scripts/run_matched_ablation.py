@@ -5,7 +5,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from origins.analysis.ablation import run_matched_factorial_ablation
 from origins.scenarios import SCENARIOS_BY_CODE
