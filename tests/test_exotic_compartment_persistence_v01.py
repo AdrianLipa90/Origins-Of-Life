@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 
 from origins.exobiology.compartments import bounded_compartment_observation
+from origins.exobiology.factory import create_exotic_candidate_simulator
 from origins.exobiology.persistence import (
     PERSISTENCE_SCHEMA,
     STATUS_LOCALIZED_AT_HORIZON,
@@ -101,3 +102,28 @@ def test_invalid_persistence_horizon_fails_closed() -> None:
             Nx=8,
             Ny=8,
         )
+
+
+@pytest.mark.parametrize("scenario", [SCENARIO_C, SCENARIO_D])
+def test_candidate_compartment_observation_has_stable_shared_contract(scenario) -> None:
+    sim = create_exotic_candidate_simulator(
+        deepcopy(scenario),
+        Nx=8,
+        Ny=8,
+        seed=17,
+    )
+    sim.initialize()
+    observation = sim.candidate_compartments()
+    required = {
+        "count",
+        "raw_component_count",
+        "area_pixels",
+        "occupancy_fraction",
+        "interface_edge_count",
+        "global_saturation",
+        "bounded_system_status",
+    }
+    assert required <= set(observation)
+    assert 0.0 <= float(observation["occupancy_fraction"]) <= 1.0
+    assert int(observation["count"]) >= 0
+    assert int(observation["raw_component_count"]) >= int(observation["count"])
