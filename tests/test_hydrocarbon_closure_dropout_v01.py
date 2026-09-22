@@ -5,7 +5,10 @@ from copy import deepcopy
 import numpy as np
 import pytest
 
-from origins.exobiology.compartments import periodic_component_topology
+from origins.exobiology.compartments import (
+    contractible_component_geometries,
+    periodic_component_topology,
+)
 
 from origins.exobiology.hydrocarbon_dropout import (
     SCHEMA,
@@ -44,6 +47,7 @@ def test_dropout_result_has_consistent_event_snapshots() -> None:
     assert 0.0 <= row.final_snapshot["boundary_threshold_fraction"] <= 1.0
     assert 0.0 <= row.final_snapshot["largest_information_component_fraction"] <= 1.0
     assert row.final_snapshot["information_noncontractible_component_count"] >= 0
+    assert row.final_snapshot["contractible_component_geometry_count"] >= 0
     assert row.final_snapshot["contractible_information_component_count"] >= 0
     assert row.final_snapshot["best_contractible_missing_shell_pixels"] >= 0
     assert row.final_snapshot["best_contractible_shell_pixels"] >= 0
@@ -109,3 +113,51 @@ def test_dropout_manifest_declares_mechanism_taxonomy() -> None:
         DROPOUT_CONTRACTIBLE_SHELL_GAP,
         DROPOUT_OTHER,
     }
+
+
+
+def test_contractible_geometry_reports_closed_shell_and_no_background_distance() -> None:
+    info = np.zeros((7, 7), dtype=float)
+    boundary = np.zeros((7, 7), dtype=float)
+    info[3, 3] = 1.0
+    boundary[2, 3] = 1.0
+    boundary[4, 3] = 1.0
+    boundary[3, 2] = 1.0
+    boundary[3, 4] = 1.0
+
+    records = contractible_component_geometries(
+        info,
+        boundary,
+        information_threshold=0.5,
+        boundary_threshold=0.5,
+    )
+    assert len(records) == 1
+    record = records[0]
+    assert record["closed_shell"] is True
+    assert record["missing_shell_pixels"] == 0
+    assert record["shell_coverage"] == pytest.approx(1.0)
+    assert record["nearest_noncontractible_distance"] is None
+    assert record["nearest_noncontractible_gap_cells"] is None
+
+
+def test_contractible_geometry_measures_gap_to_noncontractible_background() -> None:
+    info = np.zeros((7, 7), dtype=float)
+    boundary = np.zeros((7, 7), dtype=float)
+
+    # Non-contractible stripe at x=0; contractible island at x=2 leaves
+    # exactly one below-threshold lattice site between them.
+    info[0, :] = 1.0
+    info[2, 3] = 0.6
+
+    records = contractible_component_geometries(
+        info,
+        boundary,
+        information_threshold=0.5,
+        boundary_threshold=0.5,
+    )
+    assert len(records) == 1
+    record = records[0]
+    assert record["area_pixels"] == 1
+    assert record["nearest_noncontractible_distance"] == 2
+    assert record["nearest_noncontractible_gap_cells"] == 1
+    assert record["information_margin_min"] == pytest.approx(0.1)
