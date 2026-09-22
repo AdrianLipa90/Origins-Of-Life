@@ -171,7 +171,8 @@ def horizon_scan_manifest() -> dict[str, object]:
         "primary_diagnostic": "joint_threshold_score_max",
         "interpretation": {
             "score_below_1": "no grid point jointly satisfies I and B thresholds",
-            "score_at_least_1": "at least one grid point jointly reaches both scalar thresholds; this is not sufficient for a bounded compartment",
-            "global_saturation": "uniform threshold crossing over the whole periodic domain is not a bounded compartment",
+            "score_at_least_1": "at least one grid point jointly reaches both scalar thresholds; this is not sufficient for a closed-shell compartment",
+            "closed_shell": "bounded-system evidence additionally requires full B-threshold coverage of the immediate periodic shell around an I-rich interior",
+            "global_saturation": "uniform information-threshold crossing over the whole periodic domain is rejected as a bounded compartment",
         },
     }
