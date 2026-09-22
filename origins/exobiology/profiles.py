@@ -143,11 +143,11 @@ HYDROCARBON_CANDIDATE = BiochemistryProfile(
     building_block_strategy="HYDROCARBON_SOLVENT_BUILDING_BLOCKS_OPEN",
     energy_coupling="PHOTOCHEMICAL_OR_REDOX_COUPLING_OPEN",
     runtime_status=RuntimeStatus.TERRACENTRIC_CONTROL_ONLY,
-    dedicated_runtime=None,
-    dedicated_runtime_status="NONE",
+    dedicated_runtime="HYDROCARBON_CANDIDATE_V0_1",
+    dedicated_runtime_status="COMPUTATIONAL_CANDIDATE_IMPLEMENTED",
     notes=(
-        "No dedicated hydrocarbon-biochemistry runtime is implemented yet.",
-        "Current universal simulator output is a terracentric control only.",
+        "Dedicated non-RNA/non-lipid candidate runtime exists with an explicit interfacial reservoir and OPEN physical chemistry.",
+        "Current universal simulator output remains a terracentric control only.",
     ),
 )
 
