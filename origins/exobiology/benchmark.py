@@ -44,10 +44,10 @@ class ExoticRelationalBenchmarkResult:
     information_mass: float
     boundary_mass: float
     candidate_compartment_count: int
-    raw_component_count: int
+    raw_information_component_count: int
     candidate_compartment_area_pixels: int
-    compartment_occupancy_fraction: float
-    interface_edge_count: int
+    candidate_compartment_shell_pixels: int
+    max_shell_coverage: float
     global_saturation: bool
     bounded_system_status: str
     trait_mean: float
@@ -88,10 +88,10 @@ def _common_snapshot(simulator) -> dict[str, object]:
         "information_mass": float(np.sum(simulator.I)),
         "boundary_mass": float(np.sum(simulator.B)),
         "candidate_compartment_count": int(compartments["count"]),
-        "raw_component_count": int(compartments["raw_component_count"]),
+        "raw_information_component_count": int(compartments["raw_information_component_count"]),
         "candidate_compartment_area_pixels": int(compartments["area_pixels"]),
-        "compartment_occupancy_fraction": float(compartments["occupancy_fraction"]),
-        "interface_edge_count": int(compartments["interface_edge_count"]),
+        "candidate_compartment_shell_pixels": int(compartments["shell_pixels"]),
+        "max_shell_coverage": float(compartments["max_shell_coverage"]),
         "global_saturation": bool(compartments["global_saturation"]),
         "bounded_system_status": str(compartments["bounded_system_status"]),
         "trait_mean": float(np.mean(simulator.Q)),
@@ -148,10 +148,10 @@ def run_exotic_relational_case(
         information_mass=float(snapshot["information_mass"]),
         boundary_mass=float(snapshot["boundary_mass"]),
         candidate_compartment_count=int(snapshot["candidate_compartment_count"]),
-        raw_component_count=int(snapshot["raw_component_count"]),
+        raw_information_component_count=int(snapshot["raw_information_component_count"]),
         candidate_compartment_area_pixels=int(snapshot["candidate_compartment_area_pixels"]),
-        compartment_occupancy_fraction=float(snapshot["compartment_occupancy_fraction"]),
-        interface_edge_count=int(snapshot["interface_edge_count"]),
+        candidate_compartment_shell_pixels=int(snapshot["candidate_compartment_shell_pixels"]),
+        max_shell_coverage=float(snapshot["max_shell_coverage"]),
         global_saturation=bool(snapshot["global_saturation"]),
         bounded_system_status=str(snapshot["bounded_system_status"]),
         trait_mean=float(snapshot["trait_mean"]),
@@ -213,10 +213,10 @@ def benchmark_manifest() -> dict[str, object]:
             "information_mass",
             "boundary_mass",
             "candidate_compartment_count",
-            "raw_component_count",
+            "raw_information_component_count",
             "candidate_compartment_area_pixels",
-            "compartment_occupancy_fraction",
-            "interface_edge_count",
+            "candidate_compartment_shell_pixels",
+            "max_shell_coverage",
             "global_saturation",
             "bounded_system_status",
             "trait_mean",
