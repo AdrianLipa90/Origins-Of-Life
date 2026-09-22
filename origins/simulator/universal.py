@@ -80,6 +80,7 @@ class UniversalOriginSimulator:
         dt_h: float = 0.05,
         outdir: str = "outputs",
         include_clay: bool = True,
+        preseed_rna: bool = True,
     ):
         self.config = config
         self.Nx, self.Ny = Nx, Ny
@@ -93,7 +94,8 @@ class UniversalOriginSimulator:
         # ----------------------------------------------------------
         self.E:   Optional[np.ndarray] = None  # energy carriers
         self.O:   Optional[np.ndarray] = None  # organic precursors
-        self.N:   Optional[np.ndarray] = None  # activated nucleotides / monomers
+        self.N:   Optional[np.ndarray] = None  # activated nucleotides / bulk monomers
+        self.N_surface: Optional[np.ndarray] = None  # clay-bound monomer reservoir
         self.R:   Optional[np.ndarray] = None  # genetic polymer (RNA-like)
         self.M:   Optional[np.ndarray] = None  # membrane
         self.L:   Optional[np.ndarray] = None  # lipids / amphiphiles
@@ -127,18 +129,23 @@ class UniversalOriginSimulator:
         # History
         # ----------------------------------------------------------
         self.protocell_count = 0
+        self.protocell_area_pixels = 0
         self.history: dict[str, list] = {
             'time_h':       [],
             'mean_R':       [],
             'mean_M':       [],
             'n_polymers':   [],
             'n_protocells': [],
+            'protocell_area_pixels': [],
+            'surface_monomer_total': [],
+            'nucleotide_material_total': [],
             'mean_fitness':      [],
             'berry_accumulated': [],
             'bloch_coherence':   [],
         }
 
         self._include_clay = include_clay
+        self._preseed_rna = bool(preseed_rna)
 
     # ==================================================================
     # INITIALISATION
@@ -155,6 +162,7 @@ class UniversalOriginSimulator:
         self.E   = np.clip(rng.uniform(0.1, 0.3, (Nx, Ny)) * temp_factor, 0.0, 1.0).astype(np.float32)
         self.O   = rng.uniform(0.05, 0.15, (Nx, Ny)).astype(np.float32)
         self.N   = rng.uniform(0.01, 0.05, (Nx, Ny)).astype(np.float32)
+        self.N_surface = np.zeros((Nx, Ny), dtype=np.float32)
         self.R   = np.zeros((Nx, Ny), dtype=np.float32)
         self.M   = np.zeros((Nx, Ny), dtype=np.float32)
         self.L   = rng.uniform(0.005, 0.01, (Nx, Ny)).astype(np.float32)
@@ -170,12 +178,16 @@ class UniversalOriginSimulator:
                 j = int(rng.integers(0, Ny))
                 self.clay_particles.append(ClayMineral((i, j), conc_g_L=CLAY_CONC_G_L))
 
-        # Vectorised RNA population
-        n_seed = max(5, int(20 * temp_factor))
-        self.rna_population = RNAPopulation.seed(n_seed, Nx, Ny, rng)
-        # Seed R field at initial RNA positions
-        for xi, yi in zip(self.rna_population.pos_x, self.rna_population.pos_y):
-            self.R[xi, yi] += 0.1
+        # Vectorised RNA population.  This is an explicit initial-condition
+        # choice, not abiogenesis from monomers.  Set preseed_rna=False for a
+        # genuinely polymer-free starting state.
+        if self._preseed_rna:
+            n_seed = max(5, int(20 * temp_factor))
+            self.rna_population = RNAPopulation.seed(n_seed, Nx, Ny, rng)
+            for xi, yi in zip(self.rna_population.pos_x, self.rna_population.pos_y):
+                self.R[xi, yi] += 0.1
+        else:
+            self.rna_population = RNAPopulation()
 
     # ==================================================================
     # CHEMICAL STEPS
@@ -206,46 +218,79 @@ class UniversalOriginSimulator:
             self._clay_catalysis_explicit()
 
     def _clay_catalysis_explicit(self) -> None:
-        """Local clay-catalysed nucleotide concentration & synthesis."""
+        """Move bulk monomers into an explicit clay-bound reservoir.
+
+        Concentration enhancement changes local reaction kinetics; it must not
+        multiply material.  Adsorption therefore transfers N_bulk -> N_surface
+        one-for-one.
+        """
+        if self.N_surface is None:
+            raise RuntimeError("surface monomer reservoir is not initialized")
         for clay in self.clay_particles:
             i, j = clay.position
+            available = float(self.N[i, j])
             transfer = min(
-                self.N[i, j] * CLAY_NUCLEOTIDE_EFFICIENCY * 0.01,
-                self.N[i, j],
+                available * CLAY_NUCLEOTIDE_EFFICIENCY * 0.01,
+                available,
             )
+            if transfer <= 0.0:
+                continue
             self.N[i, j] -= transfer
-            self.N[i, j] += transfer * CLAY_CONCENTRATION_FACTOR
+            self.N_surface[i, j] += transfer
+            clay.nucleotides_adsorbed += transfer
 
-        self.N = np.clip(self.N, 0.0, 1.0)
+        if not np.isfinite(self.N_surface).all():
+            raise FloatingPointError("clay adsorption produced NaN/Inf")
 
     def step_polymerization(self) -> None:
-        """STEP 3 – Polymer (RNA) synthesis."""
-        k_syn  = self.config.k_synthesis
-        boost  = max(1e-6, self.config.concentration_boost / 1000.0)
-        mod    = self.topo.synthesis_mod()
-        dN = -k_syn * self.N * boost * self.dt_h * mod
-        dR =  k_syn * self.N * boost * self.dt_h * mod
-        self.N = np.clip(self.N + dN, 0.0, 1.0)
-        self.R = np.clip(self.R + dR, 0.0, 1.0)
+        """STEP 3 – Polymer synthesis with explicit substrate conservation."""
+        if self.N_surface is None:
+            raise RuntimeError("surface monomer reservoir is not initialized")
+
+        k_syn = self.config.k_synthesis
+        bulk_boost = max(1e-6, self.config.concentration_boost / 1000.0)
+        surface_boost = math.sqrt(max(1.0, CLAY_CONCENTRATION_FACTOR))
+        mod = self.topo.synthesis_mod()
+
+        bulk_request = np.minimum(
+            k_syn * self.N * bulk_boost * self.dt_h * mod,
+            self.N,
+        )
+        surface_request = np.minimum(
+            k_syn * self.N_surface * surface_boost * self.dt_h * mod,
+            self.N_surface,
+        )
+        requested = bulk_request + surface_request
+
+        # R is a normalized concentration field capped at 1.  If a cell is
+        # saturated, only consume the amount that can actually become polymer.
+        capacity = np.maximum(0.0, 1.0 - self.R)
+        scale = np.ones_like(requested, dtype=float)
+        active = requested > 0.0
+        scale[active] = np.minimum(1.0, capacity[active] / requested[active])
+
+        bulk_flux = bulk_request * scale
+        surface_flux = surface_request * scale
+        polymer_flux = bulk_flux + surface_flux
+
+        self.N = np.maximum(self.N - bulk_flux, 0.0)
+        self.N_surface = np.maximum(self.N_surface - surface_flux, 0.0)
+        self.R = np.minimum(self.R + polymer_flux, 1.0)
 
     def step_replication_and_selection(self) -> None:
         """STEP 4a – Vectorised RNA replication + fragmentation."""
         rng = self._rng
 
-        # Replication
-        seed_pos = self.rna_population.replicate_and_select(
+        # Population events do not create concentration-field material.
+        # R is changed only by explicit polymerization/degradation/diffusion.
+        self.rna_population.replicate_and_select(
             self.R, self.topo.field, self.topo.curvature,
             self.dt_h, rng,
         )
-        for pos in seed_pos:
-            self.R[pos[0], pos[1]] = float(np.clip(self.R[pos[0], pos[1]] + 0.05, 0.0, 1.0))
 
-        # Fragmentation
-        frag_pos = self.rna_population.fragment(
+        self.rna_population.fragment(
             rng, Nx=self.Nx, Ny=self.Ny, dt=self.dt_h,
         )
-        for pos in frag_pos:
-            self.R[pos[0], pos[1]] = float(np.clip(self.R[pos[0], pos[1]] + 0.03, 0.0, 1.0))
 
     def step_degradation(self) -> None:
         """STEP 4b – Temperature-dependent polymer degradation."""
@@ -296,8 +341,27 @@ class UniversalOriginSimulator:
         self.M = np.clip(self.M + dM, 0.0, 1.0)
 
     def step_protocell_detection(self) -> None:
-        """Detect proto-cells and update counter."""
-        self.protocell_count = self.protocell_detector.detect(self.M, self.R)
+        """Detect connected membrane+polymer structures and update observables."""
+        observation = self.protocell_detector.detect_components(self.M, self.R)
+        self.protocell_count = int(observation['count'])
+        self.protocell_area_pixels = int(observation['area_pixels'])
+
+    def nucleotide_material_total(self) -> float:
+        """Coarse field-level nucleotide material N_bulk + N_surface + R."""
+        if self.N is None or self.N_surface is None or self.R is None:
+            raise RuntimeError("simulator is not initialized")
+        return float(np.sum(self.N) + np.sum(self.N_surface) + np.sum(self.R))
+
+    def _validate_finite_fields(self) -> None:
+        """Fail closed on non-finite or materially negative state."""
+        for name in ('E', 'O', 'N', 'N_surface', 'R', 'M', 'L', 'Cat'):
+            field = getattr(self, name)
+            if field is None:
+                raise RuntimeError(f"{name} is not initialized")
+            if not np.isfinite(field).all():
+                raise FloatingPointError(f"{name} contains NaN/Inf")
+            if float(np.min(field)) < -1e-8:
+                raise FloatingPointError(f"{name} contains negative state")
 
     # ==================================================================
     # ZETA CONSTRAINT APPLICATION
@@ -326,9 +390,11 @@ class UniversalOriginSimulator:
         self.step_degradation()
         self.step_diffusion()
         self.step_membrane_formation()
-        self.step_protocell_detection()
         if self.config.use_zeta_constraints:
             self._apply_zeta_constraints()
+        # Detection must observe the same post-operator state that is recorded.
+        self.step_protocell_detection()
+        self._validate_finite_fields()
         self.t_h += self.dt_h
 
     def record_state(self) -> None:
@@ -338,6 +404,9 @@ class UniversalOriginSimulator:
         self.history['mean_M'].append(float(np.mean(self.M)))
         self.history['n_polymers'].append(self.rna_population.size)
         self.history['n_protocells'].append(self.protocell_count)
+        self.history['protocell_area_pixels'].append(self.protocell_area_pixels)
+        self.history['surface_monomer_total'].append(float(np.sum(self.N_surface)))
+        self.history['nucleotide_material_total'].append(self.nucleotide_material_total())
         self.history['mean_fitness'].append(self.rna_population.mean_fitness())
         self.history['berry_accumulated'].append(self.topo.berry_accumulated)
         self.history['bloch_coherence'].append(self.topo.bloch_coherence())
@@ -403,7 +472,8 @@ class UniversalOriginSimulator:
         # NPZ field snapshot
         np.savez_compressed(
             os.path.join(self.outdir, f"{prefix}_fields.npz"),
-            E=self.E, O=self.O, N=self.N, R=self.R, M=self.M, L=self.L,
+            E=self.E, O=self.O, N=self.N, N_surface=self.N_surface,
+            R=self.R, M=self.M, L=self.L,
             topo=self.topo.field, curvature=self.topo.curvature,
         )
 
@@ -449,6 +519,8 @@ class UniversalOriginSimulator:
             'Catalyst':        self.config.catalyst,
             'Final_Polymers':  self.rna_population.size,
             'Final_ProtoC':    self.protocell_count,
+            'Final_ProtoC_Area_Pixels': self.protocell_area_pixels,
+            'Initial_Condition': 'PRESEEDED_RNA' if self._preseed_rna else 'POLYMER_FREE',
             'Expected_ProtoC': self.config.expected_protocells,
             'Success_Rate_pct': round(
                 100.0 * self.protocell_count / max(1, self.config.expected_protocells), 1
