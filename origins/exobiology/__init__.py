@@ -73,3 +73,19 @@ __all__ += [
     "run_exotic_relational_case",
     "run_matched_exotic_relational_benchmark",
 ]
+
+from .magneto_induction import (
+    JOVIAN_TIME_VARYING_FIELD_CANDIDATE,
+    MAGNETO_INDUCTION_OFF,
+    MagnetoInductionObservation,
+    MagnetoInductionParameters,
+    magneto_induction_observation,
+)
+
+__all__ += [
+    "JOVIAN_TIME_VARYING_FIELD_CANDIDATE",
+    "MAGNETO_INDUCTION_OFF",
+    "MagnetoInductionObservation",
+    "MagnetoInductionParameters",
+    "magneto_induction_observation",
+]
