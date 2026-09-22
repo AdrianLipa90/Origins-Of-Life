@@ -4,6 +4,12 @@ from dataclasses import dataclass
 import math
 
 import numpy as np
+from .boundary_morphogenesis import (
+    COLOCATED_BASELINE,
+    EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE,
+    exterior_information_interface_gate,
+    validate_boundary_morphogenesis_mode,
+)
 from .compartments import closed_boundary_compartment_observation
 from .profiles import AMMONIA_CANDIDATE, WorldEnvironment
 
@@ -98,6 +104,7 @@ class AmmoniaCandidateSimulator:
         Ny: int = 48,
         parameters: AmmoniaCandidateParameters | None = None,
         seed: int | None = None,
+        boundary_morphogenesis: str = COLOCATED_BASELINE,
     ):
         self.environment = WorldEnvironment.from_scenario(scenario)
         AMMONIA_CANDIDATE.assert_environment_compatible(self.environment)
@@ -112,6 +119,9 @@ class AmmoniaCandidateSimulator:
 
         self.parameters = parameters or AmmoniaCandidateParameters()
         self.parameters.validate()
+        self.boundary_morphogenesis = validate_boundary_morphogenesis_mode(
+            boundary_morphogenesis
+        )
         self._rng = np.random.default_rng(scenario.seed if seed is None else seed)
 
         self.P: np.ndarray | None = None
@@ -185,18 +195,22 @@ class AmmoniaCandidateSimulator:
         self._require_initialized()
         p = self.parameters
         selection = 1.0 + p.selection_strength * self.Q
+        information = (
+            p.information_assembly_rate
+            * self.P
+            * self.E
+            * selection
+        )
+        boundary = (
+            p.boundary_assembly_rate
+            * self.P
+            * self.E
+        )
+        if self.boundary_morphogenesis == EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE:
+            boundary = boundary * exterior_information_interface_gate(self.I)
         return {
-            "information": (
-                p.information_assembly_rate
-                * self.P
-                * self.E
-                * selection
-            ),
-            "boundary": (
-                p.boundary_assembly_rate
-                * self.P
-                * self.E
-            ),
+            "information": information,
+            "boundary": boundary,
         }
 
     def step_information_and_inheritance(self) -> None:
@@ -207,14 +221,7 @@ class AmmoniaCandidateSimulator:
         mutation = self._rng.normal(0.0, p.mutation_sigma, self.Q.shape)
         candidate_trait = np.clip(inherited + mutation, 0.0, 1.0)
 
-        selection = 1.0 + p.selection_strength * self.Q
-        request = (
-            p.information_assembly_rate
-            * self.P
-            * self.E
-            * selection
-            * p.dt
-        )
+        request = self.candidate_assembly_sources()["information"] * p.dt
         growth = np.minimum(request, self.P)
 
         old_mass = self.I.copy()
@@ -244,7 +251,7 @@ class AmmoniaCandidateSimulator:
     def step_boundary(self) -> None:
         self._require_initialized()
         p = self.parameters
-        request = p.boundary_assembly_rate * self.P * self.E * p.dt
+        request = self.candidate_assembly_sources()["boundary"] * p.dt
         growth = np.minimum(request, self.P)
         self.P -= growth
         self.B += growth
@@ -341,6 +348,8 @@ class AmmoniaCandidateSimulator:
             "physical_binding": PHYSICAL_BINDING,
             "dedicated_non_rna_runtime": True,
             "dedicated_non_lipid_runtime": True,
+            "boundary_morphogenesis": self.boundary_morphogenesis,
+            "morphogenesis_physical_binding": "OPEN",
             "exotic_biology_established": False,
             "interpretation_allowed": "COMPUTATIONAL_CANDIDATE_ONLY",
         }
