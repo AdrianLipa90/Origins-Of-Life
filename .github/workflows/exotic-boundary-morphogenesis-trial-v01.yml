@@ -1,0 +1,63 @@
+name: Exotic Boundary Morphogenesis Trial v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_boundary_morphogenesis_trial_v01.py'
+      - 'scripts/run_exotic_boundary_morphogenesis_trial.py'
+      - '.github/workflows/exotic-boundary-morphogenesis-trial-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_boundary_morphogenesis_trial.py'
+      - '.github/workflows/exotic-boundary-morphogenesis-trial-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+      - name: Run matched boundary morphogenesis trial
+        run: |
+          python scripts/run_exotic_boundary_morphogenesis_trial.py \
+            --outdir exotic_morphogenesis_trial_artifact \
+            --nx 24 --ny 24 \
+            --seeds 11 23 47 \
+            --horizons 300 1000 3000
+      - name: Validate artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("exotic_morphogenesis_trial_artifact/exotic_boundary_morphogenesis_trial_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_EXOTIC_BOUNDARY_MORPHOGENESIS_TRIAL_V0_1"
+          assert m["parameters_frozen"] is True
+          assert m["thresholds_frozen"] is True
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 36
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["material_residual_abs"] < 1e-8
+              assert 0.0 <= row["max_shell_coverage"] <= 1.0
+          PY
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-boundary-morphogenesis-trial-v01
+          path: exotic_morphogenesis_trial_artifact/
+          if-no-files-found: error
