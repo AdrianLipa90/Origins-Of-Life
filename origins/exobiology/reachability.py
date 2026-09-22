@@ -34,6 +34,12 @@ class ThresholdReachabilityResult:
     global_saturation: bool
     bounded_system_status: str
     first_compartment_step: int | None
+    last_compartment_step: int | None
+    localized_steps: int
+    max_consecutive_localized_steps: int
+    first_global_saturation_step: int | None
+    global_saturation_steps: int
+    lost_to_global_saturation: bool
     reachability_status: str
     baseline_information_mass: float
     no_selection_information_mass: float
@@ -86,6 +92,12 @@ def run_threshold_reachability_case(
         raise ValueError("declared thresholds must be positive")
 
     first_compartment_step: int | None = None
+    last_compartment_step: int | None = None
+    first_global_saturation_step: int | None = None
+    localized_steps = 0
+    global_saturation_steps = 0
+    current_localized_run = 0
+    max_consecutive_localized_steps = 0
     results: list[ThresholdReachabilityResult] = []
     previous_horizon = 0
 
@@ -93,10 +105,25 @@ def run_threshold_reachability_case(
         for step in range(previous_horizon + 1, horizon + 1):
             baseline.step()
             no_selection.step()
-            if first_compartment_step is None:
-                observation = baseline.candidate_compartments()
-                if int(observation["count"]) > 0:
+            observation = baseline.candidate_compartments()
+
+            if int(observation["count"]) > 0:
+                if first_compartment_step is None:
                     first_compartment_step = step
+                last_compartment_step = step
+                localized_steps += 1
+                current_localized_run += 1
+                max_consecutive_localized_steps = max(
+                    max_consecutive_localized_steps,
+                    current_localized_run,
+                )
+            else:
+                current_localized_run = 0
+
+            if bool(observation["global_saturation"]):
+                if first_global_saturation_step is None:
+                    first_global_saturation_step = step
+                global_saturation_steps += 1
 
         observation = baseline.candidate_compartments()
         max_information = float(np.max(baseline.I))
@@ -133,6 +160,16 @@ def run_threshold_reachability_case(
                 global_saturation=bool(observation["global_saturation"]),
                 bounded_system_status=str(observation["bounded_system_status"]),
                 first_compartment_step=first_compartment_step,
+                last_compartment_step=last_compartment_step,
+                localized_steps=int(localized_steps),
+                max_consecutive_localized_steps=int(max_consecutive_localized_steps),
+                first_global_saturation_step=first_global_saturation_step,
+                global_saturation_steps=int(global_saturation_steps),
+                lost_to_global_saturation=bool(
+                    first_compartment_step is not None
+                    and first_global_saturation_step is not None
+                    and first_global_saturation_step > first_compartment_step
+                ),
                 reachability_status=(
                     STATUS_REACHED if reached else STATUS_NOT_REACHED
                 ),
@@ -185,5 +222,8 @@ def diagnostic_manifest() -> dict[str, object]:
         "threshold_tuning_allowed": False,
         "missing_crossing_semantics": STATUS_NOT_REACHED,
         "matched_seed_selection_control": True,
+        "reachability_semantics": "EVER_LOCALIZED_BOUNDED_CANDIDATE",
+        "final_bounded_state_reported_separately": True,
+        "persistence_threshold": None,
         "physical_binding": "OPEN",
     }
