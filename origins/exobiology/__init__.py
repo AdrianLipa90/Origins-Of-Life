@@ -23,3 +23,21 @@ __all__ = [
     "available_biochemistry_profiles",
     "get_biochemistry_profile",
 ]
+
+from .ammonia_runtime import (
+    AmmoniaCandidateParameters,
+    AmmoniaCandidateSimulator,
+    RUNTIME_CODE as AMMONIA_RUNTIME_CODE,
+)
+from .factory import (
+    available_exotic_candidate_runtimes,
+    create_exotic_candidate_simulator,
+)
+
+__all__ += [
+    "AmmoniaCandidateParameters",
+    "AmmoniaCandidateSimulator",
+    "AMMONIA_RUNTIME_CODE",
+    "available_exotic_candidate_runtimes",
+    "create_exotic_candidate_simulator",
+]
