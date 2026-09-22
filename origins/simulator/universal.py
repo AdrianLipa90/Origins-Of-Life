@@ -88,6 +88,12 @@ class UniversalOriginSimulator:
         self.t_h   = 0.0
         self.outdir = os.path.join(outdir, f"scenario_{config.code}")
         self._rng  = np.random.default_rng(config.seed)
+        # Keep experimental zeta noise on an independent deterministic stream.
+        # Otherwise enabling zeta consumes the same RNG used by RNA replication
+        # and fragmentation, confounding matched-control comparisons.
+        self._zeta_rng = np.random.default_rng(
+            np.random.SeedSequence([int(config.seed), 0x5A455441])
+        )
 
         # ----------------------------------------------------------
         # Chemical fields  (all shape (Nx, Ny), float32)
@@ -376,7 +382,7 @@ class UniversalOriginSimulator:
         if self.zeta_modulator is None:
             return
         pc = self.config.euler_phase_coherence
-        rng = self._rng
+        rng = self._zeta_rng
         self.R = self.zeta_modulator.apply(self.R, rng, pc)
         self.N = self.zeta_modulator.apply(self.N, rng, pc)
 
