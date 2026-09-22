@@ -127,4 +127,4 @@ def test_geometry_off_is_a_true_neutral_ligation_control():
     )
 
     assert changed_diagnostics == baseline
-    assert legacy == 3.0 * baseline
+    assert legacy == pytest.approx(3.0 * baseline, rel=1e-12, abs=1e-15)
