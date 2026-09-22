@@ -5,6 +5,7 @@ from dataclasses import asdict, dataclass
 import numpy as np
 
 from .boundary_morphogenesis import EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE
+from .compartments import periodic_component_topology
 from .factory import create_exotic_candidate_simulator
 from .information_morphogenesis import PEAK_REDISTRIBUTED_INFORMATION_CANDIDATE
 from .source_geometry import diagnose_source_geometry
@@ -24,11 +25,28 @@ def _snapshot(simulator, step: int) -> dict[str, object]:
     boundary = np.asarray(simulator.B, dtype=float)
     observation = simulator.candidate_compartments()
     source = diagnose_source_geometry(simulator)
+    info_mask = info >= float(p.information_threshold)
+    topology = periodic_component_topology(info_mask)
 
     return {
         "step": int(step),
         "compartment_count": int(observation["count"]),
         "raw_information_component_count": int(observation["raw_information_component_count"]),
+        "largest_information_component_fraction": float(
+            topology["largest_component_fraction"]
+        ),
+        "information_noncontractible_component_count": int(
+            topology["noncontractible_component_count"]
+        ),
+        "information_wraps_x_component_count": int(
+            topology["wraps_x_component_count"]
+        ),
+        "information_wraps_y_component_count": int(
+            topology["wraps_y_component_count"]
+        ),
+        "information_any_noncontractible": bool(
+            topology["any_noncontractible"]
+        ),
         "candidate_area_pixels": int(observation["area_pixels"]),
         "shell_pixels": int(observation["shell_pixels"]),
         "max_shell_coverage": float(observation["max_shell_coverage"]),
@@ -180,5 +198,5 @@ def dropout_manifest() -> dict[str, object]:
         "threshold_tuning_allowed": False,
         "ranking_allowed": False,
         "physical_binding": "OPEN",
-        "purpose": "diagnose loss of closed-shell persistence without changing the model",
+        "purpose": "diagnose loss of closed-shell persistence and toroidal information percolation without changing the model",
     }
