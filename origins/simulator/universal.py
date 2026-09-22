@@ -238,17 +238,26 @@ class UniversalOriginSimulator:
         if self.O is None or self.L is None:
             raise RuntimeError("simulator is not initialized")
 
-        mod = np.maximum(self.topo.membrane_mod(), 0.0)
-        request = K_LIPID_SYNTH * self.O * self.dt_h * mod
-        capacity = np.maximum(0.0, 1.0 - self.L)
-        transfer = np.minimum(np.maximum(request, 0.0), np.minimum(self.O, capacity))
+        # Promote the reaction pair to float64 before the one-for-one
+        # transfer. The simulator initializes O/L as float32; doing the update
+        # in that dtype produces ~1e-7 summation drift on ordinary grids and
+        # can falsely trip the conservation gate.
+        O = np.asarray(self.O, dtype=np.float64)
+        L = np.asarray(self.L, dtype=np.float64)
+        mod = np.asarray(np.maximum(self.topo.membrane_mod(), 0.0), dtype=np.float64)
 
-        before = float(np.sum(self.O) + np.sum(self.L))
-        self.O = self.O - transfer
-        self.L = self.L + transfer
-        after = float(np.sum(self.O) + np.sum(self.L))
+        request = K_LIPID_SYNTH * O * self.dt_h * mod
+        capacity = np.maximum(0.0, 1.0 - L)
+        transfer = np.minimum(np.maximum(request, 0.0), np.minimum(O, capacity))
 
-        tol = 1e-9 * max(1.0, abs(before))
+        before = float(np.sum(O, dtype=np.float64) + np.sum(L, dtype=np.float64))
+        self.O = O - transfer
+        self.L = L + transfer
+        after = float(
+            np.sum(self.O, dtype=np.float64) + np.sum(self.L, dtype=np.float64)
+        )
+
+        tol = 1e-12 * max(1.0, abs(before))
         if abs(after - before) > tol:
             raise FloatingPointError(
                 f"lipid synthesis violated O+L conservation: {after-before}"
