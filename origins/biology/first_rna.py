@@ -154,6 +154,7 @@ def k_ligation_effective(
     berry_accumulated: float,
     gc_mean: float,
     concentration_boost: float = 1000.0,
+    use_geometry_candidate: bool = False,
 ) -> float:
     """
     Efektywna stała ligacji monomeru do oligomeru.
@@ -162,8 +163,7 @@ def k_ligation_effective(
     - Temperatura: Arrhenius, E_a = 60 kJ/mol (Ferris 1996)
     - Katalizator + concentration_boost: lokalna konc. na powierzchni
       minerału do 1000x (Ferris 1996) — kluczowa bariera wzrostu
-    - Bloch coherence: geometryczny operator fazy pola Kählera
-    - Berry phase: akumulowana holonomia — rezonans topologiczny
+    - Bloch/Berry terms: experimental candidate coupling, disabled by default
     - GC bias: stabilność struktury drugorzędowej RNA
     """
     T_K = max(1.0, temp_C + 273.15)
@@ -181,9 +181,16 @@ def k_ligation_effective(
     # Używamy sqrt(boost) bo realnie tylko frakcja oligomerów jest na powierzchni.
     conc_factor = math.sqrt(max(1.0, concentration_boost)) / math.sqrt(1000.0) * 10.0
 
-    bloch_factor = 1.0 + 2.0 * bloch_coherence
-
-    berry_factor = 1.0 + abs(berry_accumulated) * 0.8
+    # Fail closed: geometry must be an explicit intervention. Historically a
+    # zero-strength topology field still had bloch_coherence=1 and therefore
+    # multiplied ligation by 3, so topo_strength=0 was not actually a neutral
+    # control.
+    if use_geometry_candidate:
+        bloch_factor = 1.0 + 2.0 * bloch_coherence
+        berry_factor = 1.0 + abs(berry_accumulated) * 0.8
+    else:
+        bloch_factor = 1.0
+        berry_factor = 1.0
 
     gc_factor = math.exp(-((gc_mean - GC_OPT)**2) / 0.05) + 0.3
 
@@ -396,6 +403,7 @@ def simulate_first_rna(
     seed: int = 42,
     verbose: bool = True,
     replicator_mode: str = "candidate_only",
+    geometry_mode: str = "off",
 ) -> EmergenceState:
     """
     Symulacja powstawania pierwszego RNA w środowisku prebiologicznym.
@@ -414,6 +422,10 @@ def simulate_first_rna(
         candidate_only (default) records polymerase-sized candidates without
         inferring function; legacy_phenomenological restores the historical
         stochastic length+GC activation model.
+    geometry_mode:
+        off (default) keeps ligation chemistry neutral to the synthetic
+        Bloch/Berry layer; legacy_candidate explicitly restores the historical
+        experimental geometry coupling.
 
     Zwraca
     ------
@@ -422,9 +434,14 @@ def simulate_first_rna(
     from ..topology.fields import TopologyField
     from ..scenarios import ScenarioConfig, TopologyPattern, TimeDependence, SolventType
 
+    if geometry_mode not in {"off", "legacy_candidate"}:
+        raise ValueError("geometry_mode must be off or legacy_candidate")
+    use_geometry_candidate = geometry_mode == "legacy_candidate"
+
     rng = np.random.default_rng(seed)
 
-    # Pomocniczy TopologyField dla Bloch coherence + Berry
+    # TopologyField remains available for diagnostics even when its causal
+    # coupling to ligation is disabled.
     cfg_topo = ScenarioConfig(
         name="first_rna_topo", code="X", location="prebiotic",
         temp_C=temp_C, pressure_atm=1.0, UV_flux=20.0,
@@ -454,7 +471,10 @@ def simulate_first_rna(
         print(f"\n{'='*60}")
         print(f"FIRST RNA EMERGENCE SIMULATION")
         print(f"  Temp={temp_C}°C  pH={pH}  k_cat={k_catalysis}")
-        print(f"  Topo_strength={topo_strength}  pulsing={topo_pulsing}")
+        print(
+            f"  Topo_strength={topo_strength}  pulsing={topo_pulsing}  "
+            f"geometry_mode={geometry_mode}"
+        )
         print(f"  Duration={hours}h  dt={dt_h}h")
         print(f"{'='*60}")
 
@@ -475,12 +495,14 @@ def simulate_first_rna(
             k_lig_eff = k_ligation_effective(
                 temp_C, k_catalysis, bloch_c, berry, state.gc_mean,
                 concentration_boost=concentration_boost * 10.0,  # odparowanie
+                use_geometry_candidate=use_geometry_candidate,
             )
             k_hyd_eff = k_hyd * 0.02  # hydroliza prawie zerowa gdy sucho
         else:
             k_lig_eff = k_ligation_effective(
                 temp_C, k_catalysis, bloch_c, berry, state.gc_mean,
                 concentration_boost=concentration_boost,
+                use_geometry_candidate=use_geometry_candidate,
             )
             k_hyd_eff = k_hyd
 
@@ -582,6 +604,7 @@ def scan_emergence_conditions(
     topo_strength: float = 0.5,
     topo_pulsing: bool = True,
     replicator_mode: str = "candidate_only",
+    geometry_mode: str = "off",
 ) -> list[dict]:
     """
     Scan parametrów środowiskowych → mapa predykcji czasu emergencji.
@@ -608,6 +631,7 @@ def scan_emergence_conditions(
                 topo_pulsing=topo_pulsing,
                 seed=seed, verbose=False,
                 replicator_mode=replicator_mode,
+                geometry_mode=geometry_mode,
             )
             results.append({
                 'temp_C': float(temp),
@@ -621,6 +645,7 @@ def scan_emergence_conditions(
                 'functional_replication_status': (
                     state.functional_replication_status
                 ),
+                'geometry_mode': geometry_mode,
                 # Legacy fields remain explicit for historical comparisons.
                 'T_emergence_h': state.first_replicator_t,
                 'berry_at_emergence': state.berry_at_emergence,
