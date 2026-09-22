@@ -116,6 +116,94 @@ def _periodic_components(mask: np.ndarray) -> tuple[np.ndarray, list[list[tuple[
     return labels, components
 
 
+def periodic_component_topology(mask: np.ndarray) -> dict[str, object]:
+    """Characterize 4-neighbor components and non-contractible winding on a torus.
+
+    Each connected component is lifted from the periodic Nx x Ny lattice to
+    integer coordinates in Z^2. Reaching the same periodic site with a
+    different lifted coordinate reveals a non-contractible cycle. The
+    difference must be an integer multiple of the domain size and gives the
+    component winding in each periodic direction.
+
+    This is a discrete topological diagnostic; it does not change the model.
+    """
+    array = np.asarray(mask, dtype=bool)
+    if array.ndim != 2 or array.size == 0:
+        raise ValueError("topology mask must be a non-empty 2D array")
+
+    nx, ny = array.shape
+    visited = np.zeros((nx, ny), dtype=bool)
+    records: list[dict[str, object]] = []
+
+    for i in range(nx):
+        for j in range(ny):
+            if not array[i, j] or visited[i, j]:
+                continue
+
+            start = (i, j)
+            stack = [start]
+            visited[start] = True
+            lift: dict[tuple[int, int], tuple[int, int]] = {start: (i, j)}
+            cells: list[tuple[int, int]] = []
+            winding_vectors: set[tuple[int, int]] = set()
+
+            while stack:
+                x, y = stack.pop()
+                cells.append((x, y))
+                ux, uy = lift[(x, y)]
+
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    xx = (x + dx) % nx
+                    yy = (y + dy) % ny
+                    if not array[xx, yy]:
+                        continue
+
+                    proposed = (ux + dx, uy + dy)
+                    key = (xx, yy)
+                    if key not in lift:
+                        lift[key] = proposed
+                        visited[key] = True
+                        stack.append(key)
+                    else:
+                        prior = lift[key]
+                        delta_x = proposed[0] - prior[0]
+                        delta_y = proposed[1] - prior[1]
+                        if delta_x % nx != 0 or delta_y % ny != 0:
+                            raise RuntimeError("inconsistent periodic lift")
+                        wx = delta_x // nx
+                        wy = delta_y // ny
+                        if wx != 0 or wy != 0:
+                            winding_vectors.add((int(wx), int(wy)))
+
+            wraps_x = any(wx != 0 for wx, _ in winding_vectors)
+            wraps_y = any(wy != 0 for _, wy in winding_vectors)
+            area = len(cells)
+            records.append(
+                {
+                    "area_pixels": int(area),
+                    "area_fraction": float(area / array.size),
+                    "wraps_x": bool(wraps_x),
+                    "wraps_y": bool(wraps_y),
+                    "noncontractible": bool(wraps_x or wraps_y),
+                    "winding_vectors": sorted(winding_vectors),
+                }
+            )
+
+    largest = max((r["area_pixels"] for r in records), default=0)
+    return {
+        "component_count": int(len(records)),
+        "largest_component_area_pixels": int(largest),
+        "largest_component_fraction": float(largest / array.size),
+        "noncontractible_component_count": int(
+            sum(1 for r in records if r["noncontractible"])
+        ),
+        "wraps_x_component_count": int(sum(1 for r in records if r["wraps_x"])),
+        "wraps_y_component_count": int(sum(1 for r in records if r["wraps_y"])),
+        "any_noncontractible": bool(any(r["noncontractible"] for r in records)),
+        "components": records,
+    }
+
+
 def closed_boundary_compartment_observation(
     information: np.ndarray,
     boundary: np.ndarray,
