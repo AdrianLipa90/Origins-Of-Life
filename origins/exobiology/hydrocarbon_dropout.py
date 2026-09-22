@@ -5,7 +5,10 @@ from dataclasses import asdict, dataclass
 import numpy as np
 
 from .boundary_morphogenesis import EXTERIOR_REDISTRIBUTED_BOUNDARY_CANDIDATE
-from .compartments import periodic_component_topology
+from .compartments import (
+    contractible_component_geometries,
+    periodic_component_topology,
+)
 from .factory import create_exotic_candidate_simulator
 from .information_morphogenesis import PEAK_REDISTRIBUTED_INFORMATION_CANDIDATE
 from .source_geometry import diagnose_source_geometry
@@ -32,6 +35,13 @@ def _snapshot(simulator, step: int) -> dict[str, object]:
     source = diagnose_source_geometry(simulator)
     info_mask = info >= float(p.information_threshold)
     topology = periodic_component_topology(info_mask)
+    contractible = contractible_component_geometries(
+        info,
+        boundary,
+        float(p.information_threshold),
+        float(p.boundary_threshold),
+    )
+    best_contractible = contractible[0] if contractible else None
 
     return {
         "step": int(step),
@@ -58,6 +68,8 @@ def _snapshot(simulator, step: int) -> dict[str, object]:
         "information_any_noncontractible": bool(
             topology["any_noncontractible"]
         ),
+        "contractible_component_geometry_count": int(len(contractible)),
+        "best_contractible_geometry": best_contractible,
         "candidate_area_pixels": int(observation["area_pixels"]),
         "shell_pixels": int(observation["shell_pixels"]),
         "max_shell_coverage": float(observation["max_shell_coverage"]),
