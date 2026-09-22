@@ -41,7 +41,10 @@ CANONICAL_SCENARIO_DEFINITIONS: Dict[str, ScenarioDefinition] = {
         phase=_scenario_phase(cfg),
         winding_number=0,
         relation_depth=1,
-        semantic_mass=max(1.0, float(cfg.expected_protocells) / 100.0),
+        # Semantic/orbital coordinates must not ingest an expected outcome.
+        # Using expected_protocells here leaked the target into downstream
+        # potentials and local-clock calculations.
+        semantic_mass=1.0,
         subjective_time_scale=1.0,
         provenance_links=["origins/scenarios.py"],
         dependency_links=[
