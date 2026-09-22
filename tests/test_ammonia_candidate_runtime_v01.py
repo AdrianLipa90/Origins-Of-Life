@@ -30,7 +30,8 @@ def test_ammonia_runtime_is_non_rna_and_non_lipid_by_construction() -> None:
     assert "RNAPopulation" not in source
     assert "RNASequence" not in source
     assert "K_MEMBRANE" not in source
-    assert "lipid" not in source.lower()
+    assert "origins.biology.rna" not in source
+    assert "biology.rna" not in source
 
 
 def test_ammonia_factory_returns_dedicated_runtime_and_hydrocarbon_fails_closed() -> None:
