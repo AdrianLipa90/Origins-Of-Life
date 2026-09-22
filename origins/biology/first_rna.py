@@ -225,55 +225,86 @@ def step_oligomer_pool(
     mono = min(mono + k_monomer_input * dt, 2000.0)
     external_input = mono - mono_before_input
 
-    # Ligacja: oligomer(n) + monomer → oligomer(n+1)
-    ligation_flux = np.zeros(N)
-    total_ligation_loss = 0.0
+    # Competing-event update: ligation and hydrolysis both consume the same
+    # source-bin population. The historical implementation capped each process
+    # independently, so their combined outflow could exceed counts[n] and drive
+    # a bin negative. Build requested event counts first, then jointly cap the
+    # competing outflows for every source bin.
+    requested_ligation = np.zeros(N, dtype=float)
     for n in range(N - 1):
-        flux = k_lig * counts[n] * mono * dt
-        flux = min(flux, counts[n])
-        ligation_flux[n] -= flux
-        if n + 1 < N:
-            ligation_flux[n + 1] += flux
-        total_ligation_loss += flux
+        requested_ligation[n] = max(
+            0.0,
+            k_lig * counts[n] * mono * dt,
+        )
 
-    # Hydroliza: k_hyd maleje wykładniczo z długością >= 8 nt
-    # Struktura drugorzędowa RNA (stem-loop) chroni wiązania
-    # k_hyd_eff(L) = k_hyd * exp(-max(0, L-8)/20)  [Szostak 2018]
-    hydro_flux = np.zeros(N)
-    mono_return = 0.0
+    requested_hydrolysis = np.zeros(N, dtype=float)
     for n in range(1, N):
         L = n + 1
-        # Ochrona przez strukturę drugorzędową powyżej 8 nt
         struct_protection = math.exp(-max(0.0, L - 8.0) / 20.0)
         k_hyd_eff = k_hyd * struct_protection
-        # Hydroliza proporcjonalna do liczby odsłoniętych wiązań (1 dla krótkich)
         exposed_bonds = max(1, min(L - 1, int(math.sqrt(L))))
-        flux = k_hyd_eff * counts[n] * exposed_bonds * dt
-        flux = min(flux, counts[n])
-        hydro_flux[n] -= flux
+        requested_hydrolysis[n] = max(
+            0.0,
+            k_hyd_eff * counts[n] * exposed_bonds * dt,
+        )
+
+    total_requested = requested_ligation + requested_hydrolysis
+    source_scale = np.ones(N, dtype=float)
+    positive = total_requested > 0.0
+    source_scale[positive] = np.minimum(
+        1.0,
+        counts[positive] / total_requested[positive],
+    )
+    ligation_events = requested_ligation * source_scale
+    hydrolysis_events = requested_hydrolysis * source_scale
+
+    # Every ligation event consumes one free monomer. Enforce the global
+    # monomer budget after the per-source competition cap.
+    requested_monomer_use = float(np.sum(ligation_events))
+    if requested_monomer_use > mono and requested_monomer_use > 0.0:
+        ligation_events *= mono / requested_monomer_use
+
+    delta_counts = np.zeros(N, dtype=float)
+    total_ligation_loss = float(np.sum(ligation_events))
+
+    for n in range(N - 1):
+        flux = float(ligation_events[n])
+        if flux <= 0.0:
+            continue
+        delta_counts[n] -= flux
+        delta_counts[n + 1] += flux
+
+    mono_return = 0.0
+    for n in range(1, N):
+        flux = float(hydrolysis_events[n])
+        if flux <= 0.0:
+            continue
+        L = n + 1
+        delta_counts[n] -= flux
         half = n // 2
         if half >= 1:
-            # One cleaved molecule produces two fragments. Each fragment gets
-            # the full event count; multiplying by 0.5 loses nucleotide mass.
-            hydro_flux[half] += flux
-            hydro_flux[max(0, n - half - 1)] += flux
+            # One cleavage event produces two fragments whose nucleotide-unit
+            # lengths sum exactly to the source length.
+            delta_counts[half] += flux
+            delta_counts[max(0, n - half - 1)] += flux
         else:
             mono_return += flux * L
 
-    new_counts = counts + ligation_flux + hydro_flux
+    new_counts = counts + delta_counts
     if not np.isfinite(new_counts).all():
         raise FloatingPointError("oligomer update produced NaN/Inf")
     if np.any(new_counts < -1e-10):
         raise FloatingPointError("oligomer update produced a negative population")
     new_counts = np.maximum(new_counts, 0.0)
     pool.counts = new_counts
-    pool.monomer_pool = max(
-        0.0,
-        _finite_value(
-            mono - total_ligation_loss + mono_return,
-            name="monomer_pool",
-        ),
+
+    monomer_after = _finite_value(
+        mono - total_ligation_loss + mono_return,
+        name="monomer_pool",
     )
+    if monomer_after < -1e-10:
+        raise FloatingPointError("oligomer update over-consumed the monomer pool")
+    pool.monomer_pool = max(0.0, monomer_after)
 
     total_after = pool.total_monomer_units()
     expected_after = total_before + external_input
