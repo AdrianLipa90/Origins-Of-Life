@@ -24,6 +24,23 @@ The topology/Bloch/geometric-phase and zeta-indexed layers are experimental
 model operators with open physical binding. They must be evaluated by ablation
 against chemistry-only and matched-control runs.
 
+## Exotic biology status
+
+World environment and biology hypothesis are now separate objects. The active
+water/RNA-like runtime is the `WATER_REFERENCE` baseline. Scenario C is bound
+to `AMMONIA_CANDIDATE` and scenario D to `HYDROCARBON_CANDIDATE`.
+
+Those two candidate profiles are **not yet implemented exotic biologies**.
+Until they receive their own carrier, compartment, transport and inheritance
+operators, the universal simulator labels their output
+`TERRACENTRIC_CONTROL_ONLY` and does not compute a terrestrial success rate.
+
+The common candidate-life contract is relational rather than molecular:
+bounded system, energy throughput, persistent information state, heritable
+state transformation, and selection/differential persistence.
+
+See `docs/EXOTIC_BIOLOGY_FRAMEWORK_V0_1.md`.
+
 
 ## Canonical public surface
 
