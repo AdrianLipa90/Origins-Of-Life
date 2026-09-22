@@ -5,6 +5,7 @@ from origins.biology.first_rna import (
     L_QT45_REFERENCE,
     OligomerPool,
     simulate_first_rna,
+    step_oligomer_pool,
     step_replication,
 )
 
@@ -83,11 +84,6 @@ def test_ligation_and_hydrolysis_compete_without_negative_population():
     pool = OligomerPool.seed(monomer_conc=1000.0, max_len=80)
     state = EmergenceState(oligomer_pool=pool)
     before = pool.total_monomer_units()
-
-    step_oligomer_pool = __import__(
-        "origins.biology.first_rna",
-        fromlist=["step_oligomer_pool"],
-    ).step_oligomer_pool
 
     step_oligomer_pool(
         state,
