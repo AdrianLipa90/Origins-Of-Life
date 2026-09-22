@@ -114,3 +114,36 @@ def test_zeta_material_neutrality_handles_boundary_fields():
         field = np.full((8, 8), value)
         out = mod.apply(field, np.random.default_rng(9001), 0.9)
         assert abs(float(out.sum()) - float(field.sum())) < 1e-8
+
+
+def test_lipid_synthesis_conserves_precursor_plus_lipid():
+    cfg = deepcopy(SCENARIO_A)
+    cfg.seed = 1702
+    sim = UniversalOriginSimulator(
+        cfg, Nx=8, Ny=8, include_clay=False, preseed_rna=False
+    )
+    sim.initialize()
+
+    before = float(sim.O.sum() + sim.L.sum())
+    lipid_before = float(sim.L.sum())
+    sim.step_lipid_synthesis()
+    after = float(sim.O.sum() + sim.L.sum())
+
+    assert abs(after - before) < 1e-8 * max(1.0, abs(before))
+    assert float(sim.L.sum()) > lipid_before
+
+
+def test_lipid_synthesis_makes_membrane_threshold_reachable():
+    cfg = deepcopy(SCENARIO_A)
+    cfg.seed = 1703
+    sim = UniversalOriginSimulator(
+        cfg, Nx=8, Ny=8, include_clay=False, preseed_rna=False
+    )
+    sim.initialize()
+
+    # Isolate the O->L->M path: no threshold tuning, no external lipid injection.
+    for _ in range(1200):
+        sim.step_lipid_synthesis()
+        sim.step_membrane_formation()
+
+    assert float(sim.M.max()) > sim.protocell_detector.threshold_M
