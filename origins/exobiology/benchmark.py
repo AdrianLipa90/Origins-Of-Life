@@ -44,7 +44,12 @@ class ExoticRelationalBenchmarkResult:
     information_mass: float
     boundary_mass: float
     candidate_compartment_count: int
+    raw_component_count: int
     candidate_compartment_area_pixels: int
+    compartment_occupancy_fraction: float
+    interface_edge_count: int
+    global_saturation: bool
+    bounded_system_status: str
     trait_mean: float
     trait_variance: float
     physical_binding: str
@@ -83,7 +88,12 @@ def _common_snapshot(simulator) -> dict[str, object]:
         "information_mass": float(np.sum(simulator.I)),
         "boundary_mass": float(np.sum(simulator.B)),
         "candidate_compartment_count": int(compartments["count"]),
+        "raw_component_count": int(compartments["raw_component_count"]),
         "candidate_compartment_area_pixels": int(compartments["area_pixels"]),
+        "compartment_occupancy_fraction": float(compartments["occupancy_fraction"]),
+        "interface_edge_count": int(compartments["interface_edge_count"]),
+        "global_saturation": bool(compartments["global_saturation"]),
+        "bounded_system_status": str(compartments["bounded_system_status"]),
         "trait_mean": float(np.mean(simulator.Q)),
         "trait_variance": float(np.var(simulator.Q)),
         "physical_binding": str(claim["physical_binding"]),
@@ -138,7 +148,12 @@ def run_exotic_relational_case(
         information_mass=float(snapshot["information_mass"]),
         boundary_mass=float(snapshot["boundary_mass"]),
         candidate_compartment_count=int(snapshot["candidate_compartment_count"]),
+        raw_component_count=int(snapshot["raw_component_count"]),
         candidate_compartment_area_pixels=int(snapshot["candidate_compartment_area_pixels"]),
+        compartment_occupancy_fraction=float(snapshot["compartment_occupancy_fraction"]),
+        interface_edge_count=int(snapshot["interface_edge_count"]),
+        global_saturation=bool(snapshot["global_saturation"]),
+        bounded_system_status=str(snapshot["bounded_system_status"]),
         trait_mean=float(snapshot["trait_mean"]),
         trait_variance=float(snapshot["trait_variance"]),
         physical_binding=str(snapshot["physical_binding"]),
@@ -198,7 +213,12 @@ def benchmark_manifest() -> dict[str, object]:
             "information_mass",
             "boundary_mass",
             "candidate_compartment_count",
+            "raw_component_count",
             "candidate_compartment_area_pixels",
+            "compartment_occupancy_fraction",
+            "interface_edge_count",
+            "global_saturation",
+            "bounded_system_status",
             "trait_mean",
             "trait_variance",
         ],
