@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from origins.analysis.ablation import run_matched_factorial_ablation
 from origins.scenarios import SCENARIOS_BY_CODE
+from origins.topology.constraints import ZetaRiemannModulator
 
 
 def _parse_seeds(raw: str | None, default: int) -> list[int]:
@@ -76,6 +77,10 @@ def main() -> int:
         "arms": ["chemistry_only", "zeta_only", "geometry_only", "full"],
         "initial_state_digests": sorted(runs["initial_state_digest"].unique()),
         "physical_binding_claim": False,
+        "zeta_spectral_specificity": ZetaRiemannModulator(
+            lambda_soft=cfg.zeta_lambda_soft,
+            sigma_heis=cfg.zeta_sigma_heis,
+        ).spectral_specificity_diagnostics((ns.nx, ns.ny)),
         "runs_csv": str(runs_path),
         "effects_csv": str(effects_path),
     }
