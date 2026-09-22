@@ -4,6 +4,12 @@ from dataclasses import dataclass
 import math
 
 import numpy as np
+from .boundary_morphogenesis import (
+    COLOCATED_BASELINE,
+    EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE,
+    exterior_information_interface_gate,
+    validate_boundary_morphogenesis_mode,
+)
 from .compartments import closed_boundary_compartment_observation
 from .profiles import HYDROCARBON_CANDIDATE, WorldEnvironment
 
@@ -100,6 +106,7 @@ class HydrocarbonCandidateSimulator:
         Ny: int = 48,
         parameters: HydrocarbonCandidateParameters | None = None,
         seed: int | None = None,
+        boundary_morphogenesis: str = COLOCATED_BASELINE,
     ):
         self.environment = WorldEnvironment.from_scenario(scenario)
         HYDROCARBON_CANDIDATE.assert_environment_compatible(self.environment)
@@ -114,6 +121,9 @@ class HydrocarbonCandidateSimulator:
 
         self.parameters = parameters or HydrocarbonCandidateParameters()
         self.parameters.validate()
+        self.boundary_morphogenesis = validate_boundary_morphogenesis_mode(
+            boundary_morphogenesis
+        )
         self._rng = np.random.default_rng(scenario.seed if seed is None else seed)
 
         self.S: np.ndarray | None = None
@@ -219,19 +229,23 @@ class HydrocarbonCandidateSimulator:
         self._require_initialized()
         p = self.parameters
         selection = 1.0 + p.selection_strength * self.Q
+        information = (
+            p.information_assembly_rate
+            * self.A
+            * self.E
+            * selection
+        )
+        boundary = (
+            p.boundary_assembly_rate
+            * self.A
+            * self.E
+            * self.interface_template
+        )
+        if self.boundary_morphogenesis == EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE:
+            boundary = boundary * exterior_information_interface_gate(self.I)
         return {
-            "information": (
-                p.information_assembly_rate
-                * self.A
-                * self.E
-                * selection
-            ),
-            "boundary": (
-                p.boundary_assembly_rate
-                * self.A
-                * self.E
-                * self.interface_template
-            ),
+            "information": information,
+            "boundary": boundary,
         }
 
     def step_information_and_selection(self) -> None:
@@ -242,14 +256,7 @@ class HydrocarbonCandidateSimulator:
         mutation = self._rng.normal(0.0, p.mutation_sigma, self.Q.shape)
         candidate_trait = np.clip(inherited + mutation, 0.0, 1.0)
 
-        selection = 1.0 + p.selection_strength * self.Q
-        request = (
-            p.information_assembly_rate
-            * self.A
-            * self.E
-            * selection
-            * p.dt
-        )
+        request = self.candidate_assembly_sources()["information"] * p.dt
         growth = np.minimum(request, self.A)
         old_mass = self.I.copy()
         self.A -= growth
@@ -282,13 +289,7 @@ class HydrocarbonCandidateSimulator:
         """Build a generic persistent boundary from interfacial material."""
         self._require_initialized()
         p = self.parameters
-        request = (
-            p.boundary_assembly_rate
-            * self.A
-            * self.E
-            * self.interface_template
-            * p.dt
-        )
+        request = self.candidate_assembly_sources()["boundary"] * p.dt
         growth = np.minimum(request, self.A)
         self.A -= growth
         self.B += growth
@@ -390,6 +391,8 @@ class HydrocarbonCandidateSimulator:
             "dedicated_non_lipid_runtime": True,
             "explicit_interface_reservoir": True,
             "specific_azotosome_claim": False,
+            "boundary_morphogenesis": self.boundary_morphogenesis,
+            "morphogenesis_physical_binding": "OPEN",
             "exotic_biology_established": False,
             "interpretation_allowed": "COMPUTATIONAL_CANDIDATE_ONLY",
         }
