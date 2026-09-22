@@ -4,8 +4,7 @@ from dataclasses import dataclass
 import math
 
 import numpy as np
-from scipy.ndimage import label
-
+from .compartments import bounded_compartment_observation
 from .profiles import AMMONIA_CANDIDATE, WorldEnvironment
 
 
@@ -268,12 +267,7 @@ class AmmoniaCandidateSimulator:
         self._require_initialized()
         p = self.parameters
         mask = (self.B >= p.boundary_threshold) & (self.I >= p.information_threshold)
-        labels, count = label(mask)
-        return {
-            "count": int(count),
-            "area_pixels": int(mask.sum()),
-            "labels": labels,
-        }
+        return bounded_compartment_observation(mask)
 
     def life_invariant_status(self) -> dict[str, dict[str, object]]:
         self._require_initialized()
@@ -281,9 +275,12 @@ class AmmoniaCandidateSimulator:
         return {
             "BOUNDED_SYSTEM": {
                 "operationalized": True,
-                "observable": "B threshold + connected component",
+                "observable": "threshold-positive localized region with nonzero internal/external interface",
                 "physical_binding": PHYSICAL_BINDING,
                 "detected_count": compartments["count"],
+                "raw_component_count": compartments["raw_component_count"],
+                "global_saturation": compartments["global_saturation"],
+                "interface_edge_count": compartments["interface_edge_count"],
             },
             "ENERGY_THROUGHPUT": {
                 "operationalized": True,
