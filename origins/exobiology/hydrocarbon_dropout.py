@@ -13,6 +13,11 @@ from .source_geometry import diagnose_source_geometry
 
 SCHEMA = "ORIGINS_HYDROCARBON_CLOSURE_DROPOUT_V0_1"
 
+DROPOUT_PERSISTS = "PERSISTS_WITHIN_HORIZON"
+DROPOUT_CONTRACTIBLE_INTERIOR_LOSS = "CONTRACTIBLE_INTERIOR_LOSS"
+DROPOUT_CONTRACTIBLE_SHELL_GAP = "CONTRACTIBLE_SHELL_GAP"
+DROPOUT_OTHER = "OTHER_OPEN"
+
 
 def _cv(field: np.ndarray) -> float:
     mean = float(np.mean(field))
@@ -32,6 +37,12 @@ def _snapshot(simulator, step: int) -> dict[str, object]:
         "step": int(step),
         "compartment_count": int(observation["count"]),
         "raw_information_component_count": int(observation["raw_information_component_count"]),
+        "contractible_information_component_count": int(
+            observation["contractible_information_component_count"]
+        ),
+        "noncontractible_information_component_count_observation": int(
+            observation["noncontractible_information_component_count"]
+        ),
         "largest_information_component_fraction": float(
             topology["largest_component_fraction"]
         ),
@@ -85,6 +96,7 @@ class HydrocarbonClosureDropoutResult:
     reclosure_count: int
     closed_step_count: int
     longest_closed_run: int
+    dropout_mechanism: str
     first_closed_snapshot: dict[str, object] | None
     last_closed_snapshot: dict[str, object] | None
     first_loss_snapshot: dict[str, object] | None
@@ -163,6 +175,22 @@ def run_hydrocarbon_closure_dropout_case(
 
         was_closed = closed
 
+    if first_loss_snapshot is None:
+        dropout_mechanism = DROPOUT_PERSISTS
+    else:
+        contractible_after_loss = int(
+            first_loss_snapshot["contractible_information_component_count"]
+        )
+        shell_coverage_after_loss = float(
+            first_loss_snapshot["max_shell_coverage"]
+        )
+        if contractible_after_loss == 0:
+            dropout_mechanism = DROPOUT_CONTRACTIBLE_INTERIOR_LOSS
+        elif shell_coverage_after_loss < 1.0:
+            dropout_mechanism = DROPOUT_CONTRACTIBLE_SHELL_GAP
+        else:
+            dropout_mechanism = DROPOUT_OTHER
+
     claim = sim.claim_status()
     return HydrocarbonClosureDropoutResult(
         schema=SCHEMA,
@@ -177,6 +205,7 @@ def run_hydrocarbon_closure_dropout_case(
         reclosure_count=int(reclosures),
         closed_step_count=int(closed_steps),
         longest_closed_run=int(longest_run),
+        dropout_mechanism=str(dropout_mechanism),
         first_closed_snapshot=first_closed_snapshot,
         last_closed_snapshot=last_closed_snapshot,
         first_loss_snapshot=first_loss_snapshot,
@@ -198,5 +227,11 @@ def dropout_manifest() -> dict[str, object]:
         "threshold_tuning_allowed": False,
         "ranking_allowed": False,
         "physical_binding": "OPEN",
-        "purpose": "diagnose loss of closed-shell persistence and toroidal information percolation without changing the model",
+        "purpose": "classify closed-shell dropout into contractible-interior loss versus shell-gap failure without changing the model",
+        "dropout_mechanisms": [
+            DROPOUT_PERSISTS,
+            DROPOUT_CONTRACTIBLE_INTERIOR_LOSS,
+            DROPOUT_CONTRACTIBLE_SHELL_GAP,
+            DROPOUT_OTHER,
+        ],
     }
