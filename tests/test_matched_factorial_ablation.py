@@ -124,12 +124,18 @@ def test_lipid_synthesis_conserves_precursor_plus_lipid():
     )
     sim.initialize()
 
-    before = float(sim.O.sum() + sim.L.sum())
-    lipid_before = float(sim.L.sum())
-    sim.step_lipid_synthesis()
-    after = float(sim.O.sum() + sim.L.sum())
+    import numpy as np
 
-    assert abs(after - before) < 1e-8 * max(1.0, abs(before))
+    before = float(
+        np.sum(sim.O, dtype=np.float64) + np.sum(sim.L, dtype=np.float64)
+    )
+    lipid_before = float(np.sum(sim.L, dtype=np.float64))
+    sim.step_lipid_synthesis()
+    after = float(
+        np.sum(sim.O, dtype=np.float64) + np.sum(sim.L, dtype=np.float64)
+    )
+
+    assert abs(after - before) < 1e-12 * max(1.0, abs(before))
     assert float(sim.L.sum()) > lipid_before
 
 
