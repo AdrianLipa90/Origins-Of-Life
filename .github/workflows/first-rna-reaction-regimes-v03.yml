@@ -1,0 +1,43 @@
+name: First RNA Reaction Regimes v0.3
+
+on:
+  pull_request:
+    paths:
+      - "docs/FIRST_RNA_REACTION_REGIMES_PREREG_V0_3.md"
+      - "origins/chemistry/rna_polymerization_regimes.py"
+      - "scripts/run_first_rna_regime_audit_v03.py"
+      - "tests/test_rna_polymerization_regimes_v03.py"
+      - ".github/workflows/first-rna-reaction-regimes-v03.yml"
+
+jobs:
+  representation-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy pytest
+
+      - name: Run focused representation tests
+        run: |
+          pytest -q tests/test_rna_polymerization_regimes_v03.py
+
+      - name: Emit empirical-binding receipt
+        run: |
+          python scripts/run_first_rna_regime_audit_v03.py
+
+      - name: Upload receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-reaction-regimes-v03
+          path: first_rna_regime_v03/
+          if-no-files-found: error
