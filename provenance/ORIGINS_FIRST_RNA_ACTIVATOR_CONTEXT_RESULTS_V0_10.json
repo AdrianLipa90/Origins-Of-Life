@@ -1,0 +1,48 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_ACTIVATOR_CONTEXT_RESULTS_V0_10",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-activator-context-v10",
+  "execution_head_sha": "f6a06639ba570291a163898fc5e2aa33fbea37f0",
+  "source": {
+    "doi": "10.1021/ja061782k",
+    "empirical_3p5_by_activator": {
+      "A": {
+        "imidazole": 0.67,
+        "1-methyladenine": 0.74
+      },
+      "U": {
+        "imidazole": 0.20,
+        "1-methyladenine": 0.61
+      }
+    }
+  },
+  "status": "FAIL_MISSING_ACTIVATOR_CONTEXT",
+  "validation_type": "STRUCTURAL_CAPABILITY_AUDIT",
+  "analyst_blind": false,
+  "predictive_validation_claim": false,
+  "explicit_activator_context": false,
+  "numerical_comparison_run": false,
+  "activator_parameter_added": false,
+  "global_rates_retuned": false,
+  "base_extension_multipliers_retuned": false,
+  "local_context_relation_retuned": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "artifact": {
+    "id": 10722542449,
+    "name": "first-rna-activator-context-v10",
+    "sha256": "943d7f77bbaeb8b6dd2311f52840a8c0e405dfb1dba4a988212d775c53b2f1db"
+  },
+  "workflow": {
+    "dedicated_run_id": 35792160794,
+    "dedicated_conclusion": "success",
+    "dedicated_pytest": "4 passed in 0.35s",
+    "canon_run_id": 35792160637,
+    "canon_conclusion": "success",
+    "canon_pytest": "131 passed in 2.87s"
+  },
+  "interpretation": "The v0.9 local sequence/linkage representation cannot represent activation chemistry, despite documented activator-dependent changes in linkage regioselectivity. An explicit activator-state coordinate is required before numerical activator comparisons are admissible.",
+  "next_gate": "EXPLICIT_ACTIVATOR_STATE_CALIBRATION_THEN_NEW_EXTERNAL_VALIDATION"
+}

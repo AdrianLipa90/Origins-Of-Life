@@ -1,0 +1,39 @@
+name: First RNA Base Resolved v0.5
+
+on:
+  pull_request:
+    paths:
+      - "docs/FIRST_RNA_BASE_RESOLVED_PREREG_V0_5.md"
+      - "origins/analysis/first_rna_base_resolved_v05.py"
+      - "scripts/run_first_rna_base_resolved_v05.py"
+      - "tests/test_first_rna_base_resolved_v05.py"
+      - ".github/workflows/first-rna-base-resolved-v05.yml"
+
+jobs:
+  base-resolved-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run base-resolved calibration
+        run: |
+          python scripts/run_first_rna_base_resolved_v05.py
+
+      - name: Upload base-resolved receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-base-resolved-v05
+          path: first_rna_base_resolved_v05/
+          if-no-files-found: error

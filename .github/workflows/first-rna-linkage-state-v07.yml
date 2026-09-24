@@ -1,0 +1,43 @@
+name: First RNA Linkage State v0.7
+
+on:
+  pull_request:
+    paths:
+      - "docs/FIRST_RNA_LINKAGE_STATE_PREREG_V0_7.md"
+      - "origins/analysis/first_rna_linkage_state_v07.py"
+      - "scripts/run_first_rna_linkage_state_v07.py"
+      - "tests/test_first_rna_linkage_state_v07.py"
+      - ".github/workflows/first-rna-linkage-state-v07.yml"
+
+jobs:
+  linkage-state-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy pytest
+
+      - name: Run explicit linkage-state check
+        run: |
+          python scripts/run_first_rna_linkage_state_v07.py
+
+      - name: Run linkage-state tests
+        run: |
+          pytest -q tests/test_first_rna_linkage_state_v07.py
+
+      - name: Upload linkage-state receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-rna-linkage-state-v07
+          path: first_rna_linkage_state_v07/
+          if-no-files-found: error

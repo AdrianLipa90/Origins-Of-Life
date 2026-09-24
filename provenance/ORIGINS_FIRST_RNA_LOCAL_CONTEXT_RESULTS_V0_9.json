@@ -1,0 +1,48 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_LOCAL_CONTEXT_RESULTS_V0_9",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-local-context-v09",
+  "execution_head_sha": "b1e4502d15ed5d78ac4eb8965da2735d715b9bb4",
+  "source": {
+    "doi": "10.1021/ja034328e",
+    "constraint_type": "categorical_partial_order"
+  },
+  "status": "PASS_LOCAL_CONTEXT_REPRESENTATION_CALIBRATION",
+  "validation_type": "REPRESENTATION_CALIBRATION",
+  "analyst_blind": false,
+  "predictive_validation_claim": false,
+  "representation": {
+    "dimer_fields": ["left_class", "linkage", "right_class"],
+    "growth_fields": ["terminal_class", "previous_linkage", "incoming_class"],
+    "chain_length_term_present": false,
+    "numeric_context_parameters": {}
+  },
+  "source_relation": [
+    ["Pu-3p5-Py"],
+    ["Pu-3p5-Pu", "Pu-2p5-Py"],
+    ["Pu-2p5-Pu"]
+  ],
+  "source_equality_preserved": true,
+  "source_strict_inequalities_preserved": true,
+  "global_rates_retuned": false,
+  "base_extension_multipliers_retuned": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "artifact": {
+    "id": 10722251820,
+    "name": "first-rna-local-context-v09",
+    "sha256": "2a12c6feb2014b9bbf52d038bca1f82c930ec4c0ba43b4f0d70869a2a669ed3a"
+  },
+  "workflow": {
+    "dedicated_run_id": 35791829389,
+    "dedicated_conclusion": "success",
+    "dedicated_pytest": "4 passed in 0.35s",
+    "canon_run_id": 35791829271,
+    "canon_conclusion": "success",
+    "canon_pytest": "127 passed in 3.72s"
+  },
+  "interpretation": "The representation now carries local base-class and previous-linkage context and preserves the published categorical ordering without assigning fitted numeric context parameters. This is calibration, not predictive validation.",
+  "next_gate": "ACTIVATOR_CONTEXT_OR_OTHER_NEW_OBSERVABLE"
+}

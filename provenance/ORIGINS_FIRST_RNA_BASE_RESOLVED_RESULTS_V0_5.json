@@ -1,0 +1,48 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_BASE_RESOLVED_RESULTS_V0_5",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-base-resolved-v05",
+  "execution_head_sha": "42206ab2dc512b8490b8735f95dc4ceb5f59d9a7",
+  "artifact": {
+    "id": 10720152805,
+    "name": "first-rna-base-resolved-v05",
+    "sha256": "4b2d36ebc4819049192e716b8bf5a525c9a411d71157d8a03a3553f55a8eca58"
+  },
+  "canon_test_gate": {
+    "status": "PASS",
+    "pytest": "111 passed"
+  },
+  "status": "PASS_BASE_RESOLVED_CALIBRATION",
+  "calibration_not_prediction": true,
+  "results": {
+    "A": {
+      "tail_nt": 49,
+      "hours": 24,
+      "extension_multiplier": 1
+    },
+    "U": {
+      "tail_nt": 49,
+      "hours": 24,
+      "extension_multiplier": 1
+    },
+    "C": {
+      "tail_nt": 22,
+      "hours": 216,
+      "extension_multiplier": 0.025
+    },
+    "G": {
+      "status": "UNRESOLVED_EXPERIMENTAL_LENGTH",
+      "extension_multiplier": null
+    }
+  },
+  "global_rates_retuned": false,
+  "conservation_pass": true,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "physical_rate_claim": false,
+  "interpretation": "Explicit base identity repairs the v0.4 base-blind failure at calibration level while preserving the shared conservative reaction skeleton. The C multiplier is calibrated, not independently measured.",
+  "next_gate": "HELD_OUT_LINKAGE_REGIOSELECTIVITY",
+  "calibration_chain_lengths_locked": true
+}

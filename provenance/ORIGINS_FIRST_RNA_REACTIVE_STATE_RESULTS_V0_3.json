@@ -1,0 +1,38 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_REACTIVE_STATE_RESULTS_V0_3",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-activation-v03",
+  "execution_head_sha": "5d8ff8693ff6e7632def683fb72eb6e68cbee826",
+  "artifact": {
+    "id": 10720412112,
+    "name": "first-rna-reactive-state-v03",
+    "sha256": "5e059b39f4d69129e85b26249d55c2836687209213516c3388afa0c3d51a48e5"
+  },
+  "canon_test_gate": {
+    "status": "PASS",
+    "pytest": "103 passed"
+  },
+  "status": "PASS_REACTIVE_STATE_CALIBRATION",
+  "calibration_not_prediction": true,
+  "results": {
+    "cyclic_mass_fraction_ge_10": 0.0009390845984810767,
+    "activated_clay_mass_fraction_ge_40": 1.4670292110904008e-7,
+    "activated_clay_tail_length_ge_1e_10": 49,
+    "max_relative_conservation_error": 1.0913936421273939e-15
+  },
+  "empirical_anchors": {
+    "cyclic_wet_dry_doi": "10.1021/acscentsci.5c00488",
+    "activated_clay_doi": "10.1021/ja061782k",
+    "long_tail_maldi_doi": "10.1016/j.jasms.2006.05.012"
+  },
+  "causal_boundary": {
+    "geometry_used": false,
+    "zeta_used": false,
+    "replication_used": false,
+    "sequence_function_used": false
+  },
+  "interpretation": "Calibrated coarse-grained reactive-state architecture can represent the wet-dry short-oligomer regime and sparse activated-clay long-tail regime while conserving nucleotide units. This is not predictive validation or a physical rate claim.",
+  "next_gate": "HELD_OUT_BASE_SPECIFIC_VALIDATION",
+  "calibration_anchors_locked": true
+}

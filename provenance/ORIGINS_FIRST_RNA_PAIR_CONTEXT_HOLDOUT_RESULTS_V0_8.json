@@ -1,0 +1,64 @@
+{
+  "schema": "ORIGINS_FIRST_RNA_PAIR_CONTEXT_HOLDOUT_RESULTS_V0_8",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/first-rna-pair-context-holdout-v08",
+  "execution_head_sha": "46999212ad9c12c1b39221fa111099779fd97970",
+  "sources": {
+    "calibration_AU_doi": "10.1089/ast.2007.0138",
+    "held_out_AC_doi": "10.1017/S147355040700393X"
+  },
+  "calibration": {
+    "au_dimer_3p5_fraction": 0.51,
+    "au_trimer_3p5_fraction": 0.61,
+    "stage_shift": 0.10
+  },
+  "held_out": {
+    "ac_dimer_3p5_fraction": 0.49,
+    "ac_trimer_predicted": 0.59,
+    "ac_trimer_observed": 0.56,
+    "prediction_error": 0.03,
+    "prediction_rounding_envelope": [0.575, 0.605],
+    "observed_rounding_envelope": [0.555, 0.565],
+    "rounding_envelopes_overlap": false
+  },
+  "status": "FAIL_UNIVERSAL_STAGE_SHIFT",
+  "validation_type": "CROSS_CONDITION_PAIR_HELD_OUT_TRANSFER",
+  "analyst_blind": false,
+  "statistical_significance_claim": false,
+  "pair_specific_parameter_added": false,
+  "global_rates_retuned": false,
+  "base_extension_multipliers_retuned": false,
+  "geometry_used": false,
+  "zeta_used": false,
+  "replication_used": false,
+  "technical_error_history": [
+    {
+      "run_id": 35791272666,
+      "status": "FAIL_TECHNICAL_TEST_ASSERTION",
+      "cause": "Exact IEEE-754 tuple equality used for 0.09 in a test assertion.",
+      "scientific_runner_completed": true,
+      "scientific_runner_status": "FAIL_UNIVERSAL_STAGE_SHIFT",
+      "model_or_gate_changed_after_error": false
+    },
+    {
+      "fix_commit": "46999212ad9c12c1b39221fa111099779fd97970",
+      "change": "Replace exact float assertion with math.isclose only."
+    }
+  ],
+  "artifact": {
+    "id": 10722795275,
+    "name": "first-rna-pair-context-holdout-v08",
+    "sha256": "6d06c8e95bfc6a8ea9e800a653e6527a4c10f56681a3770f3defc1b3e473a0c8"
+  },
+  "workflow": {
+    "dedicated_run_id": 35791380336,
+    "dedicated_conclusion": "success",
+    "dedicated_pytest": "4 passed in 0.41s",
+    "canon_run_id": 35791380342,
+    "canon_conclusion": "success",
+    "canon_pytest": "123 passed in 3.11s"
+  },
+  "interpretation": "A pair-independent additive dimer-to-trimer linkage shift does not transfer from A/U to A/C under conservative rounding-only compatibility. Local chemical context is required as a candidate missing state, but no unique mechanism is established.",
+  "next_gate": "EXPLICIT_LOCAL_LINKAGE_CONTEXT_WITH_CATEGORICAL_CONSTRAINTS"
+}
