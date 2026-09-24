@@ -1,0 +1,52 @@
+name: Zeta Spectral Specificity
+
+on:
+  pull_request:
+    paths:
+      - "origins/analysis/zeta_specificity.py"
+      - "origins/topology/constraints.py"
+      - "origins/simulator/universal.py"
+      - "scripts/run_zeta_specificity.py"
+      - "tests/test_zeta_specificity_controls.py"
+      - ".github/workflows/zeta-spectral-specificity.yml"
+
+jobs:
+  specificity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [A, C]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run 120h matched specificity controls
+        run: |
+          python scripts/run_zeta_specificity.py \
+            --scenario ${{ matrix.scenario }} \
+            --seeds 101,102,103,104,105 \
+            --hours 120 \
+            --nx 32 \
+            --ny 32 \
+            --dt-h 0.05 \
+            --outdir zeta_specificity_${{ matrix.scenario }}
+
+      - name: Upload specificity tables
+        uses: actions/upload-artifact@v4
+        with:
+          name: zeta-specificity-${{ matrix.scenario }}
+          path: zeta_specificity_${{ matrix.scenario }}/
+          if-no-files-found: error

@@ -1,0 +1,75 @@
+{
+  "schema": "ORIGINS_ZETA_SPECTRAL_SPECIFICITY_RESULTS_V0_1",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/matched-factorial-ablation-v01",
+  "execution_head_sha": "ced23239a18392fc14315ecb50dc71dc268c973a",
+  "status": "SPECIFICITY_GATE_FAIL",
+  "conclusion": "ZERO_SPECIFICITY_NOT_DEMONSTRATED",
+  "physical_binding_claim": false,
+  "design": {
+    "scenarios": [
+      "A",
+      "C"
+    ],
+    "seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "hours": 120,
+    "grid": [
+      32,
+      32
+    ],
+    "modes": [
+      "none",
+      "noise_only",
+      "narrow_zeta",
+      "narrow_reflected_placebo",
+      "legacy_broad"
+    ]
+  },
+  "artifacts": {
+    "A": {
+      "id": 10701051503,
+      "digest": "sha256:f692a7b3d9de264613749480c0d46b297be49d8169590ddaa88e7ac6b0bee4f8"
+    },
+    "C": {
+      "id": 10701391401,
+      "digest": "sha256:746ecf0fa29f92c0301aeeefc6b395953fb27569d7efcb47b563a7100f224d70"
+    }
+  },
+  "mask_audit": {
+    "narrow_sigma": 0.0003878086144534205,
+    "narrow_zeta_non_dc_mean": 0.9846603450798519,
+    "reflected_placebo_non_dc_mean": 0.9849510994797304,
+    "narrow_vs_reflected_correlation_32": 0.16908898844688913,
+    "narrow_vs_reflected_mae_32": 0.026009135100204812,
+    "legacy_A_non_dc_mean": 0.003482461426053781,
+    "legacy_C_non_dc_mean": 0.00018842306387277803
+  },
+  "primary_endpoint": {
+    "name": "n_protocells",
+    "A": {
+      "none_mean": 21.8,
+      "noise_only_mean": 40.2,
+      "narrow_zeta_mean": 37.2,
+      "reflected_placebo_mean": 38,
+      "legacy_broad_mean": 0,
+      "narrow_minus_placebo_mean": -0.8
+    },
+    "C": {
+      "none_mean": 5,
+      "noise_only_mean": 2.8,
+      "narrow_zeta_mean": 2.2,
+      "reflected_placebo_mean": 2.6,
+      "legacy_broad_mean": 5,
+      "narrow_minus_placebo_mean": -0.4
+    }
+  },
+  "interpretation": "The legacy broad effect is not zero-specific; the narrow zeta targets did not robustly separate from a matched reflected spectral placebo in these runs.",
+  "next_gate": "Preregistered multi-placebo control family with frozen endpoints and thresholds."
+}

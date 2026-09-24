@@ -70,9 +70,142 @@ class ZetaRiemannModulator:
             mask *= 1.0 - np.exp(
                 -((k_mag - target) ** 2) * self.lambda_soft
             )
-        return np.clip(mask, 0.0, 1.0)
+
+        mask = np.clip(mask, 0.0, 1.0)
+        # A spatial regularizer must not silently attenuate the DC component:
+        # doing so makes repeated applications an unmodelled material sink.
+        mask[0, 0] = 1.0
+        return mask
+
+    def spectral_specificity_diagnostics(
+        self,
+        shape: tuple[int, int],
+    ) -> dict[str, float | int | bool | list[float]]:
+        """Quantify whether the configured mask is zero-specific or collapsed.
+
+        The control places all notches at the mean mapped target while keeping
+        their count and lambda_soft unchanged. Correlation near one means the
+        detailed spacing of the selected zeta ordinates contributes negligibly
+        to the implemented mask at the requested grid.
+        """
+        Nx, Ny = shape
+        if Nx <= 0 or Ny <= 0:
+            raise ValueError("shape dimensions must be positive")
+
+        targets = np.array(
+            [self._normalized_target(abs(z.imag)) for z in self.zeros],
+            dtype=float,
+        )
+        if targets.size == 0:
+            raise ValueError("at least one spectral target is required")
+
+        kx = np.fft.fftfreq(Nx)
+        ky = np.fft.fftfreq(Ny)
+        KX, KY = np.meshgrid(kx, ky, indexing="ij")
+        k_mag = np.sqrt(KX**2 + KY**2)
+
+        mask = self.spectral_mask(shape)
+        collapsed = np.ones(shape, dtype=float)
+        mean_target = float(np.mean(targets))
+        for _ in targets:
+            collapsed *= 1.0 - np.exp(
+                -((k_mag - mean_target) ** 2) * self.lambda_soft
+            )
+        collapsed = np.clip(collapsed, 0.0, 1.0)
+        collapsed[0, 0] = 1.0
+
+        non_dc = np.ones(shape, dtype=bool)
+        non_dc[0, 0] = False
+        a = mask[non_dc].ravel()
+        b = collapsed[non_dc].ravel()
+        if np.std(a) == 0.0 or np.std(b) == 0.0:
+            corr = 1.0 if np.allclose(a, b) else 0.0
+        else:
+            corr = float(np.corrcoef(a, b)[0, 1])
+
+        radial_shells = np.unique(k_mag.ravel())
+        nearest_shells = []
+        for target in targets:
+            nearest_shells.append(
+                float(radial_shells[np.argmin(np.abs(radial_shells - target))])
+            )
+
+        diffs = np.diff(np.sort(targets))
+        min_spacing = float(np.min(diffs)) if diffs.size else 0.0
+        half_power_width = (
+            float(np.sqrt(np.log(2.0) / self.lambda_soft))
+            if self.lambda_soft > 0
+            else float("inf")
+        )
+
+        return {
+            "shape": [int(Nx), int(Ny)],
+            "target_count": int(targets.size),
+            "targets": [float(x) for x in targets],
+            "target_min": float(np.min(targets)),
+            "target_max": float(np.max(targets)),
+            "target_span": float(np.ptp(targets)),
+            "minimum_target_spacing": min_spacing,
+            "distinct_nearest_radial_shells": int(
+                len({round(x, 15) for x in nearest_shells})
+            ),
+            "single_notch_half_power_width": half_power_width,
+            "non_dc_mask_mean": float(np.mean(a)),
+            "non_dc_mask_median": float(np.median(a)),
+            "non_dc_fraction_below_1e3": float(np.mean(a < 1e-3)),
+            "collapsed_mean_target_control_correlation": corr,
+            "collapsed_mean_target_control_mae": float(np.mean(np.abs(a - b))),
+            "zero_specificity_resolved": bool(corr < 0.99),
+        }
 
     # ------------------------------------------------------------------
+
+    @staticmethod
+    def _project_box_sum(values: np.ndarray, target_sum: float) -> np.ndarray:
+        """Project onto 0<=x<=1 while preserving a requested global sum.
+
+        The projection is the Euclidean projection onto the capped simplex:
+        x = clip(values + shift, 0, 1), with shift found by bisection.
+        This makes the experimental operator a redistribution step rather than
+        an implicit chemical source or sink.
+        """
+        arr = np.asarray(values, dtype=float)
+        if not np.isfinite(arr).all():
+            raise FloatingPointError("zeta regularizer received non-finite values")
+
+        n = arr.size
+        target = float(target_sum)
+        if target < -1e-10 or target > float(n) + 1e-10:
+            raise ValueError("target_sum is outside the feasible [0, field.size] range")
+        target = min(max(target, 0.0), float(n))
+
+        if target == 0.0:
+            return np.zeros_like(arr, dtype=float)
+        if target == float(n):
+            return np.ones_like(arr, dtype=float)
+
+        lo = -float(np.max(arr)) - 1.0
+        hi = 1.0 - float(np.min(arr)) + 1.0
+        for _ in range(80):
+            mid = 0.5 * (lo + hi)
+            total = float(np.sum(np.clip(arr + mid, 0.0, 1.0)))
+            if total < target:
+                lo = mid
+            else:
+                hi = mid
+
+        projected = np.clip(arr + 0.5 * (lo + hi), 0.0, 1.0)
+        residual = target - float(np.sum(projected))
+        if abs(residual) > 1e-10:
+            free = (projected > 1e-12) & (projected < 1.0 - 1e-12)
+            n_free = int(np.count_nonzero(free))
+            if n_free:
+                projected[free] += residual / n_free
+                projected = np.clip(projected, 0.0, 1.0)
+
+        if abs(float(np.sum(projected)) - target) > 1e-8:
+            raise FloatingPointError("capped-simplex projection failed to conserve field sum")
+        return projected
 
     def apply(
         self,
@@ -89,9 +222,18 @@ class ZetaRiemannModulator:
         rng             : reproducible RNG
         phase_coherence : fraction of field energy preserved (Euler phase term)
         """
-        out = field.copy()
+        out = np.asarray(field, dtype=float).copy()
+        if out.ndim != 2:
+            raise ValueError("zeta regularizer expects a 2-D field")
+        if not np.isfinite(out).all():
+            raise FloatingPointError("zeta regularizer received NaN/Inf")
+        if float(np.min(out)) < -1e-10 or float(np.max(out)) > 1.0 + 1e-10:
+            raise ValueError("zeta regularizer expects field values in [0, 1]")
+
+        target_sum = float(np.sum(out))
 
         # 1. Experimental zeta-indexed spectral notch regularization.
+        # spectral_mask() explicitly leaves DC untouched.
         freqs = np.fft.fft2(out)
         zeta_mod = self.spectral_mask(out.shape)
         freqs *= zeta_mod
@@ -101,10 +243,16 @@ class ZetaRiemannModulator:
         out = phase_coherence * out + (1.0 - phase_coherence) * modulated
 
         # 3. Explicit Gaussian model noise (legacy parameter: sigma_heis).
+        # Remove its finite-sample mean so noise does not inject/remove material.
         if self.sigma_heis > 0:
-            out += rng.normal(0.0, self.sigma_heis, out.shape)
+            noise = rng.normal(0.0, self.sigma_heis, out.shape)
+            noise -= float(np.mean(noise))
+            out += noise
 
-        return np.clip(out, 0.0, 1.0)
+        # 4. Enforce the chemical no-source/no-sink boundary exactly under
+        # the [0,1] field bounds. Any later material change must come from
+        # explicit chemistry/dynamics, not from this spectral regularizer.
+        return self._project_box_sum(out, target_sum)
 
     # ------------------------------------------------------------------
 

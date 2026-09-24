@@ -45,6 +45,7 @@ from ..topology.fields import TopologyField
 from ..topology.constraints import ZetaRiemannModulator
 from ..constants import (
     K_MEMBRANE,
+    K_LIPID_SYNTH,
     K_PHOTO_BASE,
     CLAY_NUCLEOTIDE_EFFICIENCY,
     CLAY_CONCENTRATION_FACTOR,
@@ -97,6 +98,12 @@ class UniversalOriginSimulator:
         self.t_h   = 0.0
         self.outdir = os.path.join(outdir, f"scenario_{config.code}")
         self._rng  = np.random.default_rng(config.seed)
+        # Keep experimental zeta noise on an independent deterministic stream.
+        # Otherwise enabling zeta consumes the same RNG used by RNA replication
+        # and fragmentation, confounding matched-control comparisons.
+        self._zeta_rng = np.random.default_rng(
+            np.random.SeedSequence([int(config.seed), 0x5A455441])
+        )
 
         # ----------------------------------------------------------
         # Chemical fields  (all shape (Nx, Ny), float32)
@@ -225,6 +232,45 @@ class UniversalOriginSimulator:
         # Explicit clay-particle catalysis (v2.0 mode)
         if self._include_clay:
             self._clay_catalysis_explicit()
+
+    def step_lipid_synthesis(self) -> None:
+        """Convert organic precursors O -> amphiphiles L without creating mass.
+
+        K_LIPID_SYNTH has existed in the canonical constants but was not wired
+        into UniversalOriginSimulator. Without this channel the membrane field
+        can only inherit the initial L=0.005..0.01 inventory, making the
+        declared protocell threshold M>0.05 structurally unreachable.
+
+        This operator is an explicit one-for-one precursor transfer. It is
+        intentionally separate from membrane assembly L -> M.
+        """
+        if self.O is None or self.L is None:
+            raise RuntimeError("simulator is not initialized")
+
+        # Promote the reaction pair to float64 before the one-for-one
+        # transfer. The simulator initializes O/L as float32; doing the update
+        # in that dtype produces ~1e-7 summation drift on ordinary grids and
+        # can falsely trip the conservation gate.
+        O = np.asarray(self.O, dtype=np.float64)
+        L = np.asarray(self.L, dtype=np.float64)
+        mod = np.asarray(np.maximum(self.topo.membrane_mod(), 0.0), dtype=np.float64)
+
+        request = K_LIPID_SYNTH * O * self.dt_h * mod
+        capacity = np.maximum(0.0, 1.0 - L)
+        transfer = np.minimum(np.maximum(request, 0.0), np.minimum(O, capacity))
+
+        before = float(np.sum(O, dtype=np.float64) + np.sum(L, dtype=np.float64))
+        self.O = O - transfer
+        self.L = L + transfer
+        after = float(
+            np.sum(self.O, dtype=np.float64) + np.sum(self.L, dtype=np.float64)
+        )
+
+        tol = 1e-12 * max(1.0, abs(before))
+        if abs(after - before) > tol:
+            raise FloatingPointError(
+                f"lipid synthesis violated O+L conservation: {after-before}"
+            )
 
     def _clay_catalysis_explicit(self) -> None:
         """Move bulk monomers into an explicit clay-bound reservoir.
@@ -413,7 +459,7 @@ class UniversalOriginSimulator:
         if self.zeta_modulator is None:
             return
         pc = self.config.euler_phase_coherence
-        rng = self._rng
+        rng = self._zeta_rng
         self.R = self.zeta_modulator.apply(self.R, rng, pc)
         self.N = self.zeta_modulator.apply(self.N, rng, pc)
 
@@ -426,6 +472,7 @@ class UniversalOriginSimulator:
         self.topo.advance(self.t_h)
         self.step_energy_conversion()
         self.step_catalysis()
+        self.step_lipid_synthesis()
         self.step_polymerization()
         self.step_replication_and_selection()
         self.step_degradation()

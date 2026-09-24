@@ -1,0 +1,46 @@
+name: Matched Ablation Reference
+
+on:
+  pull_request:
+    paths:
+      - "origins/analysis/ablation.py"
+      - "origins/simulator/universal.py"
+      - "scripts/run_matched_ablation.py"
+      - "tests/test_matched_factorial_ablation.py"
+      - ".github/workflows/matched-ablation-reference.yml"
+
+jobs:
+  reference-ablation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy
+
+      - name: Run matched 2x2 reference ablation
+        run: |
+          python scripts/run_matched_ablation.py \
+            --scenario A \
+            --seeds 101,102,103,104,105 \
+            --hours 12 \
+            --nx 32 \
+            --ny 32 \
+            --dt-h 0.05 \
+            --outdir ablation_reference
+
+      - name: Upload ablation tables
+        uses: actions/upload-artifact@v4
+        with:
+          name: matched-ablation-reference
+          path: ablation_reference/
+          if-no-files-found: error

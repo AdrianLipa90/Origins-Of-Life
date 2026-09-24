@@ -1,0 +1,115 @@
+{
+  "schema": "ORIGINS_ZETA_SPECIFICITY_RESULTS_V0_1",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "experiments/matched-factorial-ablation-v01",
+  "evaluated_head": "ced23239a18392fc14315ecb50dc71dc268c973a",
+  "status": "FAIL_ZERO_SPECIFICITY",
+  "physical_no_go_claim": false,
+  "physical_binding": "OPEN",
+  "design": {
+    "seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "grid": [
+      32,
+      32
+    ],
+    "dt_h": 0.05,
+    "hours": 120,
+    "scenarios": [
+      "A",
+      "C"
+    ],
+    "modes": [
+      "none",
+      "noise_only",
+      "narrow_zeta",
+      "narrow_reflected_placebo",
+      "legacy_broad"
+    ]
+  },
+  "github_actions": {
+    "workflow_run_id": 35743398586,
+    "conclusion": "success",
+    "artifacts": {
+      "A": {
+        "id": 10701051503,
+        "digest": "sha256:f692a7b3d9de264613749480c0d46b297be49d8169590ddaa88e7ac6b0bee4f8"
+      },
+      "C": {
+        "id": 10701391401,
+        "digest": "sha256:746ecf0fa29f92c0301aeeefc6b395953fb27569d7efcb47b563a7100f224d70"
+      }
+    }
+  },
+  "paired_narrow_zeta_minus_reflected_placebo": {
+    "A": {
+      "mean_R": {
+        "mean": 0.000006463657402179871,
+        "sd": 0.000004957097452546861
+      },
+      "max_R": {
+        "mean": -0.00003984853000243982,
+        "sd": 0.0026770825432470566
+      },
+      "polymer_threshold_pixels": {
+        "mean": 1.6,
+        "sd": 3.286335345030997
+      },
+      "n_protocells": {
+        "mean": -0.8,
+        "sd": 2.6832815729997477
+      },
+      "protocell_area_pixels": {
+        "mean": 0.6,
+        "sd": 1.8165902124584952
+      },
+      "nucleotide_material_total": {
+        "mean": 0.006618792238575111,
+        "sd": 0.005076068570959251
+      }
+    },
+    "C": {
+      "mean_R": {
+        "mean": -0.00001403683072953993,
+        "sd": 0.00018977499928852164
+      },
+      "max_R": {
+        "mean": 0.013586208946200995,
+        "sd": 0.0393815510708042
+      },
+      "polymer_threshold_pixels": {
+        "mean": -1.8,
+        "sd": 12.37739875741264
+      },
+      "n_protocells": {
+        "mean": -0.4,
+        "sd": 0.5477225575051662
+      },
+      "protocell_area_pixels": {
+        "mean": -0.4,
+        "sd": 0.5477225575051662
+      },
+      "nucleotide_material_total": {
+        "mean": 0.00004516694771155017,
+        "sd": 0.00026104647557923454
+      }
+    }
+  },
+  "control_limitation": {
+    "narrow_zeta_non_dc_mask_mean": 0.9846603450798519,
+    "reflected_placebo_non_dc_mask_mean": 0.9849510994797304,
+    "narrow_zeta_fraction_below_0_9": 0.02737047898338221,
+    "reflected_placebo_fraction_below_0_9": 0.039100684261974585
+  },
+  "interpretation": [
+    "legacy broad operator effect is a valid software-model effect but not zeta-zero-specific evidence",
+    "narrow zeta targets do not robustly separate from reflected placebo across tested biological endpoints",
+    "future specificity testing should include attenuation-matched placebo controls"
+  ]
+}
