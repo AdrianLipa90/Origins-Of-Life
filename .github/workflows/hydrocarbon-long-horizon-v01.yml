@@ -1,0 +1,73 @@
+name: Hydrocarbon Long Horizon v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_long_horizon.py'
+      - '.github/workflows/hydrocarbon-long-horizon-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_long_horizon.py'
+      - '.github/workflows/hydrocarbon-long-horizon-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  long-horizon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run hydrocarbon long-horizon diagnostic
+        run: |
+          python scripts/run_hydrocarbon_long_horizon.py \
+            --outdir hydrocarbon_long_horizon_artifact \
+            --horizon 10000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate long-horizon artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("hydrocarbon_long_horizon_artifact/hydrocarbon_long_horizon_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["scope"] == "HYDROCARBON_CANDIDATE_LONG_HORIZON_ONLY"
+          assert m["parameters_frozen"] is True
+          assert m["thresholds_frozen"] is True
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 6
+          assert data["configuration"]["horizon_steps"] == 10000
+
+          for row in data["rows"]:
+              assert row["profile"] == "HYDROCARBON_CANDIDATE"
+              assert row["physical_binding"] == "OPEN"
+              assert row["horizon_steps"] == 10000
+          PY
+
+      - name: Upload long-horizon artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydrocarbon-long-horizon-v01
+          path: hydrocarbon_long_horizon_artifact/
+          if-no-files-found: error

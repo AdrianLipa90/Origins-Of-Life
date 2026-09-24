@@ -225,6 +225,8 @@ def run_topo_sweep(
     """
     Sweep topo_strength × k_synthesis for each scenario.
 
+    For exotic candidate profiles this remains a terracentric-control sweep;
+    it must not be interpreted as implemented ammonia or hydrocarbon biology.
     Returns a summary DataFrame; also saves per-scenario NPZ and heatmaps.
     """
     if scenarios is None:
@@ -266,8 +268,16 @@ def run_topo_sweep(
             synth_list=np.array(synth_list),
             metric=metric_matrix,
         )
+        probe = UniversalOriginSimulator(
+            deepcopy(cfg), Nx=8, Ny=8, dt_h=dt_h,
+            outdir=outdir_cfg, include_clay=False, preseed_rna=False,
+        )
+        claim = probe.biology_claim_status()
         results.append({
             'scenario': cfg.code,
+            'biochemistry_profile': probe.biochemistry_profile.code,
+            'biology_runtime_status': probe.biochemistry_profile.runtime_status.value,
+            'interpretation_allowed': claim['interpretation_allowed'],
             'matrix_file': os.path.join(outdir_cfg, 'metric_matrix.npz'),
         })
 
@@ -322,15 +332,7 @@ def run_all_scenarios(
         hours = base_hours if cfg.code != 'D' else max(base_hours, 500.0)
         sim.run(hours=hours, record_interval=2.0, verbose=True)
         sim.save_outputs(prefix='final')
-        summaries.append({
-            'Scenario':        cfg.code,
-            'Name':            cfg.name,
-            'Temp_C':          cfg.temp_C,
-            'Solvent':         cfg.solvent.value,
-            'Final_Polymers':  sim.rna_population.size,
-            'Final_ProtoC':    sim.protocell_count,
-            'Expected_ProtoC': cfg.expected_protocells,
-        })
+        summaries.append(sim.summary_record())
 
     combined = pd.DataFrame(summaries)
     combined.to_csv(os.path.join(outdir, 'ALL_SCENARIOS_SUMMARY.csv'), index=False)

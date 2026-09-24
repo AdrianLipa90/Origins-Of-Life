@@ -1,0 +1,82 @@
+name: Exotic Boundary Morphogenesis Intervention v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_boundary_morphogenesis_intervention_v01.py'
+      - 'scripts/run_exotic_boundary_morphogenesis_intervention.py'
+      - '.github/workflows/exotic-boundary-morphogenesis-intervention-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_boundary_morphogenesis_intervention.py'
+      - '.github/workflows/exotic-boundary-morphogenesis-intervention-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  intervention:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run matched boundary morphogenesis intervention
+        run: |
+          python scripts/run_exotic_boundary_morphogenesis_intervention.py \
+            --outdir exotic_morphogenesis_intervention_artifact \
+            --horizon 3000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate intervention artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_morphogenesis_intervention_artifact/exotic_boundary_morphogenesis_intervention_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_EXOTIC_BOUNDARY_MORPHOGENESIS_INTERVENTION_V0_1"
+          assert m["ranking_allowed"] is False
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["same_parameters_required"] is True
+          assert m["same_thresholds_required"] is True
+          assert data["row_count"] == 6
+
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["interpretation"] == "MODEL_OPERATOR_EFFECT_ONLY"
+              assert row["baseline_mode"] == "COLOCATED_BASELINE"
+              assert row["intervention_mode"] == "EXTERIOR_GRADIENT_BOUNDARY_CANDIDATE"
+              assert row["delta_localized_fraction"] == (
+                  row["intervention_localized_fraction"]
+                  - row["baseline_localized_fraction"]
+              )
+              assert row["delta_longest_localized_run"] == (
+                  row["intervention_longest_localized_run"]
+                  - row["baseline_longest_localized_run"]
+              )
+          PY
+
+      - name: Upload intervention artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-boundary-morphogenesis-intervention-v01
+          path: exotic_morphogenesis_intervention_artifact/
+          if-no-files-found: error

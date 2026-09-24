@@ -1,0 +1,60 @@
+{
+  "schema": "ORIGINS_HYDROCARBON_STABILITY_FACTORIAL_V0_5_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_head_sha": "cc6ac4f20d2a8526365add39501fdbb01ecb48eb",
+  "validation": {
+    "abiogenesis_canon": {
+      "run_id": 35725276516,
+      "conclusion": "success",
+      "pytest": {
+        "passed": 245,
+        "failed": 0
+      }
+    },
+    "stability_factorial": {
+      "run_id": 35725276518,
+      "artifact_id": 10692637781,
+      "artifact_digest": "sha256:14d3a3c2817951e740572bdc8bbc11c9b5dced0a70bef8c3c4e0cac19cbcf5f3",
+      "conclusion": "success"
+    }
+  },
+  "design": {
+    "seeds": [
+      11,
+      23,
+      47
+    ],
+    "horizon_steps": 10000,
+    "grid": [
+      24,
+      24
+    ],
+    "shell_modes": [
+      "SHELL_MAINTENANCE_OFF",
+      "LOW_BOUNDARY_EXTERIOR_MAINTENANCE_CANDIDATE"
+    ],
+    "island_modes": [
+      "ISLAND_PRESERVATION_OFF",
+      "STATE_PEAK_ISLAND_PRESERVATION_CANDIDATE"
+    ],
+    "parameter_tuning_allowed": false,
+    "threshold_tuning_allowed": false,
+    "ranking_allowed": false,
+    "physical_binding": "OPEN"
+  },
+  "conclusion": {
+    "shell_maintenance_candidate": "FAIL_CAUSAL_PURPOSE",
+    "island_preservation_candidate": "FAIL_CAUSAL_PURPOSE",
+    "combined_candidate": "FAIL_CAUSAL_PURPOSE",
+    "next_diagnostic": "CONTRACTIBLE_ISLAND_ANCESTRY_TRACE"
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  }
+}

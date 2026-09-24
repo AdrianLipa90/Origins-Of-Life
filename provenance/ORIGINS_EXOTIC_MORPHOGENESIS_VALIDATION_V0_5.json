@@ -1,0 +1,120 @@
+{
+  "schema": "ORIGINS_EXOTIC_MORPHOGENESIS_VALIDATION_V0_5_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_code_head_sha": "cc6ac4f20d2a8526365add39501fdbb01ecb48eb",
+  "validation": {
+    "abiogenesis_canon": {
+      "run_id": 35725276516,
+      "conclusion": "success",
+      "pytest": {
+        "passed": 245,
+        "failed": 0
+      }
+    },
+    "hydrocarbon_stability_factorial": {
+      "run_id": 35725276518,
+      "artifact_id": 10692637781,
+      "artifact_digest": "sha256:14d3a3c2817951e740572bdc8bbc11c9b5dced0a70bef8c3c4e0cac19cbcf5f3",
+      "conclusion": "success"
+    }
+  },
+  "design": {
+    "matched_seeds": [
+      11,
+      23,
+      47
+    ],
+    "horizon_steps": 10000,
+    "shell_modes": [
+      "SHELL_MAINTENANCE_OFF",
+      "LOW_BOUNDARY_EXTERIOR_MAINTENANCE_CANDIDATE"
+    ],
+    "island_modes": [
+      "ISLAND_PRESERVATION_OFF",
+      "STATE_PEAK_ISLAND_PRESERVATION_CANDIDATE"
+    ],
+    "parameter_tuning_allowed": false,
+    "threshold_tuning_allowed": false,
+    "source_budget_preservation_required": true,
+    "ranking_allowed": false,
+    "physical_binding": "OPEN"
+  },
+  "results": {
+    "baseline": {
+      "closed_steps": [
+        4919,
+        5009,
+        5667
+      ],
+      "mean_closed_steps": 5198.333333333333,
+      "persists_at_horizon_seeds": [
+        47
+      ]
+    },
+    "island_preservation_only": {
+      "closed_steps": [
+        3371,
+        3258,
+        5111
+      ],
+      "mean_closed_steps": 3913.3333333333335,
+      "matched_delta_steps": [
+        -1548,
+        -1751,
+        -556
+      ],
+      "mean_matched_delta_steps": -1285,
+      "verdict": "REJECT_CANDIDATE"
+    },
+    "shell_maintenance_only": {
+      "closed_steps": [
+        4736,
+        4810,
+        5610
+      ],
+      "mean_closed_steps": 5052,
+      "matched_delta_steps": [
+        -183,
+        -199,
+        -57
+      ],
+      "mean_matched_delta_steps": -146.33333333333334,
+      "verdict": "REJECT_CANDIDATE"
+    },
+    "combined": {
+      "closed_steps": [
+        3388,
+        3728,
+        5139
+      ],
+      "mean_closed_steps": 4085,
+      "matched_delta_steps": [
+        -1531,
+        -1281,
+        -528
+      ],
+      "mean_matched_delta_steps": -1113.3333333333333,
+      "verdict": "REJECT_CANDIDATE"
+    },
+    "max_material_residual_abs": 2.2737367544323206e-13,
+    "max_information_source_budget_relative_error": 4.752919455658954e-16,
+    "max_boundary_source_budget_relative_error": 4.910630003001677e-16,
+    "computational_gate": "OPEN_FAIL_CANDIDATE_INTERVENTIONS"
+  },
+  "next_diagnostic": "EVENT_LEVEL_CONTRACTIBLE_ISLAND_AND_SHELL_FAILURE_GEOMETRY",
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "non_claims": [
+    "candidate outputs are not evidence that exotic life exists",
+    "molecular binding remains open",
+    "default coefficients are not empirical constants",
+    "model steps are not calibrated physical time"
+  ]
+}

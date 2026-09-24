@@ -1,0 +1,51 @@
+{
+  "schema": "ORIGINS_HYDROCARBON_CANDIDATE_RUNTIME_V0_1_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_head_sha": "0a0aec65915a9070041347d623529ee35d8bee57",
+  "validation": {
+    "github_actions_run_id": 35689662288,
+    "workflow": "Abiogenesis Canon",
+    "conclusion": "success",
+    "pytest": {
+      "passed": 100,
+      "failed": 0
+    },
+    "compile_active_runtime": "PASS",
+    "semantic_audits": "PASS"
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "runtime": {
+    "code": "HYDROCARBON_CANDIDATE_V0_1",
+    "profile": "HYDROCARBON_CANDIDATE",
+    "molecular_binding": "OPEN",
+    "parameter_status": "UNVALIDATED_DIMENSIONLESS_CANDIDATE",
+    "imports_rna_runtime": false,
+    "imports_lipid_membrane_runtime": false,
+    "material_sector": "S + A + I + B conserved",
+    "energy_sector": "externally open throughput",
+    "explicit_interface_reservoir": true,
+    "specific_azotosome_claim": false
+  },
+  "relational_invariants": [
+    "BOUNDED_SYSTEM",
+    "ENERGY_THROUGHPUT",
+    "PERSISTENT_INFORMATION_STATE",
+    "HERITABLE_STATE_TRANSFORMATION",
+    "SELECTION_OR_DIFFERENTIAL_PERSISTENCE"
+  ],
+  "non_claims": [
+    "methane/ethane-based life is not established",
+    "specific hydrocarbon information-carrier chemistry is not established",
+    "specific hydrocarbon compartment chemistry is not established",
+    "azotosome viability is not asserted",
+    "default candidate coefficients are not empirical constants"
+  ]
+}

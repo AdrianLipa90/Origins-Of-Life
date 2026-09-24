@@ -1,0 +1,67 @@
+name: Exotic Threshold Reachability v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_threshold_reachability_v01.py'
+      - 'scripts/run_exotic_threshold_reachability.py'
+      - '.github/workflows/exotic-threshold-reachability-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_threshold_reachability.py'
+      - '.github/workflows/exotic-threshold-reachability-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  reachability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run threshold reachability
+        run: |
+          python scripts/run_exotic_threshold_reachability.py \
+            --outdir exotic_reachability_artifact \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47 \
+            --horizons 300 1000 3000
+
+      - name: Validate reachability artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_reachability_artifact/exotic_threshold_reachability_v01.json")
+          data = json.loads(p.read_text())
+          assert data["manifest"]["schema"] == "ORIGINS_EXOTIC_THRESHOLD_REACHABILITY_V0_1"
+          assert data["manifest"]["ranking_allowed"] is False
+          assert data["manifest"]["threshold_tuning_allowed"] is False
+          assert data["row_count"] == 18
+          assert all(row["physical_binding"] == "OPEN" for row in data["rows"])
+          assert all(row["information_threshold"] > 0 for row in data["rows"])
+          assert all(row["boundary_threshold"] > 0 for row in data["rows"])
+          PY
+
+      - name: Upload reachability artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-threshold-reachability-v01
+          path: exotic_reachability_artifact/
+          if-no-files-found: error

@@ -80,6 +80,9 @@ class ScenarioConfig:
     euler_phase_coherence: float = 0.8
     quantum_fluctuations:  bool  = True
 
+    # Biology hypothesis is distinct from the world environment.
+    biochemistry_profile: str = "WATER_REFERENCE"
+
     seed: int = 42
 
     def __post_init__(self):
@@ -108,7 +111,8 @@ SCENARIO_A = ScenarioConfig(
     topo_strength=0.25, topo_pattern=TopologyPattern.SINUSOIDAL,
     topo_time_dependence=TimeDependence.PULSING, topo_pulse_freq=0.05,
     use_zeta_constraints=True, zeta_lambda_soft=6.0, zeta_sigma_heis=0.0005,
-    euler_phase_coherence=0.9, quantum_fluctuations=True, seed=101,
+    euler_phase_coherence=0.9, quantum_fluctuations=True,
+    biochemistry_profile="WATER_REFERENCE", seed=101,
 )
 
 SCENARIO_B = ScenarioConfig(
@@ -124,11 +128,12 @@ SCENARIO_B = ScenarioConfig(
     topo_strength=0.35, topo_pattern=TopologyPattern.VORTEX,
     topo_time_dependence=TimeDependence.STATIC,
     use_zeta_constraints=True, zeta_lambda_soft=4.0, zeta_sigma_heis=0.001,
-    euler_phase_coherence=0.7, quantum_fluctuations=True, seed=202,
+    euler_phase_coherence=0.7, quantum_fluctuations=True,
+    biochemistry_profile="WATER_REFERENCE", seed=202,
 )
 
 SCENARIO_C = ScenarioConfig(
-    name="Ammonia-Based Biochemistry (Exotic Life)",
+    name="Ammonia World + Candidate Biology",
     code="C",
     location="Cold moons/planets with liquid NH₃",
     temp_C=-55.0, pressure_atm=1.0, UV_flux=10.0,
@@ -140,11 +145,12 @@ SCENARIO_C = ScenarioConfig(
     topo_strength=0.15, topo_pattern=TopologyPattern.GAUSSIAN,
     topo_time_dependence=TimeDependence.DRIFT, topo_pulse_freq=0.005,
     use_zeta_constraints=True, zeta_lambda_soft=3.0, zeta_sigma_heis=0.002,
-    euler_phase_coherence=0.6, quantum_fluctuations=False, seed=303,
+    euler_phase_coherence=0.6, quantum_fluctuations=False,
+    biochemistry_profile="AMMONIA_CANDIDATE", seed=303,
 )
 
 SCENARIO_D = ScenarioConfig(
-    name="Titan Methane Lakes (Hydrocarbon Biochemistry)",
+    name="Titan Methane/Ethane World + Candidate Biology",
     code="D",
     location="Titan (Saturn) – Kraken Mare, −179 °C",
     # pressure: 1.5 atm (ESA Cassini-Huygens); UV: 2.5 W/m² (tholins confirmed)
@@ -161,7 +167,8 @@ SCENARIO_D = ScenarioConfig(
     expected_protocells=45, timescale_description="1000s of hours (glacial pace, new pathway 2025)",
     topo_strength=0.05, topo_pattern=TopologyPattern.RANDOM,
     topo_time_dependence=TimeDependence.STATIC,
-    use_zeta_constraints=False, quantum_fluctuations=False, seed=404,
+    use_zeta_constraints=False, quantum_fluctuations=False,
+    biochemistry_profile="HYDROCARBON_CANDIDATE", seed=404,
 )
 
 SCENARIO_E = ScenarioConfig(
@@ -184,7 +191,8 @@ SCENARIO_E = ScenarioConfig(
     topo_strength=0.28, topo_pattern=TopologyPattern.COSINUSOIDAL,
     topo_time_dependence=TimeDependence.PULSING, topo_pulse_freq=0.02,
     use_zeta_constraints=True, zeta_lambda_soft=5.0, zeta_sigma_heis=0.001,
-    euler_phase_coherence=0.75, quantum_fluctuations=True, seed=505,
+    euler_phase_coherence=0.75, quantum_fluctuations=True,
+    biochemistry_profile="WATER_REFERENCE", seed=505,
 )
 
 ALL_SCENARIOS = [SCENARIO_A, SCENARIO_B, SCENARIO_C, SCENARIO_D, SCENARIO_E]

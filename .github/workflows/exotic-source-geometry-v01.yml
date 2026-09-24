@@ -1,0 +1,79 @@
+name: Exotic Source Geometry v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_source_geometry_v01.py'
+      - 'scripts/run_exotic_source_geometry.py'
+      - '.github/workflows/exotic-source-geometry-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_source_geometry.py'
+      - '.github/workflows/exotic-source-geometry-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  source-geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run source geometry scan
+        run: |
+          python scripts/run_exotic_source_geometry.py \
+            --outdir exotic_source_geometry_artifact \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47 \
+            --steps 0 300 1000 3000
+
+      - name: Validate source geometry artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_source_geometry_artifact/exotic_source_geometry_v01.json")
+          data = json.loads(p.read_text())
+          assert data["schema"] == "ORIGINS_EXOTIC_SOURCE_GEOMETRY_SCAN_V0_1"
+          assert data["ranking_allowed"] is False
+          assert data["parameter_tuning_allowed"] is False
+          assert data["threshold_tuning_allowed"] is False
+          assert data["row_count"] == 24
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert -1.0 <= row["pearson_correlation"] <= 1.0
+              assert 0.0 <= row["cosine_overlap"] <= 1.0 + 1e-12
+
+          nh3_t0 = [
+              row for row in data["rows"]
+              if row["profile"] == "AMMONIA_CANDIDATE" and row["step"] == 0
+          ]
+          assert len(nh3_t0) == 3
+          for row in nh3_t0:
+              assert row["exact_initial_proportionality_expected"] is True
+              assert row["proportionality_residual_relative"] < 1e-14
+              assert abs(row["cosine_overlap"] - 1.0) < 1e-12
+          PY
+
+      - name: Upload source geometry artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-source-geometry-v01
+          path: exotic_source_geometry_artifact/
+          if-no-files-found: error

@@ -1,0 +1,78 @@
+name: Hydrocarbon Stability Factorial v0.5
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_hydrocarbon_stability_candidates_v01.py'
+      - 'tests/test_hydrocarbon_stability_factorial_v05.py'
+      - 'scripts/run_hydrocarbon_stability_factorial.py'
+      - '.github/workflows/hydrocarbon-stability-factorial-v05.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_stability_factorial.py'
+      - '.github/workflows/hydrocarbon-stability-factorial-v05.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  stability-factorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run hydrocarbon stability factorial
+        run: |
+          python scripts/run_hydrocarbon_stability_factorial.py \
+            --outdir hydrocarbon_stability_factorial_artifact \
+            --horizon 10000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate stability factorial artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("hydrocarbon_stability_factorial_artifact/hydrocarbon_stability_factorial_v05.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_HYDROCARBON_STABILITY_FACTORIAL_V0_5"
+          assert m["design"] == "2x2_MATCHED_SEED_CAUSAL_SPLIT"
+          assert m["same_parameters_required"] is True
+          assert m["same_thresholds_required"] is True
+          assert m["stability_source_budgets_preserved"] is True
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 12
+
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["material_residual_abs"] < 1e-8
+              assert row["max_information_stability_budget_relative_error"] < 1e-9
+              assert row["max_boundary_stability_budget_relative_error"] < 1e-9
+              assert row["ranking_allowed"] is False
+          PY
+
+      - name: Upload stability factorial artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydrocarbon-stability-factorial-v05
+          path: hydrocarbon_stability_factorial_artifact/
+          if-no-files-found: error

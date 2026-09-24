@@ -1,0 +1,55 @@
+{
+  "schema": "ORIGINS_EXOTIC_BIOLOGY_FRAMEWORK_V0_1_RECEIPT",
+  "date": "2026-09-22",
+  "repository": "AdrianLipa90/Origins-Of-Life",
+  "base_main_sha": "c178d093a529208f97c40b9d01edbd8b173410d7",
+  "branch": "feat/exotic-biology-framework-v01",
+  "pull_request": 19,
+  "validated_candidate_sha": "935bc0725e878b4118faa6971261dcad51cf2829",
+  "validation": {
+    "github_actions_run_id": 35688750563,
+    "workflow": "Abiogenesis Canon",
+    "conclusion": "success",
+    "pytest": {
+      "passed": 81,
+      "failed": 0
+    },
+    "gremlin": {
+      "authority": "CANDIDATE_ONLY",
+      "route_species": [
+        "OWL",
+        "HOUND"
+      ],
+      "phase_state_shape": [
+        5,
+        36
+      ],
+      "terminal_receipt_sha256": "321747cebf45b3a348cc63919ed253d6ae2fbb057e22eb74cc0e6856bcb5e172",
+      "no_go_candidate_reported": false
+    }
+  },
+  "scope": {
+    "origins_of_life_only": true,
+    "origins_dna_touched": false,
+    "main_modified": false,
+    "merge_performed": false
+  },
+  "profiles": {
+    "WATER_REFERENCE": "REFERENCE_IMPLEMENTED",
+    "AMMONIA_CANDIDATE": "TERRACENTRIC_CONTROL_ONLY",
+    "HYDROCARBON_CANDIDATE": "TERRACENTRIC_CONTROL_ONLY"
+  },
+  "relational_life_invariants": [
+    "BOUNDED_SYSTEM",
+    "ENERGY_THROUGHPUT",
+    "PERSISTENT_INFORMATION_STATE",
+    "HERITABLE_STATE_TRANSFORMATION",
+    "SELECTION_OR_DIFFERENTIAL_PERSISTENCE"
+  ],
+  "non_claims": [
+    "ammonia-based life is not established",
+    "methane/ethane-based life is not established",
+    "candidate exotic profiles do not yet implement exotic biology",
+    "terracentric control output is not exotic-biology evidence"
+  ]
+}

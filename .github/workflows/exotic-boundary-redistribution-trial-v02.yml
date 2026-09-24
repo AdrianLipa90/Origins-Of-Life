@@ -1,0 +1,77 @@
+name: Exotic Boundary Redistribution Trial v0.2
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_exotic_boundary_redistribution_v02.py'
+      - 'tests/test_exotic_boundary_redistribution_trial_v02.py'
+      - 'scripts/run_exotic_boundary_redistribution_trial.py'
+      - '.github/workflows/exotic-boundary-redistribution-trial-v02.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_exotic_boundary_redistribution_trial.py'
+      - '.github/workflows/exotic-boundary-redistribution-trial-v02.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  redistribution-trial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run budget-preserving redistribution trial
+        run: |
+          python scripts/run_exotic_boundary_redistribution_trial.py \
+            --outdir exotic_boundary_redistribution_artifact \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47 \
+            --horizons 300 1000 3000
+
+      - name: Validate redistribution artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("exotic_boundary_redistribution_artifact/exotic_boundary_redistribution_trial_v02.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_EXOTIC_BOUNDARY_REDISTRIBUTION_TRIAL_V0_2"
+          assert m["same_parameters_required"] is True
+          assert m["same_thresholds_required"] is True
+          assert m["source_budget_preserved_when_interface_exists"] is True
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 18
+
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["ranking_allowed"] is False
+              assert row["baseline_material_residual_abs"] < 1e-8
+              assert row["intervention_material_residual_abs"] < 1e-8
+              assert row["boundary_source_budget_relative_error"] < 1e-9
+          PY
+
+      - name: Upload redistribution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exotic-boundary-redistribution-trial-v02
+          path: exotic_boundary_redistribution_artifact/
+          if-no-files-found: error

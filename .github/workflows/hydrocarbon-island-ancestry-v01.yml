@@ -1,0 +1,70 @@
+name: Hydrocarbon Island Ancestry v0.1
+
+on:
+  pull_request:
+    paths:
+      - 'origins/exobiology/**'
+      - 'tests/test_hydrocarbon_island_ancestry_v01.py'
+      - 'scripts/run_hydrocarbon_island_ancestry.py'
+      - '.github/workflows/hydrocarbon-island-ancestry-v01.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'origins/exobiology/**'
+      - 'scripts/run_hydrocarbon_island_ancestry.py'
+      - '.github/workflows/hydrocarbon-island-ancestry-v01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ancestry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pandas pytest
+
+      - name: Run island ancestry diagnostic
+        run: |
+          python scripts/run_hydrocarbon_island_ancestry.py \
+            --outdir hydrocarbon_island_ancestry_artifact \
+            --horizon 10000 \
+            --nx 24 \
+            --ny 24 \
+            --seeds 11 23 47
+
+      - name: Validate ancestry artifact
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("hydrocarbon_island_ancestry_artifact/hydrocarbon_island_ancestry_v01.json")
+          data = json.loads(p.read_text())
+          m = data["manifest"]
+          assert m["schema"] == "ORIGINS_HYDROCARBON_ISLAND_ANCESTRY_V0_1"
+          assert m["diagnostic_only"] is True
+          assert m["parameter_tuning_allowed"] is False
+          assert m["threshold_tuning_allowed"] is False
+          assert m["ranking_allowed"] is False
+          assert data["row_count"] == 3
+          for row in data["rows"]:
+              assert row["physical_binding"] == "OPEN"
+              assert row["ranking_allowed"] is False
+          PY
+
+      - name: Upload ancestry artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydrocarbon-island-ancestry-v01
+          path: hydrocarbon_island_ancestry_artifact/
+          if-no-files-found: error
